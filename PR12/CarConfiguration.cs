@@ -8,6 +8,7 @@ namespace PR12
 {
     public class CarConfiguration
     {
+
         // Шаг 1: двигатель
         public string SelectedEngineType { get; set; } = "";
         public string SelectedEngineModel { get; set; } = "";
