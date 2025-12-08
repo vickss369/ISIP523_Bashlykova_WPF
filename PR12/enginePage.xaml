@@ -1,0 +1,42 @@
+﻿<Page x:Class="PR12.enginePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PR12"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="enginePage">
+
+    <Grid>
+        <StackPanel>
+            <TextBlock Text="Выбор модели и типа двигателя" FontSize="18" HorizontalAlignment="Center" Margin="20"/>
+
+            <TextBlock Text="Тип двигателя:" FontSize="16" Margin="35,5,0,0"/>
+            <StackPanel Orientation="Horizontal" Margin="35,5,0,0">
+                <RadioButton x:Name="benzRB" Content="Бензиновый" FontSize="15" Margin="7" Checked="engineType_Checked"/>
+                <RadioButton x:Name="dizelRB" Content="Дизельный" FontSize="15" Margin="7" Checked="engineType_Checked"/>
+                <RadioButton x:Name="electroRB" Content="Электрический" FontSize="15" Margin="7" Checked="engineType_Checked"/>
+            </StackPanel>
+
+            <Grid Margin="35,30,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="140"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Модель двигателя:" FontSize="16"/>
+                <StackPanel Grid.Column="1">
+                    <RadioButton x:Name="superRB" Content="Supercharged V8 American Engine" FontSize="15" Margin="7" Checked="engineModel_Checked"/>
+                    <RadioButton x:Name="allMetalRB" Content="Car Engine Model All-Metal" FontSize="15" Margin="7" Checked="engineModel_Checked"/>
+                    <RadioButton x:Name="VAZRB" Content="Двигатель АвтоВАЗ 21213 V-1700" FontSize="15" Margin="7" Checked="engineModel_Checked"/>
+                </StackPanel>
+            </Grid>
+
+            <StackPanel Orientation="Horizontal" Margin="0,30" HorizontalAlignment="Center">
+                <Button x:Name="backButton" Content="Назад" Width="120" Height="40" Click="back_Click"/>
+                <Button x:Name="nextButton" Content="Далее" Width="120" Height="40" Margin="20,0" Click="next_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>
