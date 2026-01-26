@@ -18,11 +18,11 @@
           </Key>
           <Property Name="FilmID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FilmName" Type="nvarchar" MaxLength="110" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
           <Property Name="FilmRating" Type="float" Nullable="false" />
-          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
           <Property Name="AgeRatingID" Type="int" Nullable="false" />
-          <Property Name="ImagePath" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="ImagePath" Type="nvarchar" MaxLength="60" Nullable="false" />
         </EntityType>
         <EntityType Name="FilmsGenres">
           <Key>
@@ -79,7 +79,7 @@
           <Property Name="SessionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FilmID" Type="int" Nullable="false" />
           <Property Name="HallID" Type="int" Nullable="false" />
-          <Property Name="SessionDate" Type="date" Nullable="false" />
+          <Property Name="SessionDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -317,11 +317,11 @@
           </Key>
           <Property Name="FilmID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FilmName" Type="String" MaxLength="110" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FilmRating" Type="Double" Nullable="false" />
-          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="AgeRatingID" Type="Int32" Nullable="false" />
-          <Property Name="ImagePath" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ImagePath" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="AgeRating" Relationship="Self.FK_Films_AgeRating" FromRole="Films" ToRole="AgeRating" />
           <NavigationProperty Name="FilmsGenres" Relationship="Self.FK_FilmsGenres_Films" FromRole="Films" ToRole="FilmsGenres" />
           <NavigationProperty Name="Sessions" Relationship="Self.FK_Sessions_Films" FromRole="Films" ToRole="Sessions" />
@@ -392,7 +392,7 @@
           <Property Name="SessionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FilmID" Type="Int32" Nullable="false" />
           <Property Name="HallID" Type="Int32" Nullable="false" />
-          <Property Name="SessionDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="SessionDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Films" Relationship="Self.FK_Sessions_Films" FromRole="Sessions" ToRole="Films" />
           <NavigationProperty Name="Halls" Relationship="Self.FK_Sessions_Halls" FromRole="Sessions" ToRole="Halls" />
           <NavigationProperty Name="SessionPlace" Relationship="Self.FK_SessionPlace_Sessions" FromRole="Sessions" ToRole="SessionPlace" />

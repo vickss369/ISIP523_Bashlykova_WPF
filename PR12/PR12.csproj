@@ -196,6 +196,9 @@
     <Resource Include="Images\lordOfTheRings.png" />
     <Resource Include="Images\chebyrashka.png" />
     <Resource Include="Images\grom.png" />
+    <Resource Include="Images\AnnaKarenina.png" />
+    <Resource Include="Images\twinlight.png" />
+    <Resource Include="Images\shining.png" />
     <Content Include="ModelPR14.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ModelPR14.Context.cs</LastGenOutput>
