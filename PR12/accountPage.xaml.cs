@@ -24,5 +24,10 @@ namespace PR12
         {
             InitializeComponent();
         }
+
+        private void goTofilms_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new filmsPage());
+        }
     }
 }

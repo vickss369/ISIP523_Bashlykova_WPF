@@ -9,6 +9,10 @@
       Title="MainPage">
 
     <Grid>
-        
+        <StackPanel VerticalAlignment="Center">
+            <TextBlock Text="ГЛАВНАЯ СТРАНИЦА" FontSize="21" HorizontalAlignment="Center" Margin="20"/>
+            <Button x:Name="filmsBtn" Content="Посмотреть фильмы →" FontSize="16" Height="50" Width="200" HorizontalAlignment="Center" Click="goToFilms_OnClick"/>
+            <Button x:Name="registrBtn" Content="Вход / регистрация" FontSize="16" Height="50" Width="200" HorizontalAlignment="Center" Margin="20" Click="registr_OnClick"/>
+        </StackPanel>
     </Grid>
 </Page>

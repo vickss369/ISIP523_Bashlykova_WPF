@@ -16,23 +16,18 @@ using System.Windows.Shapes;
 namespace PR12
 {
     /// <summary>
-    /// Логика взаимодействия для MainPage.xaml
+    /// Логика взаимодействия для registrationPage.xaml
     /// </summary>
-    public partial class MainPage : Page
+    public partial class registrationPage : Page
     {
-        public MainPage()
+        public registrationPage()
         {
             InitializeComponent();
         }
 
-        private void goToFilms_OnClick(object sender, RoutedEventArgs e)
+        private void enterFilms_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new filmsPage());
-        }
-
-        private void registr_OnClick(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new registrationPage());
         }
     }
 }

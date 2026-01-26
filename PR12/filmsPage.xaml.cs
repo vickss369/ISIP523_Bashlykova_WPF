@@ -24,5 +24,15 @@ namespace PR12
         {
             InitializeComponent();
         }
+
+        private void goToAkk_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new accountPage());
+        }
+
+        private void goToReg_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new registrationPage());
+        }
     }
 }
