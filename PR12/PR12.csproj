@@ -191,10 +191,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Images\" />
-  </ItemGroup>
-  <ItemGroup>
+    <Resource Include="Images\lordOfTheRings.png" />
+    <Resource Include="Images\chebyrashka.png" />
+    <Resource Include="Images\grom.png" />
     <Content Include="ModelPR14.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ModelPR14.Context.cs</LastGenOutput>

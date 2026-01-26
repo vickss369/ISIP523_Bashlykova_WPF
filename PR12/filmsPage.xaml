@@ -57,7 +57,7 @@
                                     <TextBlock Text="{Binding Description}" FontSize="14" TextWrapping="Wrap" Margin="0,5,0,0"/>
                                 </StackPanel>
 
-                                <Button Grid.Row="2" x:Name="addBtn" Content="В корзину" Width="100" Height="30" Margin="0,10,0,15" HorizontalAlignment="Center"/>
+                                <Button Grid.Row="2" x:Name="buyBtn" Content="Купить билеты" Width="100" Height="30" Margin="0,10,0,15" HorizontalAlignment="Center" Click="buyBtn_Click"/>
                             </Grid>
 
                         </Border>
