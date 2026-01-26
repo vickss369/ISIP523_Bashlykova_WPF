@@ -55,25 +55,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CarConfiguration.cs" />
-    <Compile Include="creditPage.xaml.cs">
-      <DependentUpon>creditPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="orderPage.xaml.cs">
-      <DependentUpon>orderPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="totalCostPage.xaml.cs">
-      <DependentUpon>totalCostPage.xaml</DependentUpon>
-    </Compile>
-    <Page Include="colorDopPage.xaml">
+    <Page Include="accountPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="creditPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="enginePage.xaml">
+    <Page Include="filmsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -85,15 +71,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="accountPage.xaml.cs">
+      <DependentUpon>accountPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="colorDopPage.xaml.cs">
-      <DependentUpon>colorDopPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="enginePage.xaml.cs">
-      <DependentUpon>enginePage.xaml</DependentUpon>
+    <Compile Include="filmsPage.xaml.cs">
+      <DependentUpon>filmsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -102,14 +88,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="orderPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="totalCostPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

@@ -1,4 +1,4 @@
-﻿<Page x:Class="PR12.MainPage"
+﻿<Page x:Class="PR12.filmsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:PR12"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="MainPage">
+      Title="filmsPage">
 
     <Grid>
         

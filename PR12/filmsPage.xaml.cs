@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace PR12
 {
     /// <summary>
-    /// Логика взаимодействия для MainPage.xaml
+    /// Логика взаимодействия для filmsPage.xaml
     /// </summary>
-    public partial class MainPage : Page
+    public partial class filmsPage : Page
     {
-        public MainPage()
+        public filmsPage()
         {
             InitializeComponent();
         }
