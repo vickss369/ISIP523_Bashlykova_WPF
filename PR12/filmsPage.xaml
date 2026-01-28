@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:PR12"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
+      Background="#D2E2EC"
       Title="filmsPage">
 
     <Grid>
@@ -15,15 +16,15 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Background="LightGray">
+        <Grid Grid.Row="0" Background="#3C507D">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Фильмы" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock Text="Фильмы" FontSize="20" FontWeight="Bold" Foreground="#3A2119" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="80,0,0,0"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" Margin="0,0,20,0" VerticalAlignment="Center">
-                <Button x:Name="toregistrBtn" Content="Войти в акк" FontSize="16" Width="100" Height="40" Margin="0,0,10,0" Click="goToReg_Click"/>
-                <Button x:Name="toakkBtn" Content="Аккаунт" FontSize="16" Width="100" Height="40" Click="goToAkk_Click"/>
+                <Button x:Name="toregistrBtn" Content="Войти" FontSize="16" Width="100" Height="40" Margin="0,0,10,0" Background="#A86A65" Foreground="#3A2119" Click="goToReg_Click"/>
+                <Button x:Name="toakkBtn" Content="Аккаунт" FontSize="16" Width="100" Height="40" Background="#A86A65" Foreground="#3A2119" Click="goToAkk_Click"/>
             </StackPanel>
         </Grid>
 
@@ -32,40 +33,39 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <TextBox x:Name="SearchBox" Width="500"  Height="30" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Margin="0,0,10,0"/>
-            <ComboBox x:Name="CB" Height="30" Width="120" FontSize="16" VerticalAlignment="Center" Grid.Column="1" Margin="10,0,0,0" SelectionChanged="CB_SelectionChanged"/>
+            <TextBox x:Name="SearchTB" Width="500"  Height="30" FontSize="16" BorderBrush="#6B212C" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Margin="0,0,10,0"/>
+            <ComboBox x:Name="SortCB" Height="30" Width="150" FontSize="16" BorderBrush="#6B212C" VerticalAlignment="Center" Grid.Column="1" Margin="10,0,0,0" SelectionChanged="CB_SelectionChanged"/>
         </Grid>
 
-        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" PanningMode="VerticalOnly" CanContentScroll="True">
-            <ListBox x:Name="filmsList" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel IsItemsHost="True" HorizontalAlignment="Left"/>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Border Width="380" Height="760" Margin="10" Padding="10" BorderBrush="Gray" BorderThickness="1" CornerRadius="8">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
+        <ListBox x:Name="filmsList" Grid.Row="2"  BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalContentAlignment="Stretch" Background="#D2E2EC">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel IsItemsHost="True" HorizontalAlignment="Left"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Width="380" Height="800" Margin="10" Padding="10" BorderBrush="#3A2119" Background="#617891"  BorderThickness="1" CornerRadius="8">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
 
-                                <Image Grid.Row="0" Source="{Binding ImagePath}" Width="330" Height="500" Stretch="UniformToFill" Margin="0,0,0,5"/>
-                                <StackPanel Grid.Row="1">
-                                    <TextBlock Text="{Binding FilmName}" FontSize="16" FontWeight="Bold" TextWrapping="Wrap" Margin="0,5,0,0"/>
-                                    <TextBlock Text="{Binding Description}" FontSize="14" TextWrapping="Wrap"/>
-                                    <TextBlock Text="{Binding FilmRating}" FontSize="15" Margin="0,7,0,0"/>
-                                    <TextBlock Text="{Binding StartDate}" FontSize="15" Margin="0,7,0,0"/>
-                                </StackPanel>
-                                <Button Grid.Row="2" x:Name="buyBtn" Content="Купить билеты" Width="100" Height="30" Margin="0,10,0,15" HorizontalAlignment="Center" Click="buyBtn_Click"/>
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </ScrollViewer>
+                            <Image Grid.Row="0" Source="{Binding ImagePath}" Width="330" Height="500" Stretch="UniformToFill" Margin="0,0,0,5"/>
+                            <StackPanel Grid.Row="1">
+                                <TextBlock Text="{Binding FilmName}" FontSize="16" FontWeight="Bold" TextWrapping="Wrap" Margin="0,5,0,0"/>
+                                <TextBlock Text="{Binding Description}" FontSize="14" TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding FilmRating, StringFormat = Рейтинг: {0}}" FontSize="15" Margin="0,7,0,0"/>
+                                <TextBlock Text="{Binding AgeRating.Nomination, StringFormat = Возрастной рейтинг: {0}}" FontSize="15" Margin="0,7,0,0"/>
+                                <TextBlock Text="{Binding StartDate, StringFormat = Дата начала показа: {0}}" FontSize="15" Margin="0,7,0,0"/>
+                            </StackPanel>
+                            <Button Grid.Row="2" x:Name="choseFilmBtn" Content="Подробнее" FontSize="15" Background="#25344F" Foreground="#D9CBC2" Width="120" Height="40" Margin="0,10,0,15" HorizontalAlignment="Center" Click="choseFilmBtn_Click"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Page>

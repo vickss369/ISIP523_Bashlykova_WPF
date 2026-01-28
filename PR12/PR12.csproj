@@ -67,6 +67,15 @@
     <Compile Include="AgeRating.cs">
       <DependentUpon>ModelPR14.tt</DependentUpon>
     </Compile>
+    <Compile Include="buyTicketPage.xaml.cs">
+      <DependentUpon>buyTicketPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="chosenFilmPage.xaml.cs">
+      <DependentUpon>chosenFilmPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="chosenSessionPage.xaml.cs">
+      <DependentUpon>chosenSessionPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Films.cs">
       <DependentUpon>ModelPR14.tt</DependentUpon>
     </Compile>
@@ -109,6 +118,18 @@
       <DependentUpon>ModelPR14.tt</DependentUpon>
     </Compile>
     <Page Include="accountPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="buyTicketPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="chosenFilmPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="chosenSessionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

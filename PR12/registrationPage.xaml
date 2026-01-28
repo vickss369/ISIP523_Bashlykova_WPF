@@ -6,20 +6,21 @@
       xmlns:local="clr-namespace:PR12"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
+      Background="#D2E2EC"
       Title="registrationPage">
 
     <Grid>
         <StackPanel VerticalAlignment="Center">
-            <TextBlock Text="ВХОД" FontSize="20" HorizontalAlignment="Center" Margin="20"/>
+            <TextBlock Text="ВХОД" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="20" Foreground="#3A2119"/>
             <StackPanel Orientation="Horizontal" Margin="35,15,0,0">
-                <TextBlock Text="Имя пользователя: " FontSize="17" HorizontalAlignment="Center" Margin="170, 0, 0, 0"/>
-                <TextBox x:Name="userNameBtn" FontSize="15" Margin="8, 0, 0, 14" Width="250" Height="30"/>
+                <TextBlock Text="Имя пользователя: " FontSize="17" HorizontalAlignment="Center" Margin="170, 0, 0, 0" Foreground="#3A2119"/>
+                <TextBox x:Name="userNameTB" FontSize="15" Margin="8, 0, 0, 14" Width="250" Height="30"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="35,15,0,0">
-                <TextBlock Text="Пароль: " FontSize="17" HorizontalAlignment="Center" Margin="170, 0, 0, 0"/>
-                <TextBox x:Name="passwordBtn" FontSize="15" Margin="8, 0, 0, 14" Width="250" Height="30"/>
+                <TextBlock Text="Пароль: " FontSize="17" HorizontalAlignment="Center" Margin="170, 0, 0, 0" Foreground="#3A2119"/>
+                <TextBox x:Name="passwordTB" FontSize="15" Margin="8, 0, 0, 14" Width="250" Height="30"/>
             </StackPanel>
-            <Button x:Name="entrBtn" Content="Войти" FontSize="18" Height="50" Width="130" HorizontalAlignment="Center" Margin="20" Click="enterFilms_Click"/>
+            <Button x:Name="entrBtn" Content="Войти" FontSize="18" Height="50" Width="130" Background="#25344F" Foreground="#D9CBC2" HorizontalAlignment="Center" Margin="20" Click="enterFilms_Click"/>
         </StackPanel>
     </Grid>
 </Page>

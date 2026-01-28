@@ -21,6 +21,8 @@ namespace PR12
     /// </summary>
     public partial class filmsPage : Page
     {
+        private Films chosenFilm;
+
         private List<Films> allFilms;
         private List<string> searchCriteria = new List<string>() { "Название", "Рейтинг" };
 
@@ -31,11 +33,17 @@ namespace PR12
             AddFilms();
             LoadFilms();
 
-            CB.ItemsSource = searchCriteria;
+            SortCB.ItemsSource = searchCriteria;
 
-            SearchBox.TextChanged += (s, e) => FilterFilms();
-            CB.SelectionChanged += (s, e) => FilterFilms();
+            SearchTB.TextChanged += (s, e) => FilterFilms();
+            SortCB.SelectionChanged += (s, e) => FilterFilms();
         }
+
+        /*public filmsPage(Films cf) //для возврата со страницы покупки билета
+        {
+            InitializeComponent();
+            chosenFilm = cf; 
+        }*/
 
         private void goToAkk_Click(object sender, RoutedEventArgs e)
         {
@@ -125,7 +133,7 @@ namespace PR12
 
         private void FilterFilms()
         {
-            string searchText = SearchBox.Text.ToLower().Trim();
+            string searchText = SearchTB.Text.ToLower().Trim();
 
             var filtered = allFilms.AsQueryable();
 
@@ -134,7 +142,7 @@ namespace PR12
                 filtered = filtered.Where(f => f.FilmName.ToLower().Contains(searchText));
             }
 
-            var selectedItem = CB.SelectedItem as string ?? "Название";
+            var selectedItem = SortCB.SelectedItem as string ?? "Название";
             if (selectedItem == "Название")
             {
                 filtered = filtered.OrderBy(f => f.FilmName);
@@ -157,9 +165,22 @@ namespace PR12
             NavigationService.Navigate(new registrationPage());
         }
 
-        private void buyBtn_Click(object sender, RoutedEventArgs e)
+        private void choseFilmBtn_Click(object sender, RoutedEventArgs e)
         {
+            Button btn = sender as Button;
 
+            if (btn == null) return;
+
+            chosenFilm = btn.DataContext as Films;
+
+            if (chosenFilm == null)
+            {
+                MessageBox.Show("Не удалось выбрать фильм");
+                return;
+            }
+
+            NavigationService.Navigate(new chosenFilmPage(chosenFilm));
         }
+
     }
 }

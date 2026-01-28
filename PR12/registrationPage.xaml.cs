@@ -25,8 +25,30 @@ namespace PR12
             InitializeComponent();
         }
 
+        private bool IsInputValid()
+        {
+            bool nameOK = !string.IsNullOrWhiteSpace(userNameTB.Text) && userNameTB.Text.Length >= 2 && !userNameTB.Text.Any(char.IsDigit);
+            bool passwordOK = !string.IsNullOrWhiteSpace(passwordTB.Text) && passwordTB.Text.Length >= 5 && passwordTB.Text.Any(char.IsDigit);
+
+            return nameOK && passwordOK;
+        }
+
         private void enterFilms_Click(object sender, RoutedEventArgs e)
         {
+            if (!IsInputValid())
+            {
+                MessageBox.Show("Пожалуйста, корректно заполните все поля.", "Ошибка");
+                return;
+            }
+
+            Users user = new Users()
+            {
+                UserName = userNameTB.Text,
+                Password = passwordTB.Text,
+            };
+            Core.Context.Users.Add(user);
+            Core.Context.SaveChanges();
+
             NavigationService.Navigate(new filmsPage());
         }
     }
