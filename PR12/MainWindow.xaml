@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PR12"
         mc:Ignorable="d"
-        Title="Кинотеатр" Height="600" Width="900">
+        Title="Кинотеатр" Height="620" Width="900">
     <Grid>
         <Frame x:Name="MainFrame" Source="MainPage.xaml" NavigationUIVisibility="Hidden"/>
     </Grid>

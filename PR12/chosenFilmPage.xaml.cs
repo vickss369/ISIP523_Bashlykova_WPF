@@ -52,12 +52,11 @@ namespace PR12
 
                 if (currentFilm.Sessions != null && currentFilm.Sessions.Count > 0)
                 {
-                    var sessions = currentFilm.Sessions.Select(s => s.SessionDate.ToShortDateString()).ToList();
-                    SessionsTB.Text = "Даты сеансов: " + string.Join(", ", sessions);
+                    sessionsList.ItemsSource = currentFilm.Sessions.OrderBy(s => s.SessionDate).ToList();
                 }
                 else
                 {
-                    SessionsTB.Text = "Даты сеансов: -";
+                    sessionsList.ItemsSource = null;
                 }
 
                 if (!string.IsNullOrEmpty(currentFilm.ImagePath))
@@ -65,12 +64,6 @@ namespace PR12
                     FilmImage.Source = new BitmapImage(new Uri(currentFilm.ImagePath, UriKind.RelativeOrAbsolute));
                 }
             }
-        }
-
-
-        private void buyTicket_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new buyTicketPage(currentFilm));
         }
 
         private void backToFilms_Click(object sender, RoutedEventArgs e)
@@ -81,6 +74,11 @@ namespace PR12
         private void goToReg_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new registrationPage());
+        }
+
+        private void ChooseSession_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new buyTicketPage(currentFilm));
         }
     }
 }
