@@ -27,6 +27,7 @@ namespace PR12
             InitializeComponent();
             currentFilm = cf;
 
+            UpdateButtonsVis();
             LoadFilmInfo();
         }
 
@@ -71,6 +72,18 @@ namespace PR12
             NavigationService.GoBack();
         }
 
+        private void UpdateButtonsVis()
+        {
+            if (Users.IsUserValid())
+            {
+                toregistrBtn.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                toregistrBtn.Visibility = Visibility.Visible;
+            }
+        }
+
         private void goToReg_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new registrationPage());
@@ -78,7 +91,20 @@ namespace PR12
 
         private void ChooseSession_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new buyTicketPage(currentFilm));
+            if (!Users.IsUserValid())
+            {
+                MessageBox.Show("Сначала нужно зарегистрироваться или войти, чтобы выбрать сеанс!");
+                NavigationService.Navigate(new registrationPage());
+                return;
+            }
+
+            Button btn = sender as Button;
+            if (btn == null) return;
+
+            Sessions selectedSession = btn.DataContext as Sessions;
+            if (selectedSession == null) return;
+
+            NavigationService.Navigate(new chosenSessionPage(selectedSession));
         }
     }
 }

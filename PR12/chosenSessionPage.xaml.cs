@@ -20,9 +20,25 @@ namespace PR12
     /// </summary>
     public partial class chosenSessionPage : Page
     {
-        public chosenSessionPage()
+        private Sessions currentSession;
+
+        public chosenSessionPage(Sessions session)
         {
             InitializeComponent();
+
+            currentSession = session;
+
+            LoadSessionInfo();
+        }
+
+        private void LoadSessionInfo()
+        {
+
+        }
+
+        private void goToSession_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }

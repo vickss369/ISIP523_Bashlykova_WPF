@@ -20,12 +20,9 @@ namespace PR12
     /// </summary>
     public partial class buyTicketPage : Page
     {
-        private Films currentFilm;
-
         public buyTicketPage(Films cf)
         {
             InitializeComponent();
-            currentFilm = cf;
         }
     }
 }

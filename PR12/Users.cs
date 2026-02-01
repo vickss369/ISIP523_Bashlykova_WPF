@@ -11,7 +11,8 @@ namespace PR12
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Linq;
+
     public partial class Users
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -26,5 +27,16 @@ namespace PR12
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tickets> Tickets { get; set; }
+
+
+        public static string CurrentLogin { get; set; } = "";
+        public static string CurrentPassword { get; set; } = "";
+
+        public static bool IsUserValid()
+        {
+            return !string.IsNullOrEmpty(CurrentLogin)
+                && !string.IsNullOrEmpty(CurrentPassword)
+                && Core.Context.Users.Any(u => u.UserName == CurrentLogin && u.Password == CurrentPassword);
+        }
     }
 }

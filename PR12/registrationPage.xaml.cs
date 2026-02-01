@@ -33,7 +33,7 @@ namespace PR12
             return nameOK && passwordOK;
         }
 
-        private void enterFilms_Click(object sender, RoutedEventArgs e)
+        private void enter_Click(object sender, RoutedEventArgs e)
         {
             if (!IsInputValid())
             {
@@ -41,14 +41,37 @@ namespace PR12
                 return;
             }
 
-            Users user = new Users()
+            string login = userNameTB.Text.Trim();
+            string pass = passwordTB.Text.Trim();
+
+            if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(pass))
             {
-                UserName = userNameTB.Text,
-                Password = passwordTB.Text,
+                MessageBox.Show("Введите логин и пароль!");
+                return;
+            }
+
+            var user = Core.Context.Users.FirstOrDefault(u => u.UserName == login && u.Password == pass);
+            if (user != null)
+            {
+                Users.CurrentLogin = login;
+                Users.CurrentPassword = pass;
+
+                MessageBox.Show("Вы вошли!");
+                NavigationService.Navigate(new filmsPage());
+                return;
+            }
+
+            Users newUser = new Users
+            {
+                UserName = login,
+                Password = pass
             };
-            Core.Context.Users.Add(user);
+            Core.Context.Users.Add(newUser);
             Core.Context.SaveChanges();
 
+            Users.CurrentLogin = login;
+            Users.CurrentPassword = pass;
+            MessageBox.Show("Регистрация прошла успешно!");
             NavigationService.Navigate(new filmsPage());
         }
     }

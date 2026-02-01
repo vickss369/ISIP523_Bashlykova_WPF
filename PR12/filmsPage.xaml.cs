@@ -29,6 +29,7 @@ namespace PR12
         public filmsPage()
         {
             InitializeComponent();
+            UpdateButtonsVis();
 
             AddFilms();
             LoadFilms();
@@ -37,17 +38,6 @@ namespace PR12
 
             SearchTB.TextChanged += (s, e) => FilterFilms();
             SortCB.SelectionChanged += (s, e) => FilterFilms();
-        }
-
-        /*public filmsPage(Films cf) //для возврата со страницы покупки билета
-        {
-            InitializeComponent();
-            chosenFilm = cf; 
-        }*/
-
-        private void goToAkk_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new accountPage());
         }
 
         private void AddFilms()
@@ -160,6 +150,18 @@ namespace PR12
             FilterFilms();
         }
 
+        private void goToAkk_Click(object sender, RoutedEventArgs e)
+        {
+            if (!Users.IsUserValid())
+            {
+                MessageBox.Show("Сначала зарегистрируйтесь или войдите!");
+                NavigationService.Navigate(new registrationPage());
+                return;
+            }
+
+            NavigationService.Navigate(new accountPage());
+        }
+
         private void goToReg_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new registrationPage());
@@ -182,5 +184,18 @@ namespace PR12
             NavigationService.Navigate(new chosenFilmPage(chosenFilm));
         }
 
+        private void UpdateButtonsVis()
+        {
+            if (Users.IsUserValid())
+            {
+                toakkBtn.Visibility = Visibility.Visible;
+                toregistrBtn.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                toakkBtn.Visibility = Visibility.Collapsed;
+                toregistrBtn.Visibility = Visibility.Visible;
+            }
+        }
     }
 }
