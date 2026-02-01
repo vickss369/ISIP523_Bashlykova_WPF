@@ -42,15 +42,22 @@ namespace PR12
 
                 if (currentFilm.FilmsGenres != null && currentFilm.FilmsGenres.Count > 0)
                 {
-                    var genres = currentFilm.FilmsGenres
-                        .Where(fg => fg.Genres != null)
-                        .Select(fg => fg.Genres.Nomanation);
-
+                    var genres = currentFilm.FilmsGenres.Where(fg => fg.Genres != null).Select(fg => fg.Genres.Nomanation);
                     GenreTB.Text = "Жанр: " + string.Join(", ", genres);
                 }
                 else
                 {
                     GenreTB.Text = "Жанр: -";
+                }
+
+                if (currentFilm.Sessions != null && currentFilm.Sessions.Count > 0)
+                {
+                    var sessions = currentFilm.Sessions.Select(s => s.SessionDate.ToShortDateString()).ToList();
+                    SessionsTB.Text = "Даты сеансов: " + string.Join(", ", sessions);
+                }
+                else
+                {
+                    SessionsTB.Text = "Даты сеансов: -";
                 }
 
                 if (!string.IsNullOrEmpty(currentFilm.ImagePath))
@@ -69,6 +76,11 @@ namespace PR12
         private void backToFilms_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
+        }
+
+        private void goToReg_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new registrationPage());
         }
     }
 }

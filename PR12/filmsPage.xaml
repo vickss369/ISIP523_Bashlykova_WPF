@@ -34,7 +34,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <TextBox x:Name="SearchTB" Width="500"  Height="30" FontSize="16" BorderBrush="#6B212C" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Margin="0,0,10,0"/>
-            <ComboBox x:Name="SortCB" Height="30" Width="150" FontSize="16" BorderBrush="#6B212C" VerticalAlignment="Center" Grid.Column="1" Margin="10,0,0,0" SelectionChanged="CB_SelectionChanged"/>
+            <ComboBox x:Name="SortCB" Height="30" Width="150" FontSize="16" BorderBrush="#6B212C" VerticalAlignment="Center" Grid.Column="1" Margin="10,0,15,0" SelectionChanged="CB_SelectionChanged"/>
         </Grid>
 
         <ListBox x:Name="filmsList" Grid.Row="2"  BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalContentAlignment="Stretch" Background="#D2E2EC">
@@ -59,7 +59,7 @@
                                 <TextBlock Text="{Binding Description}" FontSize="14" TextWrapping="Wrap"/>
                                 <TextBlock Text="{Binding FilmRating, StringFormat = Рейтинг: {0}}" FontSize="15" Margin="0,7,0,0"/>
                                 <TextBlock Text="{Binding AgeRating.Nomination, StringFormat = Возрастной рейтинг: {0}}" FontSize="15" Margin="0,7,0,0"/>
-                                <TextBlock Text="{Binding StartDate, StringFormat = Дата начала показа: {0}}" FontSize="15" Margin="0,7,0,0"/>
+                                <TextBlock Text="{Binding StartDate, StringFormat = Дата начала показа: {0:dd.MM.yyyy}}" FontSize="15" Margin="0,7,0,0"/>
                             </StackPanel>
                             <Button Grid.Row="2" x:Name="choseFilmBtn" Content="Подробнее" FontSize="15" Background="#25344F" Foreground="#D9CBC2" Width="120" Height="40" Margin="0,10,0,15" HorizontalAlignment="Center" Click="choseFilmBtn_Click"/>
                         </Grid>
