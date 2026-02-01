@@ -20,7 +20,7 @@ namespace PR12
     /// </summary>
     public partial class buyTicketPage : Page
     {
-        public buyTicketPage(Films cf)
+        public buyTicketPage(SessionPlace sp)
         {
             InitializeComponent();
         }
