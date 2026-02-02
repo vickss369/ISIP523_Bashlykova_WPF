@@ -54,17 +54,54 @@ namespace PR12
 
         private void confirm_Click(object sender, RoutedEventArgs e)
         {
-            if (selectedPlaces.Count == 0)
+            if (selectedPlaces == null || selectedPlaces.Count == 0)
             {
                 MessageBox.Show("Выберите места!");
                 return;
             }
 
-            MessageBox.Show("Билет успешно куплен!");
-            // тут сохранить в БД будет когда-то
+            var currentUser = Core.Context.Users.FirstOrDefault(u => u.UserName == Users.CurrentLogin && u.Password == Users.CurrentPassword);
+            if (currentUser == null)
+            {
+                MessageBox.Show("Ошибка авторизации!");
+                NavigationService.Navigate(new registrationPage());
+                return;
+            }
 
+            double basePrice = currentSession.Halls.HallRating.PlacePrice;
+            double oneTicketPrice = basePrice * 1.5;
+            foreach (var sp in selectedPlaces)
+            {
+                var sessionPlace = Core.Context.SessionPlace.FirstOrDefault(x => x.SessionID == currentSession.SessionID && x.PlaceID == sp.PlaceID);
+                if (sessionPlace == null)
+                {
+                    sessionPlace = new SessionPlace
+                    {
+                        SessionID = currentSession.SessionID,
+                        PlaceID = sp.PlaceID,
+                        Status = true
+                    };
+                    Core.Context.SessionPlace.Add(sessionPlace);
+                }
+                else
+                {
+                    sessionPlace.Status = true;
+                }
+
+
+                Tickets ticket = new Tickets
+                {
+                    SessionID = currentSession.SessionID,
+                    UserID = currentUser.UserID,
+                    PlaceID = sp.PlaceID,
+                    Price = oneTicketPrice
+                };
+                Core.Context.Tickets.Add(ticket);
+            }
+            Core.Context.SaveChanges();
+
+            MessageBox.Show("Покупка успешно завершена!");
             NavigationService.Navigate(new MainPage());
         }
     }
-
 }

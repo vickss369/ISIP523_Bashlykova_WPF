@@ -38,6 +38,7 @@
             <TextBlock Text="Места в зале" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,50,0,20"/>
             <TextBlock Text="Экран" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,0"/>
             <TextBlock Text="---------------------------------" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
+            
             <ListBox x:Name="placesList" Grid.Row="1" Margin="20" BorderThickness="0" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -45,12 +46,13 @@
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
                 <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Button Content="{Binding PlaceNumber}" Width="50" Height="50" Margin="5"
-                        Background="{Binding Status}" Foreground="#3A2119" FontSize="15" FontWeight="Bold"
-                        Click="Place_Click"/>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Button Content="{Binding PlaceNumber}" Width="45" Height="45" Margin="5" FontSize="14"
+                                Background="{Binding Color}" IsEnabled="{Binding IsEnabled}" Tag="{Binding SessionPlace}" 
+                                Click="Place_Click" />
+
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
 

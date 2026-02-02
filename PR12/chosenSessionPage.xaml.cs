@@ -18,7 +18,7 @@ namespace PR12
     /// <summary>
     /// Логика взаимодействия для chosenSessionPage.xaml
     /// </summary>
-    
+
     public partial class chosenSessionPage : Page
     {
         private Sessions currentSession;
@@ -73,13 +73,14 @@ namespace PR12
                     PlaceNumber = p.PlaceNumber,
                     SessionPlace = sp,
                     IsOccupied = isOccupied,
-
-                    Color = new SolidColorBrush((Color)ColorConverter.ConvertFromString(isOccupied ? "#442D1C" : "#849DBB"))
+                    Color = new SolidColorBrush((Color)ColorConverter.ConvertFromString(isOccupied ? "#6B212C" : "#849DBB")),
+                    IsEnabled = !isOccupied
                 };
             }).ToList();
 
             placesList.ItemsSource = displayPlaces;
         }
+
 
         private void Place_Click(object sender, RoutedEventArgs e)
         {
