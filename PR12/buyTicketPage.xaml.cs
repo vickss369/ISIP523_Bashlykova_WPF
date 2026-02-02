@@ -18,6 +18,7 @@ namespace PR12
     /// <summary>
     /// Логика взаимодействия для buyTicketPage.xaml
     /// </summary>
+    
     public partial class buyTicketPage : Page
     {
         private List<SessionPlace> selectedPlaces;

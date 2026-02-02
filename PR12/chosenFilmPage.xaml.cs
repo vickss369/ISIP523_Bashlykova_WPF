@@ -18,6 +18,7 @@ namespace PR12
     /// <summary>
     /// Логика взаимодействия для chosenFilmPage.xaml
     /// </summary>
+    
     public partial class chosenFilmPage : Page
     {
         private Films currentFilm;

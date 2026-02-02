@@ -81,7 +81,6 @@ namespace PR12
             placesList.ItemsSource = displayPlaces;
         }
 
-
         private void Place_Click(object sender, RoutedEventArgs e)
         {
             var btn = sender as Button;
@@ -91,12 +90,6 @@ namespace PR12
             if (place == null) return;
 
             SessionPlace sp = place.SessionPlace;
-
-            if (place.IsOccupied)
-            {
-                MessageBox.Show("Это место уже занято!");
-                return;
-            }
 
             if (selectedPlaces.Contains(sp))
             {
