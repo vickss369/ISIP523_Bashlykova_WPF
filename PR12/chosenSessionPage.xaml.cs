@@ -18,9 +18,11 @@ namespace PR12
     /// <summary>
     /// Логика взаимодействия для chosenSessionPage.xaml
     /// </summary>
+    
     public partial class chosenSessionPage : Page
     {
         private Sessions currentSession;
+        private List<SessionPlace> selectedPlaces = new List<SessionPlace>();
 
         public chosenSessionPage(Sessions session)
         {
@@ -33,6 +35,7 @@ namespace PR12
                 NavigationService.Navigate(new registrationPage());
                 return;
             }
+
             LoadSessionInfo();
             LoadPlaces();
         }
@@ -40,31 +43,38 @@ namespace PR12
         private void LoadSessionInfo()
         {
             FilmNameTB.Text = currentSession.Films.FilmName;
-            AgeRatingTB.Text = "Возрастной рейтинг: " + (currentSession.Films.AgeRating?.Nomination ?? "-");
-            StartDateTB.Text = "Дата начала показа: " + currentSession.Films.StartDate.ToShortDateString();
-            SessionTB.Text = "Сеанс: " + currentSession.SessionDate.ToString("dd.MM.yyyy HH:mm") + ", Зал: " + currentSession.Halls.HallRating.Nomination;
+            AgeRatingTB.Text = currentSession.Films.AgeRating.Nomination;
+            SessionTB.Text = "Сеанс: " + currentSession.SessionDate.ToString("dd.MM.yyyy") + ", Зал: " + currentSession.Halls.HallRating.Nomination;
         }
 
         private void LoadPlaces()
         {
-            var placesInHall = Core.Context.Places
-                .Where(p => p.HallID == currentSession.HallID)
-                .ToList();
-
-            var sessionPlaces = currentSession.SessionPlace.ToList();
+            var placesInHall = Core.Context.Places.Where(p => p.HallID == currentSession.HallID).ToList();
+            var sessionPlaces = Core.Context.SessionPlace.Where(s => s.SessionID == currentSession.SessionID).ToList();
 
             var displayPlaces = placesInHall.Select(p =>
             {
                 var sp = sessionPlaces.FirstOrDefault(s => s.PlaceID == p.PlaceID);
-                bool isOccupied = sp != null && sp.Status;
+                if (sp == null)
+                {
+                    sp = new SessionPlace
+                    {
+                        SessionID = currentSession.SessionID,
+                        PlaceID = p.PlaceID,
+                        Status = false,
+                        Places = p,
+                        Sessions = currentSession
+                    };
+                }
 
+                bool isOccupied = sp.Status;
                 return new
                 {
-                    PlaceID = p.PlaceID,
                     PlaceNumber = p.PlaceNumber,
-                    StatusColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString(isOccupied ? "#442D1C" : "#849DBB")),
+                    SessionPlace = sp,
                     IsOccupied = isOccupied,
-                    SessionPlaceObj = sp
+
+                    Color = new SolidColorBrush((Color)ColorConverter.ConvertFromString(isOccupied ? "#442D1C" : "#849DBB"))
                 };
             }).ToList();
 
@@ -79,28 +89,54 @@ namespace PR12
             dynamic place = btn.DataContext;
             if (place == null) return;
 
+            SessionPlace sp = place.SessionPlace;
+
             if (place.IsOccupied)
             {
                 MessageBox.Show("Это место уже занято!");
                 return;
             }
 
-            selectedPlacePanel.Visibility = Visibility.Visible;
-            SelectedPlaceTB.Text = "Место: " + place.PlaceNumber;
-            SelectedHallTB.Text = "Зал: " + currentSession.Halls.HallRating.Nomination;
-            SelectedDateTB.Text = "Дата сеанса: " + currentSession.SessionDate.ToString("dd.MM.yyyy");
+            if (selectedPlaces.Contains(sp))
+            {
+                selectedPlaces.Remove(sp);
+                btn.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D2E2EC"));
+            }
+            else
+            {
+                selectedPlaces.Add(sp);
+                btn.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D9A883"));
+            }
+            UpdateSelectedPanel();
+        }
 
-            buyTicketBtn.Tag = place.SessionPlaceObj;
+        private void UpdateSelectedPanel()
+        {
+            if (selectedPlaces.Count == 0)
+            {
+                selectedPlacePanel.Visibility = Visibility.Collapsed;
+                return;
+            }
+
+            selectedPlacePanel.Visibility = Visibility.Visible;
+            var numbers = selectedPlaces.Select(p => p.Places.PlaceNumber).ToList();
+
+            SelectedPlaceTB.Text = "Места: " + string.Join(", ", numbers);
+            SelectedHallTB.Text = "Зал: " + currentSession.Halls.HallRating.Nomination;
+            SelectedDateTB.Text = "Дата: " + currentSession.SessionDate.ToString("dd.MM.yyyy");
         }
 
         private void buyTicketBtn_Click(object sender, RoutedEventArgs e)
         {
-            var btn = sender as Button;
-            if (btn?.Tag is SessionPlace sp)
+            if (selectedPlaces.Count == 0)
             {
-                NavigationService.Navigate(new buyTicketPage(sp));
+                MessageBox.Show("Выберите хотя бы одно место!");
+                return;
             }
+
+            NavigationService.Navigate(new buyTicketPage(selectedPlaces, currentSession));
         }
+
         private void goToSession_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
