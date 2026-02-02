@@ -12,7 +12,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
-            <RowDefinition Height="300"/>
+            <RowDefinition Height="325"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Background="#3C507D">
@@ -26,15 +26,15 @@
         </Grid>
 
         <Border Grid.Row="1" Margin="40,50,40,0" Padding="15" BorderBrush="#3A2119" BorderThickness="3" CornerRadius="10" Background="#D9CBC2">
-            <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Vertical" Margin="15,5,0,0">
                 <TextBlock Text="Билет" FontSize="19" FontWeight="Bold"/>
-                <TextBlock x:Name="FilmNameTB" Text="film" FontSize="17" Margin="10,15,0,0"/>
-                <TextBlock x:Name="HallNumTB" Text="hall" FontSize="16" Margin="10,5,0,0"/>
-                <TextBlock x:Name="SessionDateTB" Text="session" FontSize="16" Margin="10,5,0,0"/>
-                <TextBlock x:Name="SelectedPlaceTB" Text="place" FontSize="16" Margin="10,5,0,0"/>
-                <TextBlock x:Name="PriceTB" Text="price" FontSize="17" FontWeight="Bold" Margin="10,5,0,0"/>
+                <TextBlock x:Name="FilmNameTB" Text="film" FontSize="17" Margin="15,15,0,0"/>
+                <TextBlock x:Name="HallNumTB" Text="hall" FontSize="16" Margin="15,5,0,0"/>
+                <TextBlock x:Name="SessionDateTB" Text="session" FontSize="16" Margin="15,5,0,0"/>
+                <TextBlock x:Name="SelectedPlaceTB" Text="place" FontSize="16" Margin="15,5,0,0"/>
+                <TextBlock x:Name="PriceTB" Text="price" FontSize="17" FontWeight="Bold" Margin="15,5,0,0"/>
 
-                <Button x:Name="confirmTicketBtn" Content="Купить билет" FontSize="16" Width="120" Height="40" Background="#A86A65" Foreground="#3A2119" BorderBrush="#3A2119" Click="confirm_Click"/>
+                <Button x:Name="confirmTicketBtn" Content="Купить билет" FontSize="16" Width="120" Height="40" Background="#A86A65" Foreground="#3A2119" BorderBrush="#3A2119" Margin="0,15,0,0" Click="confirm_Click"/>
             </StackPanel>
         </Border>
     </Grid>
