@@ -126,6 +126,16 @@ namespace PR12
             SelectedDateTB.Text = "Дата: " + currentSession.SessionDate.ToString("dd.MM.yyyy");
         }
 
+        private void delPlaces_Click(object sender, RoutedEventArgs e)
+        {
+            if (selectedPlaces.Count == 0) return;
+
+            selectedPlaces.Clear();
+            selectedPlacePanel.Visibility = Visibility.Collapsed;
+
+            LoadPlaces();
+        }
+
         private void buyTicketBtn_Click(object sender, RoutedEventArgs e)
         {
             if (selectedPlaces.Count == 0)

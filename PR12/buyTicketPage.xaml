@@ -10,5 +10,32 @@
       Title="buyTicketPage">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="300"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="#3C507D">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="Оформление билета" FontSize="20" FontWeight="Bold" Foreground="#3A2119" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="120,0,0,0"/>
+            <Button Grid.Column="1" Content="Назад" FontSize="16" Width="100" Height="40" Margin="0,0,30,0" Background="#A86A65" Foreground="#3A2119" BorderBrush="#3A2119" Click="goBack_Click"/>
+        </Grid>
+
+        <Border Grid.Row="1" Margin="40,50,40,0" Padding="15" BorderBrush="#3A2119" BorderThickness="3" CornerRadius="10" Background="#D9CBC2">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Билет" FontSize="19" FontWeight="Bold"/>
+                <TextBlock x:Name="FilmNameTB" Text="film" FontSize="17" Margin="10,15,0,0"/>
+                <TextBlock x:Name="HallNumTB" Text="hall" FontSize="16" Margin="10,5,0,0"/>
+                <TextBlock x:Name="SessionDateTB" Text="session" FontSize="16" Margin="10,5,0,0"/>
+                <TextBlock x:Name="SelectedPlaceTB" Text="place" FontSize="16" Margin="10,5,0,0"/>
+                <TextBlock x:Name="PriceTB" Text="price" FontSize="17" FontWeight="Bold" Margin="10,5,0,0"/>
+
+                <Button x:Name="confirmTicketBtn" Content="Купить билет" FontSize="16" Width="120" Height="40" Background="#A86A65" Foreground="#3A2119" BorderBrush="#3A2119" Click="confirm_Click"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </Page>
