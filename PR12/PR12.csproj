@@ -73,6 +73,9 @@
     <Compile Include="boardformfactorcase_.cs">
       <DependentUpon>ModelPR15.tt</DependentUpon>
     </Compile>
+    <Compile Include="buildSummaryPage.xaml.cs">
+      <DependentUpon>buildSummaryPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="casesize_.cs">
       <DependentUpon>ModelPR15.tt</DependentUpon>
     </Compile>
@@ -81,6 +84,9 @@
     </Compile>
     <Compile Include="certificate_.cs">
       <DependentUpon>ModelPR15.tt</DependentUpon>
+    </Compile>
+    <Compile Include="componentsPage.xaml.cs">
+      <DependentUpon>componentsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="cpu_.cs">
       <DependentUpon>ModelPR15.tt</DependentUpon>
@@ -132,6 +138,9 @@
     <Compile Include="ram_.cs">
       <DependentUpon>ModelPR15.tt</DependentUpon>
     </Compile>
+    <Compile Include="savedBuildsPage.xaml.cs">
+      <DependentUpon>savedBuildsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="socketprocessorcooler_.cs">
       <DependentUpon>ModelPR15.tt</DependentUpon>
     </Compile>
@@ -159,6 +168,14 @@
     <Compile Include="videoconnector_.cs">
       <DependentUpon>ModelPR15.tt</DependentUpon>
     </Compile>
+    <Page Include="buildSummaryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="componentsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -179,6 +196,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="savedBuildsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModelPR15.Context.cs">

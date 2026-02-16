@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PR12"
         mc:Ignorable="d"
-        Title="MainWindow" Height="550" Width="800">
+        Background="#D2E2EC"
+        Title="Сборка ПК" Height="550" Width="800">
     <Grid>
         <Frame x:Name="MainFrame" Source="MainPage.xaml" NavigationUIVisibility="Hidden"/>
     </Grid>

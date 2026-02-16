@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,23 +16,13 @@ using System.Windows.Shapes;
 namespace PR12
 {
     /// <summary>
-    /// Логика взаимодействия для MainPage.xaml
+    /// Логика взаимодействия для saveBuildingPage.xaml
     /// </summary>
-    public partial class MainPage : Page
+    public partial class saveBuildingPage : Page
     {
-        public MainPage()
+        public saveBuildingPage()
         {
             InitializeComponent();
-        }
-
-        private void buildBtn_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new componentsPage());
-        }
-
-        private void savedBtn_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new savedBuildsPage());
         }
     }
 }
