@@ -9,10 +9,5 @@
       Title="MainPage">
 
     <Grid>
-        <StackPanel>
-            <TextBlock Text="ГЛАВНАЯ СТРАНИЦА" FontSize="21" HorizontalAlignment="Center" Margin="20"/>
-            <Button x:Name="engineButton" Content="К оформлению заказа →" FontSize="15" Height="50" Width="200" HorizontalAlignment="Center" Click="engineButton_OnClick"/>
-            <Button x:Name="bckToOrderButton" Content="Вернуться к оформлению заказа →" FontSize="15" Height="50" Width="265" HorizontalAlignment="Center" Margin="20" Click="bckToOrderButton_OnClick"/>
-        </StackPanel>
     </Grid>
 </Page>

@@ -35,8 +35,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,28 +64,101 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CarConfiguration.cs" />
-    <Compile Include="creditPage.xaml.cs">
-      <DependentUpon>creditPage.xaml</DependentUpon>
+    <Compile Include="assembly_.cs">
+      <DependentUpon>ModelPR15.tt</DependentUpon>
     </Compile>
-    <Compile Include="orderPage.xaml.cs">
-      <DependentUpon>orderPage.xaml</DependentUpon>
+    <Compile Include="basepart_.cs">
+      <DependentUpon>ModelPR15.tt</DependentUpon>
     </Compile>
-    <Compile Include="totalCostPage.xaml.cs">
-      <DependentUpon>totalCostPage.xaml</DependentUpon>
+    <Compile Include="boardformfactorcase_.cs">
+      <DependentUpon>ModelPR15.tt</DependentUpon>
     </Compile>
-    <Page Include="colorDopPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="creditPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="enginePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Compile Include="casesize_.cs">
+      <DependentUpon>ModelPR15.tt</DependentUpon>
+    </Compile>
+    <Compile Include="case_.cs">
+      <DependentUpon>ModelPR15.tt</DependentUpon>
+    </Compile>
+    <Compile Include="certificate_.cs">
+      <DependentUpon>ModelPR15.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cpu_.cs">
+      <DependentUpon>ModelPR15.tt</DependentUpon>
+    </Compile>
+    <Compile Include="fandimension_.cs">
+      <DependentUpon>ModelPR15.tt</DependentUpon>
+    </Compile>
+    <Compile Include="formfactor_.cs">
+      <DependentUpon>ModelPR15.tt</DependentUpon>
+    </Compile>
+    <Compile Include="gpuinterface_.cs">
+      <DependentUpon>ModelPR15.tt</DependentUpon>
+    </Compile>
+    <Compile Include="gpu_.cs">
+      <DependentUpon>ModelPR15.tt</DependentUpon>
+    </Compile>
+    <Compile Include="hdd_.cs">
+      <DependentUpon>ModelPR15.tt</DependentUpon>
+    </Compile>
+    <Compile Include="igpu_.cs">
+      <DependentUpon>ModelPR15.tt</DependentUpon>
+    </Compile>
+    <Compile Include="manufacturer_.cs">
+      <DependentUpon>ModelPR15.tt</DependentUpon>
+    </Compile>
+    <Compile Include="memorytype_.cs">
+      <DependentUpon>ModelPR15.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelPR15.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelPR15.tt</DependentUpon>
+    </Compile>
+    <Compile Include="motherboard_.cs">
+      <DependentUpon>ModelPR15.tt</DependentUpon>
+    </Compile>
+    <Compile Include="partassembly_.cs">
+      <DependentUpon>ModelPR15.tt</DependentUpon>
+    </Compile>
+    <Compile Include="parttype_.cs">
+      <DependentUpon>ModelPR15.tt</DependentUpon>
+    </Compile>
+    <Compile Include="powersupply_.cs">
+      <DependentUpon>ModelPR15.tt</DependentUpon>
+    </Compile>
+    <Compile Include="processorcooler_.cs">
+      <DependentUpon>ModelPR15.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ram_.cs">
+      <DependentUpon>ModelPR15.tt</DependentUpon>
+    </Compile>
+    <Compile Include="socketprocessorcooler_.cs">
+      <DependentUpon>ModelPR15.tt</DependentUpon>
+    </Compile>
+    <Compile Include="socket_.cs">
+      <DependentUpon>ModelPR15.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ssd_.cs">
+      <DependentUpon>ModelPR15.tt</DependentUpon>
+    </Compile>
+    <Compile Include="storagedeviceinterface_.cs">
+      <DependentUpon>ModelPR15.tt</DependentUpon>
+    </Compile>
+    <Compile Include="storagedevicetype_.cs">
+      <DependentUpon>ModelPR15.tt</DependentUpon>
+    </Compile>
+    <Compile Include="storagedevice_.cs">
+      <DependentUpon>ModelPR15.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagrams.cs">
+      <DependentUpon>ModelPR15.tt</DependentUpon>
+    </Compile>
+    <Compile Include="videoconnectorgpu_.cs">
+      <DependentUpon>ModelPR15.tt</DependentUpon>
+    </Compile>
+    <Compile Include="videoconnector_.cs">
+      <DependentUpon>ModelPR15.tt</DependentUpon>
+    </Compile>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -89,12 +171,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="colorDopPage.xaml.cs">
-      <DependentUpon>colorDopPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="enginePage.xaml.cs">
-      <DependentUpon>enginePage.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Core.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -102,16 +179,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="orderPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="totalCostPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModelPR15.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelPR15.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelPR15.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelPR15.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -129,6 +208,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EntityDeploy Include="ModelPR15.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelPR15.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ModelPR15.edmx.diagram">
+      <DependentUpon>ModelPR15.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -136,6 +223,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ModelPR15.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModelPR15.Context.cs</LastGenOutput>
+      <DependentUpon>ModelPR15.edmx</DependentUpon>
+    </Content>
+    <Content Include="ModelPR15.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelPR15.edmx</DependentUpon>
+      <LastGenOutput>ModelPR15.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

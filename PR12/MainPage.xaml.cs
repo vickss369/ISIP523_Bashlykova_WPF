@@ -21,42 +21,9 @@ namespace PR12
     /// </summary>
     public partial class MainPage : Page
     {
-        private CarConfiguration config;
-        private MainWindow wnd;
-
-        public MainPage(CarConfiguration cfg, MainWindow w)
+        public MainPage()
         {
             InitializeComponent();
-            config = cfg;
-            wnd = w;
-
-
-            if (wnd.CurrentStep == 0)
-            {
-                bckToOrderButton.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                bckToOrderButton.Visibility = Visibility.Visible;
-            }
-        }
-
-        private void engineButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new enginePage(config, wnd));
-        }
-
-        private void bckToOrderButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            switch (wnd.CurrentStep)
-            {
-                case 1: NavigationService.Navigate(new enginePage(config, wnd)); break;
-                case 2: NavigationService.Navigate(new colorDopPage(config, wnd)); break;
-                case 3: NavigationService.Navigate(new totalCostPage(config, wnd)); break;
-                case 4: NavigationService.Navigate(new creditPage(config, wnd)); break;
-                case 5: NavigationService.Navigate(new orderPage(config, wnd)); break;
-                default: NavigationService.Navigate(new enginePage(config, wnd)); break;
-            }
         }
     }
 }
