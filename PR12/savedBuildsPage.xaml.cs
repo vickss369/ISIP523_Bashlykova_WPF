@@ -24,5 +24,15 @@ namespace PR12
         {
             InitializeComponent();
         }
+
+        private void toMainBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new MainPage());
+        }
+
+        private void backBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
     }
 }

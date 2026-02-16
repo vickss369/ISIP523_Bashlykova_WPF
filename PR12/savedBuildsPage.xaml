@@ -10,6 +10,25 @@
       Title="savedBuildsPage">
 
     <Grid>
-        <TextBlock Text="Прошлые сборки" FontSize="21" FontWeight="Bold" HorizontalAlignment="Center" Margin="20" Foreground="#442D1C"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="#3C507D">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Прошлые сборки" FontSize="21" FontWeight="Bold" HorizontalAlignment="Center" Grid.Column="0" Margin="20" Foreground="#442D1C"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" Margin="0,0,20,0" VerticalAlignment="Center">
+                <Button x:Name="backBtn" Content="Назад" FontSize="17" Height="50" Width="130" HorizontalAlignment="Center" Background="#6B212C" Foreground="#D9CBC2" Click="backBtn_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,30" HorizontalAlignment="Center">
+            <Button x:Name="toMainBtn" Content="На главную" FontSize="17" Height="50" Width="170" HorizontalAlignment="Center" Margin="20" Background="#3C507D" Foreground="#D9CBC2" Click="toMainBtn_Click"/>
+        </StackPanel>
     </Grid>
 </Page>
