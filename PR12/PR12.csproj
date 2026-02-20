@@ -67,6 +67,7 @@
     <Compile Include="assembly_.cs">
       <DependentUpon>ModelPR15.tt</DependentUpon>
     </Compile>
+    <Compile Include="assembly_partial.cs" />
     <Compile Include="basepart_.cs">
       <DependentUpon>ModelPR15.tt</DependentUpon>
     </Compile>

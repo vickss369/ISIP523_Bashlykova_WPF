@@ -102,7 +102,12 @@ namespace PR12
         private void SelectPart_Click(object sender, RoutedEventArgs e)
         {
             var part = (sender as Button).DataContext as basepart_;
-            MessageBox.Show($"Добавлено: {part.name}");
+
+            if (!allParts.Any(p => p.id == part.id))
+            {
+                allParts.Add(part);
+                MessageBox.Show($"Добавлено: {part.name}");
+            }
         }
 
         private void backBtn_Click(object sender, RoutedEventArgs e)
@@ -111,7 +116,7 @@ namespace PR12
         }
         private void nextBtn_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new buildSummaryPage());
+            NavigationService.Navigate(new buildSummaryPage(allParts));
         }
     }
 }

@@ -12,7 +12,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Background="#3C507D">
@@ -21,14 +21,55 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Итоговый просмотр сборки" FontSize="21" FontWeight="Bold" HorizontalAlignment="Center" Grid.Column="0" Margin="20" Foreground="#442D1C"/>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" Margin="0,0,20,0" VerticalAlignment="Center">
-                <Button x:Name="backBtn" Content="Назад" FontSize="17" Height="50" Width="130" HorizontalAlignment="Center" Background="#6B212C" Foreground="#D9CBC2" Click="backBtn_Click"/>
-            </StackPanel>
+            <TextBlock Text="Итоговый просмотр сборки" FontSize="21" FontWeight="Bold" HorizontalAlignment="Center" Margin="20" Foreground="#442D1C"/>
+            <Button x:Name="backBtn" Grid.Column="1" Content="Назад" FontSize="17" Height="50" Width="130" Margin="0,10,20,10" Background="#6B212C" Foreground="#D9CBC2" Click="backBtn_Click"/>
         </Grid>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,30" HorizontalAlignment="Center">
-            <Button x:Name="saveBtn" Content="Сохранить сборку" FontSize="17" Height="50" Width="170" HorizontalAlignment="Center" Margin="20" Background="#3C507D" Foreground="#D9CBC2" Click="saveBtn_Click"/>
-        </StackPanel>
+        <Grid Grid.Row="1" Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <ListBox x:Name="selectedPartsList" Grid.Column="0" BorderThickness="0" Background="Transparent">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border Width="260" Margin="10" Padding="10" Background="#617891" BorderBrush="#3A2119" BorderThickness="1" CornerRadius="10">
+                            <StackPanel>
+                                <Image Source="{Binding image}" Height="120" Stretch="UniformToFill" Margin="0,0,0,6"/>
+                                <TextBlock Text="{Binding name}" FontWeight="Bold" TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding manufacturer_.name, StringFormat=Производитель: {0}}" FontSize="12"/>
+                                <TextBlock Text="{Binding parttype_.name, StringFormat=Тип: {0}}" FontSize="12"/>
+                                <TextBlock Text="{Binding price, StringFormat=Цена: {0} ₽}" FontWeight="Bold" Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <StackPanel Grid.Column="2" Background="#D9CBC2" VerticalAlignment="Center">
+
+                <TextBlock Text="Стоимость сборки" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+                <TextBlock x:Name="totalPriceText" FontSize="20" FontWeight="Bold" Foreground="#6B212C" Margin="0,0,0,20"/>
+
+                <TextBlock Text="Совместимость" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+                <TextBlock x:Name="compatibilityText" TextWrapping="Wrap" FontSize="14" Margin="0,0,0,20"/>
+
+                <TextBlock Text="Название сборки" FontWeight="Bold"/>
+                <TextBox x:Name="buildNameBox" Height="35" Margin="0,5,0,15"/>
+
+                <TextBlock Text="Автор сборки" FontWeight="Bold"/>
+                <TextBox x:Name="authorBox" Height="35" Margin="0,5,0,20"/>
+
+                <Button x:Name="saveBtn" Content="Сохранить сборку" Height="45" Background="#3C507D" Foreground="#D9CBC2" Click="saveBtn_Click"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>
