@@ -23,6 +23,13 @@ namespace PR12
         public savedBuildsPage()
         {
             InitializeComponent();
+            LoadHistory();
+        }
+
+        private void LoadHistory()
+        {
+            var builds = Core.Context.assembly_.Include("partassembly_.basepart_").ToList();
+            buildHistoryList.ItemsSource = builds;
         }
 
         private void toMainBtn_Click(object sender, RoutedEventArgs e)

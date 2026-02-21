@@ -12,6 +12,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
@@ -20,15 +21,46 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-
             <TextBlock Text="Прошлые сборки" FontSize="21" FontWeight="Bold" HorizontalAlignment="Center" Grid.Column="0" Margin="20" Foreground="#442D1C"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" Margin="0,0,20,0" VerticalAlignment="Center">
                 <Button x:Name="backBtn" Content="Назад" FontSize="17" Height="50" Width="130" HorizontalAlignment="Center" Background="#6B212C" Foreground="#D9CBC2" Click="backBtn_Click"/>
             </StackPanel>
         </Grid>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,30" HorizontalAlignment="Center">
-            <Button x:Name="toMainBtn" Content="На главную" FontSize="17" Height="50" Width="170" HorizontalAlignment="Center" Margin="20" Background="#3C507D" Foreground="#D9CBC2" Click="toMainBtn_Click"/>
+        <ListBox x:Name="buildHistoryList" Grid.Row="1" Background="#D2E2EC" HorizontalContentAlignment="Center" d:ItemsSource="{d:SampleData ItemCount=5}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="#DEB1AB" BorderBrush="#3A2119" BorderThickness="3" CornerRadius="5" Margin="10" Padding="10" Width="600" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="160"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,0,10,0">
+                                <TextBlock Text="{Binding id, StringFormat=Сборка №{0}}" FontSize="16" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding name}" FontSize="16" TextWrapping="Wrap" Margin="5,0,0,10"/>
+                                <TextBlock Text="{Binding author, StringFormat=Автор: {0}}" FontSize="15" Margin="5,0,0,10"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="10,0,0,0">
+                                <TextBlock Text="Части сборки:" FontSize="16" FontWeight="Bold"/>
+                                <ItemsControl ItemsSource="{Binding partassembly_}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding basepart_.name, StringFormat=• {0}}" FontSize="14" TextWrapping="Wrap" Margin="7,0,0,0"/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10" HorizontalAlignment="Center">
+            <Button x:Name="toMainBtn" Content="На главную" FontSize="17" MinHeight="40" MinWidth="120" HorizontalAlignment="Center" Margin="20" Background="#3C507D" Foreground="#D9CBC2" Click="toMainBtn_Click"/>
         </StackPanel>
     </Grid>
 </Page>
