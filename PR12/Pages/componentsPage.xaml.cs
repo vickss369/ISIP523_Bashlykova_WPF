@@ -22,16 +22,12 @@ namespace PR12
     public partial class componentsPage : Page
     {
         private List<basepart_> allParts;
-        private List<basepart_> selectedParts = new List<basepart_>();
-
         private string selectedCategory = "Все";
         private Button activeCategoryButton = null;
 
         public componentsPage()
         {
             InitializeComponent();
-            nextBtn.IsEnabled = false;
-
             LoadParts();
             LoadManufacturers();
             LoadCategories();
@@ -107,15 +103,10 @@ namespace PR12
         {
             var part = (sender as Button).DataContext as basepart_;
 
-            if (!selectedParts.Any(p => p.id == part.id))
+            if (!allParts.Any(p => p.id == part.id))
             {
-                selectedParts.Add(part);
+                allParts.Add(part);
                 MessageBox.Show($"Добавлено: {part.name}");
-            }
-
-            if (selectedParts.Count > 0)
-            {
-                nextBtn.IsEnabled = true;
             }
         }
 
@@ -123,10 +114,9 @@ namespace PR12
         {
             NavigationService.GoBack();
         }
-
         private void nextBtn_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new buildSummaryPage(selectedParts));
+            NavigationService.Navigate(new buildSummaryPage(allParts));
         }
     }
 }

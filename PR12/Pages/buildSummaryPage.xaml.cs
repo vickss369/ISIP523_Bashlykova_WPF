@@ -22,14 +22,9 @@ namespace PR12
     public partial class buildSummaryPage : Page
     {
         private List<basepart_> selectedParts;
-        List<string> errors = new List<string>();
-
         public buildSummaryPage(List<basepart_> parts)
         {
             InitializeComponent();
-            saveBtn.IsEnabled = false;
-            buildNameTB.IsEnabled = false;
-            authorTB.IsEnabled = false;
 
             selectedParts = parts;
 
@@ -46,7 +41,7 @@ namespace PR12
         private void CalculateTotalPrice()
         {
             decimal total = selectedParts.Sum(p => p.price);
-            totalPriceTBl.Text = $"{total}₽";
+            totalPriceText.Text = $"{total} ₽";
         }
 
         private void CheckCompatibility()
@@ -59,53 +54,34 @@ namespace PR12
             var psu = selectedParts.FirstOrDefault(p => p.powersupply_ != null)?.powersupply_;
             var pcCase = selectedParts.FirstOrDefault(p => p.case_ != null)?.case_;
 
+            List<string> errors = new List<string>();
+
             if (cpu != null && motherboard != null && cpu.socketid != motherboard.socketid)
             {
-                errors.Add("! Сокет процессора несовместим с материнской платой");
+                errors.Add("Сокет процессора несовместим с материнской платой");
             }
 
             if (cooler != null && cpu != null && !cooler.socketprocessorcooler_.Any(s => s.socketid == cpu.socketid))
             {
-                errors.Add("! Кулер не поддерживает сокет процессора");
+                errors.Add("Кулер не поддерживает сокет процессора");
             }
 
             if (motherboard != null && pcCase != null && !pcCase.boardformfactorcase_.Any(f => f.formfactorid == motherboard.formfactorid))
             {
-                errors.Add("! Корпус не поддерживает форм-фактор материнской платы");
+                errors.Add("Корпус не поддерживает форм-фактор материнской платы");
             }
 
             if (ram != null && motherboard != null && ram.memorytypeid != motherboard.memorytypeid)
             {
-                errors.Add("! Тип оперативной памяти не поддерживается материнской платой");
+                errors.Add("Тип оперативной памяти не поддерживается материнской платой");
             }
 
             if (gpu != null && psu != null && gpu.recommendpower.HasValue && gpu.recommendpower.Value > psu.power)
             {
-                errors.Add("! Недостаточная мощность блока питания");
+                errors.Add("Недостаточная мощность блока питания");
             }
 
-            compatibilityTBl.Text = errors.Count == 0 ? "Все комплектующие совместимы!" : string.Join("\n", errors);
-            if (errors.Count == 0)
-            {
-                saveBtn.IsEnabled = true;
-                buildNameTB.IsEnabled = true;
-                authorTB.IsEnabled = true;
-            }
-        }
-
-        private void removeBtn_Click(object sender, RoutedEventArgs e)
-        {
-            var part = (sender as Button).DataContext as basepart_;
-
-            if (part == null) return;
-
-            selectedParts.Remove(part);
-
-            selectedPartsList.ItemsSource = null;
-            selectedPartsList.ItemsSource = selectedParts;
-
-            CalculateTotalPrice();
-            CheckCompatibility();
+            compatibilityText.Text = errors.Count == 0 ? "Все комплектующие совместимы!" : string.Join("\n", errors);
         }
 
         private void backBtn_Click(object sender, RoutedEventArgs e)
@@ -115,7 +91,8 @@ namespace PR12
 
         private void saveBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(buildNameTB.Text) || string.IsNullOrWhiteSpace(authorTB.Text))
+            if (string.IsNullOrWhiteSpace(buildNameBox.Text) ||
+                string.IsNullOrWhiteSpace(authorBox.Text))
             {
                 MessageBox.Show("Введите название сборки и автора");
                 return;
@@ -123,8 +100,8 @@ namespace PR12
 
             var assembly = new assembly_
             {
-                name = buildNameTB.Text,
-                author = authorTB.Text
+                name = buildNameBox.Text,
+                author = authorBox.Text
             };
 
             Core.Context.assembly_.Add(assembly);
@@ -142,7 +119,6 @@ namespace PR12
             Core.Context.SaveChanges();
 
             MessageBox.Show("Сборка сохранена!");
-            NavigationService.Navigate(new MainPage());
         }
     }
 }

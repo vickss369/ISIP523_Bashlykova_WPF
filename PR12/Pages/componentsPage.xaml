@@ -57,31 +57,24 @@
             </ItemsControl>
         </StackPanel>
 
-        <ListBox x:Name="partsList" Grid.Row="3" Margin="20" BorderThickness="0" Background="Transparent" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" d:ItemsSource="{d:SampleData ItemCount=5}">
+        <ListBox x:Name="partsList" Grid.Row="3" Margin="20" BorderThickness="0" Background="Transparent" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel />
+                    <WrapPanel/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
 
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Border Width="260" Margin="10" Padding="12"  Background="#F9F7F6" BorderBrush="#3A2119" BorderThickness="2" CornerRadius="10">
-                        <StackPanel>
-                            <Image Source="{Binding image}" Height="140" Stretch="Uniform" Margin="0,0,0,8"/>
-                            <TextBlock Text="{Binding name}" FontWeight="Bold" FontSize="15" TextWrapping="Wrap" TextAlignment="Center"/>
-                            <TextBlock Text="{Binding manufacturer_.name, StringFormat=Производитель: {0}}" FontSize="13" Margin="0,4,0,0" TextAlignment="Center"/>
-                            <TextBlock Text="{Binding price, StringFormat=Цена: {0} ₽}" FontSize="14" FontWeight="Bold" Margin="0,6,0,8" TextAlignment="Center"/>
+                    <Border Width="260" Margin="10" Padding="10" Background="#617891" BorderBrush="#3A2119" BorderThickness="1" CornerRadius="10">
 
-                            <ItemsControl ItemsSource="{Binding Specs}" Margin="0,0,0,8">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding}" FontSize="13" TextWrapping="Wrap"/>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-
-                            <Button Content="Выбрать" FontSize="15" Height="40" Width="120" Background="#DBBDA3" Margin="0,6,0,0" Click="SelectPart_Click"/>
+                        <StackPanel HorizontalAlignment="Center">
+                            <Image Source="{Binding image}" Height="140" Stretch="UniformToFill" Margin="0,0,0,8"/>
+                            <TextBlock Text="{Binding name}" FontWeight="Bold" FontSize="14" TextWrapping="Wrap"/>
+                            <TextBlock Text="{Binding manufacturer_.name, StringFormat=Производитель: {0}}" FontSize="13" Margin="0,4,0,0"/>
+                            <TextBlock Text="{Binding parttype_.name, StringFormat=Тип: {0}}" FontSize="13"/>
+                            <TextBlock Text="{Binding price, StringFormat=Цена: {0} ₽}" FontSize="14" FontWeight="Bold" Margin="0,6,0,8"/>
+                            <Button Content="Выбрать" Height="35" Background="#25344F" Foreground="#D9CBC2" Click="SelectPart_Click"/>
                         </StackPanel>
                     </Border>
                 </DataTemplate>

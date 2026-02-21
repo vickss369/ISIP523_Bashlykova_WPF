@@ -71,6 +71,7 @@
     <Compile Include="basepart_.cs">
       <DependentUpon>ModelPR15.tt</DependentUpon>
     </Compile>
+    <Compile Include="basepart_partial.cs" />
     <Compile Include="boardformfactorcase_.cs">
       <DependentUpon>ModelPR15.tt</DependentUpon>
     </Compile>
