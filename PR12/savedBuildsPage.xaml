@@ -41,6 +41,9 @@
                                 <TextBlock Text="{Binding id, StringFormat=Сборка №{0}}" FontSize="16" FontWeight="Bold"/>
                                 <TextBlock Text="{Binding name}" FontSize="16" TextWrapping="Wrap" Margin="5,0,0,10"/>
                                 <TextBlock Text="{Binding author, StringFormat=Автор: {0}}" FontSize="15" Margin="5,0,0,10"/>
+
+                                <TextBlock Text="Цена сборки:" FontSize="15" FontWeight="Bold" Margin="5,5,0,0"/>
+                                <TextBlock Text="{Binding TotalPrice}" FontSize="15" Margin="10,0,0,10"/>
                             </StackPanel>
 
                             <StackPanel Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="10,0,0,0">

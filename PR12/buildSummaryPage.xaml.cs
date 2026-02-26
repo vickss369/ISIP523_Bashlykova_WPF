@@ -46,7 +46,7 @@ namespace PR12
         private void CalculateTotalPrice()
         {
             decimal total = selectedParts.Sum(p => p.price);
-            totalPriceTBl.Text = $"{total}₽";
+            totalPriceTBl.Text = $"{total}$";
         }
 
         private void CheckCompatibility()
@@ -141,7 +141,17 @@ namespace PR12
 
             Core.Context.SaveChanges();
 
-            MessageBox.Show("Сборка сохранена!");
+            assembly.partassembly_ = Core.Context.partassembly_.Where(p => p.assemblyid == assembly.id).ToList();
+
+            MessageBox.Show(
+                $"Сборка сохранена!\n\n" +
+                $"Название: {assembly.name}\n" +
+                $"Автор: {assembly.author}\n" +
+                $"Количество частей: {assembly.PartsCount}\n" +
+                $"Общая цена: {assembly.TotalPrice:C}\n" +
+                $"Дата создания: {assembly.CreatedDateFormatted}"
+            );
+
             NavigationService.Navigate(new MainPage());
         }
     }

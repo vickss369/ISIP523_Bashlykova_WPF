@@ -52,7 +52,7 @@
                                     <TextBlock Text="{Binding name}" FontWeight="Bold" TextWrapping="Wrap"/>
                                     <TextBlock Text="{Binding manufacturer_.name, StringFormat=Производитель: {0}}" FontSize="12" TextWrapping="Wrap" Margin="0,4,0,0"/>
                                     <TextBlock Text="{Binding parttype_.name, StringFormat=Тип: {0}}" FontSize="12"/>
-                                    <TextBlock Text="{Binding price, StringFormat=Цена: {0} ₽}" FontWeight="Bold" Margin="0,6,0,0"/>
+                                    <TextBlock Text="{Binding price, StringFormat=Цена: {0}$}" FontWeight="Bold" Margin="0,6,0,0"/>
                                 </StackPanel>
                                 <Button Content="Удалить" FontSize="14" Width="70" Height="35" Grid.Column="2" VerticalAlignment="Center" Margin="15,0,10,0" Background="#A86A65" Foreground="#000000" BorderBrush="#3A2119" Click="removeBtn_Click"/>
                             </Grid>
