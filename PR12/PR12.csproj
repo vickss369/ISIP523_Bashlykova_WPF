@@ -72,6 +72,7 @@
     <Compile Include="Entities\Player.cs" />
     <Compile Include="Entities\Skelet.cs" />
     <Compile Include="Game Management\Factory.cs" />
+    <Compile Include="Game Management\GameLogic.cs" />
     <Compile Include="Game Management\Rand.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

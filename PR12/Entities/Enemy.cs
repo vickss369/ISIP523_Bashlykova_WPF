@@ -32,7 +32,7 @@ namespace PR12.Classes
             return damage;
         }
 
-        public virtual void TakeDamage(double rawDamage)
+       /* public virtual void TakeDamage(double rawDamage)
         {
             double damage = rawDamage - enemyProtect;
 
@@ -43,7 +43,7 @@ namespace PR12.Classes
 
             if (enemyHP < 0)
                 enemyHP = 0;
-        }
+        }*/
 
         public bool IsAlive()
         {

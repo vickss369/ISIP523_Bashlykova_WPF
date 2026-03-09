@@ -49,24 +49,26 @@ namespace PR12.Classes
             return Rand.Evade();
         }
 
-        public double BlockDamage(double damage)
+        public double Defend(double incomingDamage)
         {
+            if (Rand.Evade()) return 0;
+
             int blockPercent = Rand.BlockPercent();
             double blockValue = playerProtect * (blockPercent / 100.0);
 
-            damage -= blockValue;
+            double damage = incomingDamage - blockValue;
             if (damage < 0) damage = 0;
-
             return damage;
         }
 
-        public void TakeDamage(double damage)
+
+        /*public void TakeDamage(double damage)
         {
             playerHP -= damage;
 
             if (playerHP < 0)
                 playerHP = 0;
-        }
+        }*/
 
         public bool IsAlive()
         {
