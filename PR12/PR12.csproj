@@ -115,5 +115,29 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\chest.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\goblin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\mage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\skelet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\sword.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\protection.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\healthPotion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\cave.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

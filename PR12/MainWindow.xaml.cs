@@ -20,40 +20,9 @@ namespace PR12
     /// </summary>
     public partial class MainWindow : Window
     {
-        public CarConfiguration Config { get; private set; } = new CarConfiguration();
-
-        public int CurrentStep { get; private set; } = 0;
-
         public MainWindow()
         {
             InitializeComponent();
-            MainFrame.Navigate(new MainPage(Config, this));
-        }
-
-        public void SetStep(int step)
-        {
-            CurrentStep = step;
-            StepBar.Visibility = Visibility.Visible;
-            StepBar.Value = step;
-        }
-
-        private void globalBackButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            MainFrame.Navigate(new MainPage(Config, this));
-        }
-
-        private void MainFrame_OnNavigated(object sender, NavigationEventArgs e)
-        {
-            if (e.Content is MainPage)
-            {
-                globalBackButton.Visibility = Visibility.Collapsed;
-                StepBar.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                globalBackButton.Visibility = Visibility.Visible;
-                StepBar.Visibility = Visibility.Visible;
-            }
         }
     }
 }
