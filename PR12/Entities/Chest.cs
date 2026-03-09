@@ -16,10 +16,10 @@ namespace PR12.Entities
             switch (ch)
             {
                 case 1: return new ChestItem("Лечебное зелье", "Potion", 100);
-                case 2: return new ChestItem("Деревянный меч", "Weapon", 20);
-                case 3: return new ChestItem("Металлический меч", "Weapon", 30);
-                case 4: return new ChestItem("Деревянная броня", "Armor", 20);
-                case 5: return new ChestItem("Железная броня", "Armor", 30);
+                case 2: return new ChestItem("Деревянный меч", "к атаке", 20);
+                case 3: return new ChestItem("Металлический меч", "к атаке", 30);
+                case 4: return new ChestItem("Деревянная броня", "к защите", 20);
+                case 5: return new ChestItem("Железная броня", "к защите", 30);
                 default: return new ChestItem("Лечебное зелье", "Potion", 100);
             }
         }
@@ -28,10 +28,6 @@ namespace PR12.Entities
         {
             switch (item.Type)
             {
-                /*case "Potion":
-                    player.HealthFull();
-                    break;*/
-
                 case "Weapon":
                     player.weaponName = item.Name;
                     player.playerAttack = item.Value;

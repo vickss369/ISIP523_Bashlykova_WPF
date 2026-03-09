@@ -70,11 +70,6 @@ namespace PR12.Classes
                 playerHP = 0;
         }*/
 
-        public bool IsAlive()
-        {
-            return playerHP > 0;
-        }
-
         public void HealthFull()
         {
             playerHP = maxHP;

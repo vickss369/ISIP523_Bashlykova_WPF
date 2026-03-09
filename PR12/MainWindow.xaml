@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PR12"
         mc:Ignorable="d"
-        Title="Игрушка крутая" MinHeight="500" MinWidth="800">
+        Title="Игрушка крутая" MinHeight="600" MinWidth="800">
     <Grid>
         <Frame x:Name="MainFrame" Grid.Row="1" Source="\Pages\MainPage.xaml" NavigationUIVisibility="Hidden"/>
     </Grid>

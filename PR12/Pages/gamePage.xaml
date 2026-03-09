@@ -13,8 +13,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="2*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Text="Roguelike-игра от vickss :)" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#442D1C"/>
@@ -37,11 +37,24 @@
 
         <Grid Grid.Row="2" Margin="0,10">
             <Image x:Name="gameBackground" Source="/Image/cave.jpg" Stretch="Fill"/>
-            <Image x:Name="gameHero" Width="150" Height="150" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            <ItemsControl x:Name="heroesImagesPanel" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel HorizontalAlignment="Center"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding}" Stretch="Uniform" MaxHeight="200" Margin="10"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,10">
-                <Button x:Name="attackBtn" Content="Атака" FontSize="16" Width="110" Height="35" Margin="10" Background="#6B212C" Foreground="#D9CBC2"/>
-                <Button x:Name="defendBtn" Content="Защита" FontSize="16" Width="110" Height="35" Margin="10" Background="#64854C" Foreground="#D9CBC2"/>
+                <Button x:Name="redBtn" Content="Атака" FontSize="16" Width="110" Height="35" Margin="10" Background="#6B212C" Foreground="#D9CBC2" Click="Btns_Click"/>
+                <Button x:Name="greenBtn" Content="Защита" FontSize="16" Width="110" Height="35" Margin="10" Background="#64854C" Foreground="#D9CBC2" Click="Btns_Click"/>
             </StackPanel>
         </Grid>
 
@@ -59,18 +72,17 @@
                     <TextBlock x:Name="weaponTBl" FontSize="15" Text="Нет" Margin="10,0,0,15" Foreground="#442D1C"/>
 
                     <TextBlock Text="Доспех:" FontSize="16" FontWeight="Bold" Foreground="#442D1C" Margin="5,0,0,3"/>
-                    <TextBlock x:Name="armorTBl" FontSize="15" Text="Нет" Foreground="#442D1C" Margin="10,0,0,10"/>
+                    <TextBlock x:Name="protectTBl" FontSize="15" Text="Нет" Foreground="#442D1C" Margin="10,0,0,10"/>
                 </StackPanel>
             </Border>
 
             <Border Grid.Column="1" Margin="5" CornerRadius="10" BorderBrush="#442D1C" BorderThickness="2" Background="#F5E9DC">
-                <StackPanel Margin="10">
+                <Grid Margin="10">
                     <TextBlock Text="Журнал событий" FontSize="18" FontWeight="Bold" Foreground="#442D1C" HorizontalAlignment="Center" Margin="0,0,0,10"/>
-
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <TextBlock x:Name="logTBl" TextWrapping="Wrap" Foreground="#442D1C" FontSize="14"/>
+                    <ScrollViewer Margin="0,30,0,0" VerticalScrollBarVisibility="Auto">
+                        <TextBlock x:Name="logTBl" TextWrapping="Wrap" Foreground="#442D1C" FontSize="15"/>
                     </ScrollViewer>
-                </StackPanel>
+                </Grid>
             </Border>
         </Grid>
     </Grid>

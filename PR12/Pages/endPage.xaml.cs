@@ -27,7 +27,7 @@ namespace PR12.Pages
 
         private void restartBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new gamePage());
         }
     }
 }
