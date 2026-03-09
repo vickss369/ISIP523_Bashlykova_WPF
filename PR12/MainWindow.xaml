@@ -7,17 +7,6 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="550" Width="800">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <StackPanel Orientation="Horizontal"  VerticalAlignment="Center" Grid.Row="0">
-            <TextBlock Text="Конфигуратор автомобиля" FontSize="22" Margin="20,0" Width="277"/>
-            <ProgressBar x:Name="StepBar" Width="300" Height="14" 
-                         Minimum="1" Maximum="5" Margin="20,0"/>
-            <Button x:Name="globalBackButton" Content="← На главную" Width="95" Margin="10" Click="globalBackButton_OnClick" Height="28"/>
-        </StackPanel>
-        <Frame x:Name="MainFrame" Grid.Row="1" Source="MainPage.xaml" NavigationUIVisibility="Hidden" Navigated="MainFrame_OnNavigated" Grid.ColumnSpan="2"/>
+        <Frame x:Name="MainFrame" Grid.Row="1" Source="\Pages\MainPage.xaml" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>
