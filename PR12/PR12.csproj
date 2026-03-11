@@ -150,6 +150,17 @@
   <ItemGroup>
     <Resource Include="Image\cave.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Image\VVG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Pestov .png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\MaxCpp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Kovalsky.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -47,7 +47,17 @@ namespace PR12.Pages
             {
                 foreach (var enemy in currentEnemies)
                 {
-                    heroesImagesPanel.Items.Add(GetEnemyImage(enemy));
+                    //heroesImagesPanel.Items.Add(GetEnemyImage(enemy));
+
+                    Image img = new Image();
+                    img.Source = GetEnemyImage(enemy);
+
+                    if (currentIsBoss)
+                        img.Height = 320;
+                    else
+                        img.Height = 200;
+
+                    heroesImagesPanel.Items.Add(img);
                 }
 
                 redBtn.Visibility = Visibility.Visible;
@@ -119,6 +129,43 @@ namespace PR12.Pages
 
             UpdatePlayerPanel();
         }
+
+        /*private void NextTurn()
+        {
+            //ТЕСТ БОССА (временно)
+            currentEnemies = new List<Enemy>();
+            currentEnemies.Add(Factory.GenerateBoss());
+            currentItem = null;
+            currentIsBoss = true;
+
+            heroesImagesPanel.Items.Clear();
+
+            if (currentEnemies != null && currentEnemies.Count > 0)
+            {
+                foreach (var enemy in currentEnemies)
+                {
+                    Image img = new Image();
+                    img.Source = GetEnemyImage(enemy);
+
+                    if (currentIsBoss)
+                        img.Height = 320;
+                    else
+                        img.Height = 200;
+
+                    heroesImagesPanel.Items.Add(img);
+                }
+
+                redBtn.Visibility = Visibility.Visible;
+                greenBtn.Visibility = Visibility.Visible;
+
+                redBtn.Content = "Атака";
+                greenBtn.Content = "Защита";
+
+                LogMessage($"Босс {currentEnemies[0].enemyName} появился!");
+            }
+
+            UpdatePlayerPanel();
+        }*/
 
         private void Btns_Click(object sender, RoutedEventArgs e)
         {
@@ -224,11 +271,29 @@ namespace PR12.Pages
                 case "Гоблин":
                     imagePath = "/Image/goblin.png";
                     break;
+
                 case "Скелет":
                     imagePath = "/Image/skelet.png";
                     break;
+
                 case "Маг":
                     imagePath = "/Image/mage.png";
+                    break;
+
+                case "ВВГ (босс гоблинов)":
+                    imagePath = "/Image/VVG.png";
+                    break;
+
+                case "Ковальский (босс скелетов)":
+                    imagePath = "/Image/Kovalsky.png";
+                    break;
+
+                case "Архимаг С++ (босс магов)":
+                    imagePath = "/Image/MaxCpp.png";
+                    break;
+
+                case "Пестов С-- (AAAAA)":
+                    imagePath = "/Image/Pestov .png";
                     break;
                 default:
                     imagePath = "/Image/goblin.png";
