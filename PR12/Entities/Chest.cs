@@ -15,12 +15,12 @@ namespace PR12.Entities
             int ch = Rand.GetRandomChoice(1, 6);
             switch (ch)
             {
-                case 1: return new ChestItem("Лечебное зелье", "Potion", 100);
-                case 2: return new ChestItem("Деревянный меч", "к атаке", 20);
-                case 3: return new ChestItem("Металлический меч", "к атаке", 30);
-                case 4: return new ChestItem("Деревянная броня", "к защите", 20);
-                case 5: return new ChestItem("Железная броня", "к защите", 30);
-                default: return new ChestItem("Лечебное зелье", "Potion", 100);
+                case 1: return new ChestItem("Лечебное зелье", "Зелье", 100);
+                case 2: return new ChestItem("Деревянный меч", "сил атаки", 20);
+                case 3: return new ChestItem("Металлический меч", "сил атаки", 30);
+                case 4: return new ChestItem("Деревянная броня", "ед. защиты", 20);
+                case 5: return new ChestItem("Железная броня", "ед. защиты", 30);
+                default: return new ChestItem("Лечебное зелье", "Зелье", 100);
             }
         }
 
@@ -28,12 +28,12 @@ namespace PR12.Entities
         {
             switch (item.Type)
             {
-                case "Weapon":
+                case "сил атаки":
                     player.weaponName = item.Name;
                     player.playerAttack = item.Value;
                     break;
 
-                case "Armor":
+                case "ед. защиты":
                     player.protectionName = item.Name;
                     player.playerProtect = item.Value;
                     break;

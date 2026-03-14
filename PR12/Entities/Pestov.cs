@@ -14,11 +14,11 @@ namespace PR12.Classes
         public Pestov()
             : base(
                 "Пестов С-- (AAAAA)",
-                Rand.GetRandomChoice(30, 41) * 1.3,
-                Rand.GetRandomChoice(15, 26) * 1.8,
-                Rand.GetRandomChoice(10, 16) * 0.6)
+                Rand.GetRandomChoice(35, 41) * 1.3,
+                Rand.GetRandomChoice(17, 23) * 1.8,
+                Rand.GetRandomChoice(15, 20) * 0.6)
         {
-            freezeChance = Rand.GetRandomChoice(25, 36) + (Rand.GetRandomChoice(25, 36) / 100 * 10);
+            freezeChance = Rand.GetRandomChoice(23, 32) + (Rand.GetRandomChoice(23, 32) / 100 * 15);
         }
 
         public override double DamageToPlayer(Player player)

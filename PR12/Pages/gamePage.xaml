@@ -68,18 +68,22 @@
                 <StackPanel Margin="15,15,0,10">
                     <TextBlock Text="Инвентарь" FontSize="18" FontWeight="Bold" Foreground="#442D1C" Margin="0,0,0,10"/>
 
-                    <TextBlock Text="Оружие:" FontSize="16" FontWeight="Bold" Foreground="#442D1C" Margin="5,0,0,3"/>
-                    <TextBlock x:Name="weaponTBl" FontSize="15" Text="Нет" Margin="10,0,0,15" Foreground="#442D1C"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Оружие:" FontSize="16" FontWeight="Bold" Foreground="#442D1C" Margin="5,0,0,3"/>
+                        <TextBlock x:Name="weaponTBl" FontSize="15" Text="Нет" Margin="10,0,0,7" Foreground="#442D1C"/>
+                    </StackPanel>
 
-                    <TextBlock Text="Доспех:" FontSize="16" FontWeight="Bold" Foreground="#442D1C" Margin="5,0,0,3"/>
-                    <TextBlock x:Name="protectTBl" FontSize="15" Text="Нет" Foreground="#442D1C" Margin="10,0,0,10"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Доспех:" FontSize="16" FontWeight="Bold" Foreground="#442D1C" Margin="5,0,0,3"/>
+                        <TextBlock x:Name="protectTBl" FontSize="15" Text="Нет" Foreground="#442D1C" Margin="10,0,0,10"/>
+                    </StackPanel>
                 </StackPanel>
             </Border>
 
             <Border Grid.Column="1" Margin="5" CornerRadius="10" BorderBrush="#442D1C" BorderThickness="2" Background="#F5E9DC">
                 <Grid Margin="10">
                     <TextBlock Text="Журнал событий" FontSize="18" FontWeight="Bold" Foreground="#442D1C" HorizontalAlignment="Center" Margin="0,0,0,10"/>
-                    <ScrollViewer Margin="0,30,0,0" VerticalScrollBarVisibility="Auto">
+                    <ScrollViewer x:Name="logScrollViewer"  Margin="0,30,0,0" VerticalScrollBarVisibility="Auto">
                         <TextBlock x:Name="logTBl" TextWrapping="Wrap" Foreground="#442D1C" FontSize="15"/>
                     </ScrollViewer>
                 </Grid>

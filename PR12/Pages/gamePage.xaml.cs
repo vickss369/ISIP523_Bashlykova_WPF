@@ -25,6 +25,7 @@ namespace PR12.Pages
     {
         private Player player;
         private GameLogic game;
+
         private List<Enemy> currentEnemies;
         private ChestItem currentItem;
         private bool currentIsBoss;
@@ -35,6 +36,7 @@ namespace PR12.Pages
 
             player = new Player(100, 15, 10);
             game = new GameLogic(player);
+
             NextTurn();
         }
 
@@ -43,208 +45,167 @@ namespace PR12.Pages
             (currentEnemies, currentItem, currentIsBoss) = game.NextTurn();
 
             heroesImagesPanel.Items.Clear();
-            if (currentEnemies != null && currentEnemies.Count > 0)
+
+            if (currentEnemies != null)
             {
-                foreach (var enemy in currentEnemies)
-                {
-                    //heroesImagesPanel.Items.Add(GetEnemyImage(enemy));
-
-                    Image img = new Image();
-                    img.Source = GetEnemyImage(enemy);
-
-                    if (currentIsBoss)
-                        img.Height = 320;
-                    else
-                        img.Height = 200;
-
-                    heroesImagesPanel.Items.Add(img);
-                }
-
-                redBtn.Visibility = Visibility.Visible;
-                greenBtn.Visibility = Visibility.Visible;
-
-                redBtn.Content = "Атака";
-                greenBtn.Content = "Защита";
-
-                LogMessage(currentIsBoss ? $"Босс {currentEnemies[0].enemyName} появился!" :
-                                           $"Вас атакуют {currentEnemies.Count} врага(ов)!");
+                ShowEnemies();
             }
             else if (currentItem != null)
             {
-                heroesImagesPanel.Items.Clear();
-                Grid chestGrid = new Grid();
-
-                Image chestImage = new Image();
-                chestImage.Source = new BitmapImage(new Uri("/Image/chest.png", UriKind.Relative));
-                chestImage.Height = 220;
-                chestImage.Stretch = Stretch.Uniform;
-                chestGrid.Children.Add(chestImage);
-
-                Image itemImage = new Image();
-                itemImage.Margin = new Thickness(30, 25, 0, 0);
-                itemImage.VerticalAlignment = VerticalAlignment.Center;
-                itemImage.HorizontalAlignment = HorizontalAlignment.Center;
-
-                switch (currentItem.Type)
-                {
-                    case "к атаке":
-                        itemImage.Source = new BitmapImage(new Uri("/Image/sword.png", UriKind.Relative));
-                        itemImage.Height = 200;
-                        break;
-
-                    case "к защите":
-                        itemImage.Source = new BitmapImage(new Uri("/Image/protection.png", UriKind.Relative));
-                        itemImage.Height = 170;
-                        break;
-
-                    case "Potion":
-                        itemImage.Source = new BitmapImage(new Uri("/Image/healthPotion.png", UriKind.Relative));
-                        itemImage.Height = 140;
-                        break;
-                }
-                chestGrid.Children.Add(itemImage);
-                heroesImagesPanel.Items.Add(chestGrid);
-
-                if (currentItem.Type == "Potion")
-                {
-                    redBtn.Visibility = Visibility.Collapsed;
-                    greenBtn.Content = "Супер!";
-
-                    player.HealthFull();
-                    UpdatePlayerPanel();
-
-                    LogMessage($"Вы нашли зелье и восстановили здоровье до {player.playerHP} HP!");
-                }
-                else
-                {
-                    redBtn.Visibility = Visibility.Visible;
-                    greenBtn.Visibility = Visibility.Visible;
-
-                    redBtn.Content = "Не взять";
-                    greenBtn.Content = "Взять";
-
-                    LogMessage($"Вы нашли {currentItem.Name} (+{currentItem.Value} {currentItem.Type})!");
-                }
+                ShowChest();
             }
 
             UpdatePlayerPanel();
         }
 
-        /*private void NextTurn()
+        private void ShowEnemies()
         {
-            //ТЕСТ БОССА (временно)
-            currentEnemies = new List<Enemy>();
-            currentEnemies.Add(Factory.GenerateBoss());
-            currentItem = null;
-            currentIsBoss = true;
-
-            heroesImagesPanel.Items.Clear();
-
-            if (currentEnemies != null && currentEnemies.Count > 0)
+            foreach (var enemy in currentEnemies)
             {
-                foreach (var enemy in currentEnemies)
-                {
-                    Image img = new Image();
-                    img.Source = GetEnemyImage(enemy);
+                Image img = new Image();
+                img.Source = GetEnemyImage(enemy);
+                img.Height = currentIsBoss ? 360 : 220;
 
-                    if (currentIsBoss)
-                        img.Height = 320;
-                    else
-                        img.Height = 200;
+                heroesImagesPanel.Items.Add(img);
+            }
 
-                    heroesImagesPanel.Items.Add(img);
-                }
+            redBtn.Visibility = Visibility.Visible;
+            greenBtn.Visibility = Visibility.Visible;
 
+            redBtn.Content = "Атака";
+            greenBtn.Content = "Защита";
+
+            LogMessage(currentIsBoss ?
+                $"\nВНИМАНИЕ!!!\n{currentEnemies[0].enemyName} появился!" :
+                $"\nВас атакуют {currentEnemies.Count} враг(а)!");
+        }
+
+        private void ShowChest()
+        {
+            Grid chestGrid = new Grid();
+
+            Image chestImage = new Image();
+            chestImage.Source = new BitmapImage(new Uri("/Image/chest.png", UriKind.Relative));
+            chestImage.Height = 220;
+
+            chestGrid.Children.Add(chestImage);
+
+            Image itemImage = new Image();
+
+            switch (currentItem.Type)
+            {
+                case "сил атаки":
+                    itemImage.Source = new BitmapImage(new Uri("/Image/sword.png", UriKind.Relative));
+                    itemImage.Height = 200;
+                    break;
+
+                case "ед. защиты":
+                    itemImage.Source = new BitmapImage(new Uri("/Image/protection.png", UriKind.Relative));
+                    itemImage.Height = 170;
+                    break;
+
+                case "Зелье":
+                    itemImage.Source = new BitmapImage(new Uri("/Image/healthPotion.png", UriKind.Relative));
+                    itemImage.Height = 140;
+                    break;
+            }
+
+            chestGrid.Children.Add(itemImage);
+
+            heroesImagesPanel.Items.Add(chestGrid);
+
+            if (currentItem.Type == "Зелье")
+            {
+                player.HealthFull();
+
+                redBtn.Visibility = Visibility.Collapsed;
+                greenBtn.Content = "Супер!";
+                HPTBl.Text = 100.ToString();
+
+                LogMessage($"\nВы нашли зелье и восстановили HP!");
+            }
+            else
+            {
                 redBtn.Visibility = Visibility.Visible;
                 greenBtn.Visibility = Visibility.Visible;
 
-                redBtn.Content = "Атака";
-                greenBtn.Content = "Защита";
+                redBtn.Content = "Не взять";
+                greenBtn.Content = "Взять";
 
-                LogMessage($"Босс {currentEnemies[0].enemyName} появился!");
+                LogMessage($"\nВы нашли {currentItem.Name} ({currentItem.Value} {currentItem.Type})");
             }
-
-            UpdatePlayerPanel();
-        }*/
+        }
 
         private void Btns_Click(object sender, RoutedEventArgs e)
         {
             Button btn = sender as Button;
-            if (btn == null) return;
 
             if (currentEnemies != null)
             {
                 if (btn.Content.ToString() == "Атака")
                 {
+                    var logs = game.PlayerAttack(currentEnemies);
+                    foreach (var log in logs) LogMessage(log);
+
+                    var enemyLogs = game.EnemyTurn(currentEnemies);
+                    foreach (var log in enemyLogs) LogMessage(log);
+                }
+
+                if (btn.Content.ToString() == "Защита")
+                {
+                    bool skeletonPresent = false;
+
                     foreach (var enemy in currentEnemies)
                     {
-                        double dmg = player.AttackEnemy();
-                        enemy.enemyHP -= dmg;
-                        LogMessage($"Вы нанесли {dmg} ед. урона {enemy.enemyName}!");
-
-                        double enemyDmg = enemy.DamageToPlayer(player);
-                        player.playerHP -= enemyDmg;
-                        LogMessage($"{enemy.enemyName} нанес вам {enemyDmg} ед. урона!");
-
-                        if (enemy is Mag magEnemy && Rand.Freeze(magEnemy.freezeChance))
+                        if (enemy is Skelet || enemy is Pestov)
                         {
-                            player.isFrozen = true;
-                            LogMessage("Вы заморожены магией!");
-                        }
-                        else if (enemy is Pestov pestovEnemy && Rand.Freeze(pestovEnemy.freezeChance))
-                        {
-                            player.isFrozen = true;
-                            LogMessage("Пестов использовал свою способность! Вы заморожены!");
+                            skeletonPresent = true;
+                            break;
                         }
                     }
-                }
-                else if (btn.Content.ToString() == "Защита")
-                {
-                    if (player.TryEvade())
+
+                    if (skeletonPresent)
                     {
-                        LogMessage("Вы успешно уклонились от следующей атаки!");
+                        LogMessage("\nСкелет игнорирует защиту игрока!");
+
+                        var enemyLogs = game.EnemyTurn(currentEnemies);
+                        foreach (var log in enemyLogs) LogMessage(log);
                     }
                     else
                     {
-                        LogMessage("Уклон не удался. Активирован блок.");
-                        foreach (var enemy in currentEnemies)
-                        {
-                            double dmg = enemy.DamageToPlayer(player);
-                            dmg = player.Defend(dmg);
-                            player.playerHP -= dmg;
-                            LogMessage($"{enemy.enemyName} нанес {dmg} ед. после блока.");
-                        }
+                        var logs = game.PlayerDefend(currentEnemies);
+                        foreach (var log in logs) LogMessage(log);
                     }
                 }
 
                 currentEnemies.RemoveAll(en => en.enemyHP <= 0);
-
                 if (currentEnemies.Count == 0)
                 {
-                    LogMessage("Все враги повержены!");
+                    LogMessage("\nВсе враги побеждены!");
                     NextTurn();
                 }
             }
+
             else if (currentItem != null)
             {
-                if (btn.Content.ToString() == "Взять")
+                if (btn.Content.ToString() == "Взять" || btn.Content.ToString() == "Супер!")
                 {
-                    Chest.TakeItem(player, currentItem);
-                    LogMessage($"Вы экипировали {currentItem.Name}!");
+                    game.TakeItem(currentItem);
+                    LogMessage($"Вы взяли {currentItem.Name}");
                 }
-                else if (btn.Content.ToString() == "Не взять")
+                else
                 {
-                    LogMessage($"Вы пропустили {currentItem.Name}.");
+                    LogMessage($"Вы оставили {currentItem.Name}");
                 }
 
                 currentItem = null;
                 NextTurn();
             }
+
             UpdatePlayerPanel();
 
-            if (player.playerHP <= 0)
+            if (game.IsPlayerDead())
             {
-                LogMessage("Вы погибли!");
                 NavigationService.Navigate(new endPage());
             }
         }
@@ -253,13 +214,14 @@ namespace PR12.Pages
         {
             stepTBl.Text = game.turn.ToString();
             HPTBl.Text = player.playerHP.ToString();
-            weaponTBl.Text = $"{player.weaponName}";
-            protectTBl.Text = $"{player.protectionName}";
+            weaponTBl.Text = player.weaponName;
+            protectTBl.Text = player.protectionName;
         }
 
         private void LogMessage(string message)
         {
             logTBl.Text += message + "\n";
+            logScrollViewer.ScrollToEnd();
         }
 
         private BitmapImage GetEnemyImage(Enemy enemy)
@@ -293,14 +255,15 @@ namespace PR12.Pages
                     break;
 
                 case "Пестов С-- (AAAAA)":
-                    imagePath = "/Image/Pestov .png";
+                    imagePath = "/Image/Pestov.png";
                     break;
+
                 default:
                     imagePath = "/Image/goblin.png";
                     break;
             }
 
-            return new BitmapImage(new System.Uri(imagePath, System.UriKind.Relative));
+            return new BitmapImage(new Uri(imagePath, UriKind.Relative));
         }
     }
 }

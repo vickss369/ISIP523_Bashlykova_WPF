@@ -154,7 +154,7 @@
     <Resource Include="Image\VVG.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Image\Pestov .png" />
+    <Resource Include="Image\Pestov.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Image\MaxCpp.png" />
