@@ -48,29 +48,66 @@ namespace PR12.Game_Management
             return (enemies, item, isBoss);
         }
 
+
+        ///это работает отлично если урон по 1 врагу
+        /*        public List<string> PlayerAttack(List<Enemy> enemies)
+                {
+                    List<string> logs = new List<string>();
+
+                    if (enemies == null || enemies.Count == 0) return logs;
+
+                    Enemy target = enemies[0];
+
+                    double playerAttack = Player.playerAttack;
+                    double enemyDefense = target.enemyProtect;
+
+                    double damage = playerAttack - enemyDefense;
+                    if (damage < 0) damage = 0;
+
+                    target.enemyHP -= damage;
+                    if (target.enemyHP < 0) target.enemyHP = 0;
+
+                    logs.Add($"\nВы нанесли {damage} урона {target.enemyName}");
+                    logs.Add($"HP врага = {target.enemyHP}");
+
+                    if (target.enemyHP == 0)
+                    {
+                        logs.Add($"{target.enemyName} повержен!");
+                    }
+
+                    return logs;
+                }*/
+
         public List<string> PlayerAttack(List<Enemy> enemies)
         {
-            List<string> logs = new List<string>();
-
+            var logs = new List<string>();
             if (enemies == null || enemies.Count == 0) return logs;
 
-            Enemy target = enemies[0];
+            double playerAtk = Player.playerAttack;
 
-            double playerAttack = Player.playerAttack;
-            double enemyDefense = target.enemyProtect;
+            logs.Add("\nВы атакуете всех врагов!");
 
-            double damage = playerAttack - enemyDefense;
-            if (damage < 0) damage = 0;
+            double cumulativePenalty = 0; 
 
-            target.enemyHP -= damage;
-            if (target.enemyHP < 0) target.enemyHP = 0;
-
-            logs.Add($"\nВы нанесли {damage} урона {target.enemyName}");
-            logs.Add($"HP врага = {target.enemyHP}");
-
-            if (target.enemyHP == 0)
+            for (int i = 0; i < enemies.Count; i++)
             {
-                logs.Add($"{target.enemyName} повержен!");
+                Enemy enemy = enemies[i];
+                double defense = enemy.enemyProtect;
+
+                double baseDamage = playerAtk - defense;
+                if (baseDamage < 0) baseDamage = 0;
+
+                double damage = baseDamage - cumulativePenalty;
+                if (damage < 0) damage = 0;
+
+                enemy.enemyHP -= damage;
+                if (enemy.enemyHP < 0) enemy.enemyHP = 0;
+
+
+                logs.Add($"{enemy.enemyName} получает {damage:F0} урона (HP: {enemy.enemyHP:F0})");
+                if (enemy.enemyHP <= 0) logs.Add($"{enemy.enemyName} повержен!");
+
+                if (i < enemies.Count - 1) cumulativePenalty += 3;     
             }
 
             return logs;
@@ -80,6 +117,7 @@ namespace PR12.Game_Management
         {
             List<string> logs = new List<string>();
 
+            logs.Add("");
             foreach (Enemy enemy in enemies)
             {
                 if (enemy.enemyHP <= 0) continue;
@@ -111,7 +149,7 @@ namespace PR12.Game_Management
                 Player.playerHP -= damage;
                 if (Player.playerHP < 0) Player.playerHP = 0;
 
-                logs.Add($"\n{enemy.enemyName} нанес {damage} урона");
+                logs.Add($"{enemy.enemyName} нанес {damage} урона");
 
                 if (enemy.enemyName == "Маг")
                 {

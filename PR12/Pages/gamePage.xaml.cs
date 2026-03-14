@@ -12,9 +12,11 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace PR12.Pages
 {
@@ -25,16 +27,17 @@ namespace PR12.Pages
     {
         private Player player;
         private GameLogic game;
+        private ChestItem currentItem;
 
         private List<Enemy> currentEnemies;
-        private ChestItem currentItem;
+        private Dictionary<Enemy, Image> enemyImages = new Dictionary<Enemy, Image>();
         private bool currentIsBoss;
 
         public gamePage()
         {
             InitializeComponent();
 
-            player = new Player(100, 15, 10);
+            player = new Player(100, 17, 12);
             game = new GameLogic(player);
 
             NextTurn();
@@ -65,13 +68,20 @@ namespace PR12.Pages
                 Image img = new Image();
                 img.Source = GetEnemyImage(enemy);
                 img.Height = currentIsBoss ? 360 : 220;
+                img.Margin = new Thickness(5);
+                img.RenderTransformOrigin = new Point(0.5, 0.5);
+
+                TransformGroup group = new TransformGroup();
+                img.RenderTransform = group;
 
                 heroesImagesPanel.Items.Add(img);
+                enemyImages[enemy] = img;
+
+                AnimateAppearance(img);
             }
 
             redBtn.Visibility = Visibility.Visible;
             greenBtn.Visibility = Visibility.Visible;
-
             redBtn.Content = "Атака";
             greenBtn.Content = "Защита";
 
@@ -80,17 +90,34 @@ namespace PR12.Pages
                 $"\nВас атакуют {currentEnemies.Count} враг(а)!");
         }
 
+        private void RemoveDeadEnemies()
+        {
+            var dead = currentEnemies.Where(e => e.enemyHP <= 0).ToList();
+
+            foreach (var enemy in dead)
+            {
+                if (enemyImages.TryGetValue(enemy, out Image img))
+                {
+                    heroesImagesPanel.Items.Remove(img);
+                    enemyImages.Remove(enemy);
+                }
+            }
+
+            currentEnemies.RemoveAll(e => e.enemyHP <= 0);
+        }
+
         private void ShowChest()
         {
             Grid chestGrid = new Grid();
 
             Image chestImage = new Image();
             chestImage.Source = new BitmapImage(new Uri("/Image/chest.png", UriKind.Relative));
-            chestImage.Height = 220;
+            chestImage.Height = 200;
 
             chestGrid.Children.Add(chestImage);
 
             Image itemImage = new Image();
+            itemImage.Margin = new Thickness(20, 20, 0, 0);
 
             switch (currentItem.Type)
             {
@@ -101,7 +128,7 @@ namespace PR12.Pages
 
                 case "ед. защиты":
                     itemImage.Source = new BitmapImage(new Uri("/Image/protection.png", UriKind.Relative));
-                    itemImage.Height = 170;
+                    itemImage.Height = 155;
                     break;
 
                 case "Зелье":
@@ -142,13 +169,57 @@ namespace PR12.Pages
 
             if (currentEnemies != null)
             {
+                ///это работает отлично если урон по 1 врагу
+/*                if (btn.Content.ToString() == "Атака")
+                {
+                    var logs = game.PlayerAttack(currentEnemies);
+                    foreach (var log in logs) LogMessage(log);
+
+                    if (currentEnemies.Count > 0)
+                    {
+                        Enemy target = currentEnemies[0];
+                        if (enemyImages.TryGetValue(target, out Image hitImg) && hitImg != null)
+                        {
+                            AnimateHit(hitImg);
+                        }
+                    }
+
+                    var enemyLogs = game.EnemyTurn(currentEnemies);
+                    foreach (var log in enemyLogs) LogMessage(log);
+
+                    RemoveDeadEnemies();
+
+                    if (currentEnemies.Count == 0)
+                    {
+                        LogMessage("\nВсе враги побеждены!");
+                        NextTurn();
+                    }
+                }*/
+
                 if (btn.Content.ToString() == "Атака")
                 {
                     var logs = game.PlayerAttack(currentEnemies);
                     foreach (var log in logs) LogMessage(log);
 
+                    foreach (var enemy in currentEnemies.ToList())
+                    {
+                        if (enemyImages.TryGetValue(enemy, out Image img) && img != null)
+                        {
+                            AnimateHit(img);
+                        }
+                    }
+
                     var enemyLogs = game.EnemyTurn(currentEnemies);
                     foreach (var log in enemyLogs) LogMessage(log);
+
+                    RemoveDeadEnemies();
+
+                    if (currentEnemies.Count == 0)
+                    {
+                        LogMessage("\nВсе враги побеждены!");
+                        NextTurn();
+                        return;   
+                    }
                 }
 
                 if (btn.Content.ToString() == "Защита")
@@ -176,13 +247,15 @@ namespace PR12.Pages
                         var logs = game.PlayerDefend(currentEnemies);
                         foreach (var log in logs) LogMessage(log);
                     }
-                }
 
-                currentEnemies.RemoveAll(en => en.enemyHP <= 0);
-                if (currentEnemies.Count == 0)
-                {
-                    LogMessage("\nВсе враги побеждены!");
-                    NextTurn();
+                    RemoveDeadEnemies();
+
+                    if (currentEnemies.Count == 0)
+                    {
+                        LogMessage("Все враги побеждены!");
+                        NextTurn();
+                        return;
+                    }
                 }
             }
 
@@ -264,6 +337,51 @@ namespace PR12.Pages
             }
 
             return new BitmapImage(new Uri(imagePath, UriKind.Relative));
+        }
+
+        private void AnimateAppearance(Image img)
+        {
+            img.Opacity = 0;
+
+            // Появление (плавное)
+            var fade = new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(600));
+            img.BeginAnimation(UIElement.OpacityProperty, fade);
+
+            // Увеличение от 0.65 до 1
+            var scaleAnim = new DoubleAnimation(0.65, 1.0, TimeSpan.FromMilliseconds(600));
+
+            var scale = new ScaleTransform(0.65, 0.65);
+            ((TransformGroup)img.RenderTransform).Children.Add(scale);
+
+            scale.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnim);
+            scale.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnim);
+        }
+
+        private void AnimateHit(Image img)
+        {
+            if (img == null) return;
+
+            var group = (TransformGroup)img.RenderTransform;
+
+            // Находим или добавляем translate
+            var trans = group.Children.OfType<TranslateTransform>().FirstOrDefault();
+            if (trans == null)
+            {
+                trans = new TranslateTransform();
+                group.Children.Add(trans);
+            }
+
+            // Самая простая встряска
+            var shake = new DoubleAnimation
+            {
+                From = 0,
+                To = -20,
+                Duration = new Duration(TimeSpan.FromMilliseconds(50)),
+                AutoReverse = true,
+                RepeatBehavior = new RepeatBehavior(4)   // 4 раза туда-сюда ≈ 0.4 сек
+            };
+
+            trans.BeginAnimation(TranslateTransform.XProperty, shake);
         }
     }
 }

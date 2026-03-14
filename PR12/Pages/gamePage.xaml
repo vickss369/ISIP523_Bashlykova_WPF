@@ -13,8 +13,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="3*"/>
             <RowDefinition Height="2*"/>
-            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Text="Roguelike-игра от vickss :)" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#442D1C"/>
@@ -47,7 +47,7 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Image Source="{Binding}" Stretch="Uniform" MaxHeight="200" Margin="10"/>
+                        <Image Source="{Binding}" Stretch="Uniform" MaxHeight="200" Margin="7"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
