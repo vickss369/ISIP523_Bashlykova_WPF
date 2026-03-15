@@ -20,22 +20,34 @@
                         <ColumnDefinition Width="10"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-
+                    
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="14"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-
+                    
                     <TextBlock Text="Имя пользователя:" Grid.Row="0" Grid.Column="0" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#3A2119"/>
                     <TextBox x:Name="userNameTB" Grid.Row="0" Grid.Column="2" FontSize="15" Height="34" HorizontalAlignment="Stretch"/>
-
+                    
                     <TextBlock Text="Пароль:" Grid.Row="2" Grid.Column="0" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#3A2119"/>
                     <PasswordBox x:Name="passwordPB" Grid.Row="2" Grid.Column="2" FontSize="15" Height="34" HorizontalAlignment="Stretch"/>
                 </Grid>
 
-                <Button x:Name="entrBtn" Content="Войти" FontSize="18" Height="50" Width="200" Background="#25344F" Foreground="#D9CBC2" Margin="0,8,0,18" HorizontalAlignment="Center" Click="enter_Click"/>
+                <StackPanel x:Name="captchaContainer" Visibility="Collapsed" Margin="0,20,0,30">
+                    <Image x:Name="captchaImage" Width="240" Height="80" Stretch="Uniform" HorizontalAlignment="Center"/>
+                    
+                    <TextBlock Text="Введите символы с картинки:" FontSize="15" Foreground="#3A2119" HorizontalAlignment="Center" Margin="0,14,0,8"/>
+                    <TextBox x:Name="captchaAnswer" FontSize="17" Width="220" Height="38" HorizontalAlignment="Center" Padding="8,6" Margin="0,0,0,16"/>
+                    
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,6,0,0">
+                        <Button Content="Обновить" FontSize="15" Width="110" Height="40" Margin="0,0,20,0" Background="#B0737C" Foreground="#3A2119" Click="RefreshCaptcha_Click"/>
+                        <Button Content="Проверить" FontSize="15" Width="110" Height="40" Background="#5A8C5A" Foreground="#3A2119" Click="CheckCaptcha_Click"/>
+                    </StackPanel>
+                </StackPanel>
 
+                <Button x:Name="entrBtn" Content="Войти" FontSize="18" Height="50" Width="200" Background="#4D5E80" Foreground="#3A2119" Margin="0,8,0,18" HorizontalAlignment="Center" Click="enter_Click"/>
+                
                 <TextBlock x:Name="switchModeText" Text="Ещё нет аккаунта? Зарегистрироваться" FontSize="14" Foreground="#3A2119" HorizontalAlignment="Center" TextDecorations="Underline" Cursor="Hand" MouseLeftButtonDown="SwitchMode_MouseLeftButtonDown" MouseEnter="SwitchMode_MouseEnter" MouseLeave="SwitchMode_MouseLeave"/>
             </StackPanel>
         </Border>
