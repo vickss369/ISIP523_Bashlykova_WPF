@@ -20,6 +20,8 @@ namespace PR12
     /// </summary>
     public partial class registrationPage : Page
     {
+        private bool isLoginMode = true;
+
         public registrationPage()
         {
             InitializeComponent();
@@ -27,8 +29,13 @@ namespace PR12
 
         private bool IsInputValid()
         {
-            bool nameOK = !string.IsNullOrWhiteSpace(userNameTB.Text) && userNameTB.Text.Length >= 2 && !userNameTB.Text.Any(char.IsDigit);
-            bool passwordOK = !string.IsNullOrWhiteSpace(passwordTB.Text) && passwordTB.Text.Length >= 5 && passwordTB.Text.Any(char.IsDigit);
+            bool nameOK = !string.IsNullOrWhiteSpace(userNameTB.Text)
+                       && userNameTB.Text.Length >= 2
+                       && !userNameTB.Text.Any(char.IsDigit);
+
+            bool passwordOK = !string.IsNullOrWhiteSpace(passwordPB.Password)
+                           && passwordPB.Password.Length >= 5
+                           && passwordPB.Password.Any(char.IsDigit);
 
             return nameOK && passwordOK;
         }
@@ -42,37 +49,91 @@ namespace PR12
             }
 
             string login = userNameTB.Text.Trim();
-            string pass = passwordTB.Text.Trim();
+            string pass = passwordPB.Password;
 
-            if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(pass))
+            if (isLoginMode)
             {
-                MessageBox.Show("Введите логин и пароль!");
-                return;
+                var user = Core.Context.Users.FirstOrDefault(u => u.UserName == login);
+                if (user == null)
+                {
+                    MessageBox.Show("Пользователь не найден.", "Ошибка");
+                    passwordPB.Password = "";
+                    return;
+                }
+
+                if (user.Password == pass)
+                {
+                    Users.CurrentLogin = login;
+                    Users.CurrentPassword = pass;
+                    MessageBox.Show("Вы вошли!");
+                    NavigationService.Navigate(new filmsPage());
+                }
+                else
+                {
+                    MessageBox.Show("Неверный пароль.", "Ошибка");
+                }
+
+                passwordPB.Password = ""; 
             }
-
-            var user = Core.Context.Users.FirstOrDefault(u => u.UserName == login && u.Password == pass);
-            if (user != null)
+            else
             {
+                if (Core.Context.Users.Any(u => u.UserName == login))
+                {
+                    MessageBox.Show("Такой логин уже занят!", "Ошибка");
+                    passwordPB.Password = "";
+                    return;
+                }
+
+                Users newUser = new Users
+                {
+                    UserName = login,
+                    Password = pass
+                };
+
+                Core.Context.Users.Add(newUser);
+                Core.Context.SaveChanges();
+
                 Users.CurrentLogin = login;
                 Users.CurrentPassword = pass;
 
-                MessageBox.Show("Вы вошли!");
+                MessageBox.Show("Регистрация прошла успешно!");
                 NavigationService.Navigate(new filmsPage());
-                return;
             }
+        }
 
-            Users newUser = new Users
+        private void SwitchMode_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            isLoginMode = !isLoginMode;
+            UpdateUIForMode();
+            userNameTB.Text = "";
+            passwordPB.Password = "";
+            userNameTB.Focus();
+        }
+
+        private void UpdateUIForMode()
+        {
+            if (isLoginMode)
             {
-                UserName = login,
-                Password = pass
-            };
-            Core.Context.Users.Add(newUser);
-            Core.Context.SaveChanges();
+                modeTitle.Text = "ВХОД";
+                entrBtn.Content = "Войти";
+                switchModeText.Text = "Ещё нет аккаунта? Зарегистрироваться";
+            }
+            else
+            {
+                modeTitle.Text = "РЕГИСТРАЦИЯ";
+                entrBtn.Content = "Зарегистрироваться";
+                switchModeText.Text = "Уже есть аккаунт? Войти";
+            }
+        }
 
-            Users.CurrentLogin = login;
-            Users.CurrentPassword = pass;
-            MessageBox.Show("Регистрация прошла успешно!");
-            NavigationService.Navigate(new filmsPage());
+        private void SwitchMode_MouseEnter(object sender, MouseEventArgs e)
+        {
+            switchModeText.Foreground = new SolidColorBrush(Color.FromRgb(80, 80, 140));
+        }
+
+        private void SwitchMode_MouseLeave(object sender, MouseEventArgs e)
+        {
+            switchModeText.Foreground = new SolidColorBrush(Color.FromRgb(58, 33, 25));
         }
     }
 }

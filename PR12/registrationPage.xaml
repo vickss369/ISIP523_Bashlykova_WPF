@@ -10,17 +10,34 @@
       Title="registrationPage">
 
     <Grid>
-        <StackPanel VerticalAlignment="Center">
-            <TextBlock Text="ВХОД" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="20" Foreground="#3A2119"/>
-            <StackPanel Orientation="Horizontal" Margin="35,15,0,0">
-                <TextBlock Text="Имя пользователя: " FontSize="17" HorizontalAlignment="Center" Margin="170, 0, 0, 0" Foreground="#3A2119"/>
-                <TextBox x:Name="userNameTB" FontSize="15" Margin="8, 0, 0, 14" Width="250" Height="30"/>
+        <Border BorderBrush="#3A2119" BorderThickness="2" CornerRadius="10" Background="#D9CBC2" HorizontalAlignment="Stretch" VerticalAlignment="Center" MaxWidth="550">
+            <StackPanel Margin="40,35">
+                <TextBlock x:Name="modeTitle" Text="ВХОД" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,25" Foreground="#3A2119"/>
+
+                <Grid Margin="0,0,0,22">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="14"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Имя пользователя:" Grid.Row="0" Grid.Column="0" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#3A2119"/>
+                    <TextBox x:Name="userNameTB" Grid.Row="0" Grid.Column="2" FontSize="15" Height="34" HorizontalAlignment="Stretch"/>
+
+                    <TextBlock Text="Пароль:" Grid.Row="2" Grid.Column="0" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#3A2119"/>
+                    <PasswordBox x:Name="passwordPB" Grid.Row="2" Grid.Column="2" FontSize="15" Height="34" HorizontalAlignment="Stretch"/>
+                </Grid>
+
+                <Button x:Name="entrBtn" Content="Войти" FontSize="18" Height="50" Width="200" Background="#25344F" Foreground="#D9CBC2" Margin="0,8,0,18" HorizontalAlignment="Center" Click="enter_Click"/>
+
+                <TextBlock x:Name="switchModeText" Text="Ещё нет аккаунта? Зарегистрироваться" FontSize="14" Foreground="#3A2119" HorizontalAlignment="Center" TextDecorations="Underline" Cursor="Hand" MouseLeftButtonDown="SwitchMode_MouseLeftButtonDown" MouseEnter="SwitchMode_MouseEnter" MouseLeave="SwitchMode_MouseLeave"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="35,15,0,0">
-                <TextBlock Text="Пароль: " FontSize="17" HorizontalAlignment="Center" Margin="170, 0, 0, 0" Foreground="#3A2119"/>
-                <TextBox x:Name="passwordTB" FontSize="15" Margin="8, 0, 0, 14" Width="250" Height="30"/>
-            </StackPanel>
-            <Button x:Name="entrBtn" Content="Войти" FontSize="18" Height="50" Width="130" Background="#25344F" Foreground="#D9CBC2" HorizontalAlignment="Center" Margin="20" Click="enter_Click"/>
-        </StackPanel>
+        </Border>
     </Grid>
 </Page>
