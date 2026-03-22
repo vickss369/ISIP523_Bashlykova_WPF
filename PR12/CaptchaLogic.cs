@@ -9,14 +9,23 @@ using System.Windows;
 
 namespace PR12
 {
-    internal class CaptchaLogic
+    /// <summary>
+    /// Класс, реализующий всю логику работы CAPTCHA в приложении: 
+    /// управление счётчиком неудачных попыток входа, генерацию текста капчи, 
+    /// проверку введённого пользователем ответа и создание искажённого изображения.
+    /// </summary>
+    public class CaptchaLogic
     {
-        public string captchaText { get; private set; } = "";
-        public int failedLoginAttempts { get; private set; } = 0;
-        public string lastFailedLogin { get; private set; } = null;
+        public string captchaText { get; set; } = "";
+        public int failedLoginAttempts { get; set; } = 0;
+        public string lastFailedLogin { get; set; } = null;
 
         private readonly Random rnd = new Random();
 
+        /// <summary>
+        /// Сбрасывает всё состояние капчи в исходное: обнуляет счётчик попыток, последний неудачный логин и текущий текст капчи.
+        /// </summary>
+        /// <remarks>Вызывается после успешного входа или успешного прохождения капчи.</remarks>
         public void Reset()
         {
             failedLoginAttempts = 0;
@@ -24,6 +33,11 @@ namespace PR12
             captchaText = "";
         }
 
+        /// <summary>
+        /// Регистрирует неудачную попытку ввода пароля.
+        /// </summary>
+        /// <param name="attemptedLogin">Логин пользователя, с которым была сделана попытка.</param>
+        /// <remarks>Увеличивает счётчик попыток и обновляет поле последнего неудачного логина.</remarks>
         public void RegisterFailedPasswordAttempt(string attemptedLogin)
         {
             failedLoginAttempts++;
@@ -39,23 +53,27 @@ namespace PR12
         {
             string chars = "ABCDEFGHJKLMNPQRSTUVWXYZ" +
                            "abcdefghjkmnpqrstuvwxyz" +
-                           "23456789" +
+                           "123456789" +
                            "!@#$%^&*";
 
-            int length = rnd.Next(6, 8);
+            int length = rnd.Next(6, 9);
             captchaText = new string(Enumerable.Repeat(chars, length)
                 .Select(s => s[rnd.Next(s.Length)])
                 .ToArray());
         }
 
+        /// <summary>
+        /// Проверяет, правильно ли пользователь ввёл символы капчи.
+        /// </summary>
+        /// <param name="userInput">Строка, введённая пользователем в поле ответа.</param>
+        /// <returns>true, если введённый текст в точности совпадает с текущим <see cref="captchaText"/> (с учётом регистра), иначе false.</returns>
+        /// <remarks>Сравнение строгое (case-sensitive). Пустой или состоящий только из пробелов ввод считается неверным.</remarks>
         public bool IsCaptchaCorrect(string userInput)
         {
             if (string.IsNullOrWhiteSpace(userInput))
-            {
                 return false;
-            }
 
-            return userInput.Trim().Equals(captchaText, StringComparison.OrdinalIgnoreCase);
+            return userInput.Trim() == captchaText;
         }
 
         public bool ShouldRegenerateCaptchaAfterWrongAnswer()
@@ -63,6 +81,24 @@ namespace PR12
             return true;
         }
 
+        /// <summary>
+        /// Создаёт графическое изображение капчи на основе текущего текста <see cref="captchaText"/>.
+        /// </summary>
+        /// <returns>Объект <see cref="BitmapImage"/>, содержащий готовое искажённое изображение, 
+        /// или <c>null</c>, если текст капчи пустой или не задан.</returns>
+        /// <remarks>
+        /// Изображение размером 240×80 пикселей создаётся с помощью WPF <see cref="DrawingVisual"/> и <see cref="RenderTargetBitmap"/>.  
+        /// Применяются следующие элементы защиты от автоматического распознавания:
+        /// <list type="bullet">
+        ///   <item><description>Светло-бежевый фон с мягкими цветными пятнами (3 эллипса с полупрозрачным градиентом).</description></item>
+        ///   <item><description>Случайные линии разной толщины и цвета (8–14 шт.) для создания шума.</description></item>
+        ///   <item><description>Текст капчи, отрисованный символ за символом: каждый символ имеет случайный яркий цвет, 
+        ///   размер шрифта 28–36 pt, поворот на угол от -30° до +30° и небольшое случайное смещение по X и Y.</description></item>
+        ///   <item><description>Две волнистые линии поверх текста (толщина 2 px, лёгкие колебания по высоте).</description></item>
+        ///   <item><description>40–70 случайных точек разного размера и тёмно-красного оттенка для дополнительного шума.</description></item>
+        /// </list>
+        /// После отрисовки визуальный объект преобразуется в PNG-поток и загружается в <see cref="BitmapImage"/>.
+        /// </remarks>
         public BitmapImage CreateCaptchaImage()
         {
             if (string.IsNullOrEmpty(captchaText))
@@ -76,10 +112,8 @@ namespace PR12
 
             using (var dc = visual.RenderOpen())
             {
-                // фон
                 dc.DrawRectangle(new SolidColorBrush(Color.FromRgb(248, 240, 232)), null, new Rect(0, 0, width, height));
 
-                // мягкие пятна фона
                 for (int i = 0; i < 3; i++)
                 {
                     var spotBrush = new SolidColorBrush(
@@ -89,7 +123,6 @@ namespace PR12
                         spotBrush, null, new Point(rnd.Next(20, 220), rnd.Next(10, 70)), rnd.Next(25, 40), rnd.Next(20, 35));
                 }
 
-                // случайные линии
                 for (int i = 0; i < rnd.Next(8, 14); i++)
                 {
                     var pen = new Pen(
@@ -102,7 +135,6 @@ namespace PR12
                     dc.DrawLine(pen, p1, p2);
                 }
 
-                // текст капчи
                 double x = width / 2 - (captchaText.Length * 21 / 2);
                 foreach (char c in captchaText)
                 {
@@ -123,7 +155,6 @@ namespace PR12
                     x += 22;
                 }
 
-                // волнистая линия поверх текста
                 for (int i = 0; i < 2; i++)
                 {
                     var pen = new Pen(
@@ -139,7 +170,6 @@ namespace PR12
                     }
                 }
 
-                // точки шума
                 for (int i = 0; i < rnd.Next(40, 70); i++)
                 {
                     double px = rnd.NextDouble() * width;

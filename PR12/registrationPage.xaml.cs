@@ -163,7 +163,7 @@ namespace PR12
             bool correct = captchaLog.IsCaptchaCorrect(captchaAnswer.Text);
             if (correct)
             {
-                MessageBox.Show("Капча пройдена!\nТеперь введите правильный пароль.", "Успех", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Капча пройдена!\nТеперь введите правильный пароль.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 HideCaptcha();
                 passwordPB.Focus();
                 passwordPB.SelectAll();
