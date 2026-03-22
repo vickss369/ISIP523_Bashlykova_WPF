@@ -70,6 +70,7 @@
     <Compile Include="buyTicketPage.xaml.cs">
       <DependentUpon>buyTicketPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CaptchaLogic.cs" />
     <Compile Include="chosenFilmPage.xaml.cs">
       <DependentUpon>chosenFilmPage.xaml</DependentUpon>
     </Compile>
