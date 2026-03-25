@@ -29,15 +29,15 @@ namespace PR12
             InitializeComponent();
         }
 
-        private bool IsInputValid()
+        private bool IsInputValid(string login, string pass)
         {
-            bool nameOK = !string.IsNullOrWhiteSpace(userNameTB.Text)
-                       && userNameTB.Text.Length >= 2
-                       && !userNameTB.Text.Any(char.IsDigit);
+            bool nameOK = !string.IsNullOrWhiteSpace(login)
+                       && login.Length >= 2
+                       && !login.Any(char.IsDigit);
 
-            bool passwordOK = !string.IsNullOrWhiteSpace(passwordPB.Password)
-                           && passwordPB.Password.Length >= 5
-                           && passwordPB.Password.Any(char.IsDigit);
+            bool passwordOK = !string.IsNullOrWhiteSpace(pass)
+                           && pass.Length >= 5
+                           && pass.Any(char.IsDigit);
 
             return nameOK && passwordOK;
         }
@@ -106,10 +106,40 @@ namespace PR12
         /// </returns>
         public bool Reg(string login, string pass)
         {
+            if (string.IsNullOrWhiteSpace(login) && string.IsNullOrWhiteSpace(pass))
+            {
+                MessageBox.Show("Пожалуйста, заполните оба поля.", "Ошибка",
+                                MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(login))
+            {
+                MessageBox.Show("Введите логин.", "Ошибка",
+                                MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(pass))
+            {
+                MessageBox.Show("Введите пароль.", "Ошибка",
+                                MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            if (!IsInputValid(login, pass))
+            {
+                MessageBox.Show("Логин должен содержать минимум 2 символа.\n" +
+                                "Пароль должен содержать минимум 5 символов и хотя бы одну цифру.",
+                                "Ошибка валидации",
+                                MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
             if (Core.Context.Users.Any(u => u.UserName == login))
             {
-                MessageBox.Show("Такой логин уже занят!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                passwordPB.Password = "";
+                MessageBox.Show("Такой логин уже занят!", "Ошибка",
+                                MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
 
@@ -125,9 +155,13 @@ namespace PR12
             Users.CurrentLogin = login;
             Users.CurrentPassword = pass;
 
-            MessageBox.Show("Регистрация прошла успешно!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-            NavigationService.Navigate(new filmsPage());
-            passwordPB.Password = "";
+            MessageBox.Show("Регистрация прошла успешно!", "Успех",
+                            MessageBoxButton.OK, MessageBoxImage.Information);
+
+            if (NavigationService != null)
+            {
+                NavigationService.Navigate(new filmsPage());
+            }
 
             return true;
         }
@@ -138,14 +172,13 @@ namespace PR12
         /// </summary>
         private void enter_Click(object sender, RoutedEventArgs e)
         {
-            if (!IsInputValid())
+            string login = userNameTB.Text.Trim();
+            string pass = passwordPB.Password;
+            if (!IsInputValid(login, pass))
             {
                 MessageBox.Show("Пожалуйста, корректно заполните все поля.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-
-            string login = userNameTB.Text.Trim();
-            string pass = passwordPB.Password;
 
             bool success;
 
