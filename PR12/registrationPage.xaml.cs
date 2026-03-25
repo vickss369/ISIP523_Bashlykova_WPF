@@ -51,9 +51,9 @@ namespace PR12
         /// <c>true</c> — если авторизация прошла успешно и пользователь перенаправлен на filmsPage
         /// <c>false</c> — если авторизация не удалась (неверный логин/пароль, показана капча и т.д.).
         /// </returns>
-        private bool Auth(string login, string pass)
+        public bool Auth(string login, string pass)
         {
-            var user = Core.Context.Users.FirstOrDefault(u => u.UserName == login);
+            var user = Core.Context.Users.FirstOrDefault(u => u.UserName.Trim().ToLower() == login.Trim().ToLower());
             if (user == null)
             {
                 MessageBox.Show("Пользователь не найден.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -66,14 +66,18 @@ namespace PR12
                 Users.CurrentLogin = login;
                 Users.CurrentPassword = pass;
                 MessageBox.Show("Вы вошли!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-                NavigationService.Navigate(new filmsPage());
+
+                if (NavigationService != null)
+                {
+                    NavigationService.Navigate(new filmsPage());
+                }
+
                 ResetAfterSuccess();
                 return true;
             }
             else
             {
                 captchaLog.RegisterFailedPasswordAttempt(login);
-
                 if (captchaLog.ShouldShowCaptcha())
                 {
                     passwordPB.Password = "";
@@ -82,8 +86,7 @@ namespace PR12
                 }
                 else
                 {
-                    MessageBox.Show($"Неверный пароль. Осталось попыток: {3 - captchaLog.failedLoginAttempts}",
-                                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Неверный пароль. Осталось попыток: {3 - captchaLog.failedLoginAttempts}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     passwordPB.Focus();
                 }
 
@@ -101,7 +104,7 @@ namespace PR12
         /// <c>true</c> — если регистрация прошла успешно и пользователь перенаправлен на filmsPage
         /// <c>false</c> — если регистрация не удалась (логин уже занят).
         /// </returns>
-        private bool Reg(string login, string pass)
+        public bool Reg(string login, string pass)
         {
             if (Core.Context.Users.Any(u => u.UserName == login))
             {
@@ -129,6 +132,10 @@ namespace PR12
             return true;
         }
 
+        /// <summary>
+        /// Обработчик нажатия кнопки "Вход" / "Регистрация".
+        /// В зависимости от текущего режима (<see cref="isLoginMode"/>) вызывает либо авторизацию, либо регистрацию.
+        /// </summary>
         private void enter_Click(object sender, RoutedEventArgs e)
         {
             if (!IsInputValid())
