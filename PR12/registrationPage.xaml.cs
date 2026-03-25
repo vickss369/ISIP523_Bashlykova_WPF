@@ -42,6 +42,93 @@ namespace PR12
             return nameOK && passwordOK;
         }
 
+        /// <summary>
+        /// Выполняет авторизацию пользователя по логину и паролю.
+        /// </summary>
+        /// <param name="login">Логин зарегистрированного пользователя.</param>
+        /// <param name="pass">Пароль пользователя.</param>
+        /// <returns>
+        /// <c>true</c> — если авторизация прошла успешно и пользователь перенаправлен на filmsPage
+        /// <c>false</c> — если авторизация не удалась (неверный логин/пароль, показана капча и т.д.).
+        /// </returns>
+        private bool Auth(string login, string pass)
+        {
+            var user = Core.Context.Users.FirstOrDefault(u => u.UserName == login);
+            if (user == null)
+            {
+                MessageBox.Show("Пользователь не найден.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                ClearAndFocusLoginFields();
+                return false;
+            }
+
+            if (user.Password == pass)
+            {
+                Users.CurrentLogin = login;
+                Users.CurrentPassword = pass;
+                MessageBox.Show("Вы вошли!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                NavigationService.Navigate(new filmsPage());
+                ResetAfterSuccess();
+                return true;
+            }
+            else
+            {
+                captchaLog.RegisterFailedPasswordAttempt(login);
+
+                if (captchaLog.ShouldShowCaptcha())
+                {
+                    passwordPB.Password = "";
+                    ShowCaptcha();
+                    MessageBox.Show("Неверный пароль.\nПройдите проверку.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+                else
+                {
+                    MessageBox.Show($"Неверный пароль. Осталось попыток: {3 - captchaLog.failedLoginAttempts}",
+                                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    passwordPB.Focus();
+                }
+
+                passwordPB.Password = "";
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Выполняет регистрацию нового пользователя.
+        /// </summary>
+        /// <param name="login">Желаемый логин пользователя.</param>
+        /// <param name="pass">Пароль пользователя.</param>
+        /// <returns>
+        /// <c>true</c> — если регистрация прошла успешно и пользователь перенаправлен на filmsPage
+        /// <c>false</c> — если регистрация не удалась (логин уже занят).
+        /// </returns>
+        private bool Reg(string login, string pass)
+        {
+            if (Core.Context.Users.Any(u => u.UserName == login))
+            {
+                MessageBox.Show("Такой логин уже занят!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                passwordPB.Password = "";
+                return false;
+            }
+
+            Users newUser = new Users
+            {
+                UserName = login,
+                Password = pass
+            };
+
+            Core.Context.Users.Add(newUser);
+            Core.Context.SaveChanges();
+
+            Users.CurrentLogin = login;
+            Users.CurrentPassword = pass;
+
+            MessageBox.Show("Регистрация прошла успешно!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+            NavigationService.Navigate(new filmsPage());
+            passwordPB.Password = "";
+
+            return true;
+        }
+
         private void enter_Click(object sender, RoutedEventArgs e)
         {
             if (!IsInputValid())
@@ -53,67 +140,15 @@ namespace PR12
             string login = userNameTB.Text.Trim();
             string pass = passwordPB.Password;
 
+            bool success;
+
             if (isLoginMode)
             {
-                var user = Core.Context.Users.FirstOrDefault(u => u.UserName == login);
-                if (user == null)
-                {
-                    MessageBox.Show("Пользователь не найден.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    ClearAndFocusLoginFields();
-                    return;
-                }
-
-                if (user.Password == pass)
-                {
-                    Users.CurrentLogin = login;
-                    Users.CurrentPassword = pass;
-
-                    MessageBox.Show("Вы вошли!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-                    NavigationService.Navigate(new filmsPage());
-                    ResetAfterSuccess();
-                }
-                else
-                {
-                    captchaLog.RegisterFailedPasswordAttempt(login);
-
-                    if (captchaLog.ShouldShowCaptcha())
-                    {
-                        passwordPB.Password = "";
-                        ShowCaptcha();
-                        MessageBox.Show("Неверный пароль.\nПройдите проверку.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
-                    else
-                    {
-                        MessageBox.Show($"Неверный пароль. Осталось попыток: {3 - captchaLog.failedLoginAttempts}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                        passwordPB.Focus();
-                    }
-                }
-                passwordPB.Password = "";
+                success = Auth(login, pass);
             }
             else
             {
-                if (Core.Context.Users.Any(u => u.UserName == login))
-                {
-                    MessageBox.Show("Такой логин уже занят!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    passwordPB.Password = "";
-                    return;
-                }
-
-                Users newUser = new Users
-                {
-                    UserName = login,
-                    Password = pass
-                };
-
-                Core.Context.Users.Add(newUser);
-                Core.Context.SaveChanges();
-
-                Users.CurrentLogin = login;
-                Users.CurrentPassword = pass;
-                MessageBox.Show("Регистрация прошла успешно!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-                NavigationService.Navigate(new filmsPage());
-
-                passwordPB.Password = "";
+                success = Reg(login, pass);
             }
         }
 

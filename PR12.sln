@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PR12", "PR12\PR12.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaptchaTests", "CaptchaTests\CaptchaTests.csproj", "{731A9B70-7322-4A3E-8157-A0F501FCE0DE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthTests", "AuthTests\AuthTests.csproj", "{C81BD245-247E-43AF-A5ED-093A3B5F5C81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegTests", "RegTests\RegTests.csproj", "{9EA73B31-0A90-429C-8D24-6AA828FB6B33}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{731A9B70-7322-4A3E-8157-A0F501FCE0DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{731A9B70-7322-4A3E-8157-A0F501FCE0DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{731A9B70-7322-4A3E-8157-A0F501FCE0DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C81BD245-247E-43AF-A5ED-093A3B5F5C81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C81BD245-247E-43AF-A5ED-093A3B5F5C81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C81BD245-247E-43AF-A5ED-093A3B5F5C81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C81BD245-247E-43AF-A5ED-093A3B5F5C81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EA73B31-0A90-429C-8D24-6AA828FB6B33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EA73B31-0A90-429C-8D24-6AA828FB6B33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EA73B31-0A90-429C-8D24-6AA828FB6B33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EA73B31-0A90-429C-8D24-6AA828FB6B33}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
