@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PR12.Image
+namespace PR12.Pages
 {
     /// <summary>
     /// Логика взаимодействия для masterPage.xaml

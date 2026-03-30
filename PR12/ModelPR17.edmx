@@ -54,11 +54,12 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ImagePath" Type="nvarchar(max)" />
           <Property Name="Name" Type="nvarchar" MaxLength="70" Nullable="false" />
           <Property Name="Price" Type="float" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="130" Nullable="false" />
           <Property Name="IsFreeze" Type="bit" Nullable="false" />
-          <Property Name="Discount" Type="int" Nullable="false" />
+          <Property Name="Discount" Type="int" />
           <Property Name="ManufacturerID" Type="int" Nullable="false" />
           <Property Name="ProductTypeID" Type="int" Nullable="false" />
         </EntityType>
@@ -78,6 +79,7 @@
           <Property Name="TimetableID" Type="int" Nullable="false" />
           <Property Name="ServiceID" Type="int" Nullable="false" />
           <Property Name="RecordStatusID" Type="int" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="120" Nullable="false" />
           <Property Name="PaymentTypeID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="RecordStatus">
@@ -99,6 +101,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ImagePath" Type="nvarchar(max)" />
           <Property Name="Name" Type="nvarchar" MaxLength="60" Nullable="false" />
           <Property Name="Price" Type="float" Nullable="false" />
           <Property Name="ServiceTypeID" Type="int" Nullable="false" />
@@ -462,11 +465,12 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Price" Type="Double" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="130" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsFreeze" Type="Boolean" Nullable="false" />
-          <Property Name="Discount" Type="Int32" Nullable="false" />
+          <Property Name="Discount" Type="Int32" />
           <Property Name="ManufacturerID" Type="Int32" Nullable="false" />
           <Property Name="ProductTypeID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Manufacturer" Relationship="Self.FK_Product_Manufacturer" FromRole="Product" ToRole="Manufacturer" />
@@ -489,6 +493,7 @@
           <Property Name="TimetableID" Type="Int32" Nullable="false" />
           <Property Name="ServiceID" Type="Int32" Nullable="false" />
           <Property Name="RecordStatusID" Type="Int32" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="120" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PaymentTypeID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="PaymentType" Relationship="Self.FK_Record_PaymentType" FromRole="Record" ToRole="PaymentType" />
           <NavigationProperty Name="RecordStatus" Relationship="Self.FK_Record_RecordStatus" FromRole="Record" ToRole="RecordStatus" />
@@ -517,6 +522,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Price" Type="Double" Nullable="false" />
           <Property Name="ServiceTypeID" Type="Int32" Nullable="false" />
@@ -751,7 +757,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="PR17_BeautySalonEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="PR17_BeautySalonEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Manufacturer" EntityType="Self.Manufacturer" />
           <EntitySet Name="MasterServiceType" EntityType="Self.MasterServiceType" />
           <EntitySet Name="Order" EntityType="Self.Order" />
@@ -833,7 +839,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище PR17_BeautySalonModelContainer" CdmEntityContainer="PR17_BeautySalonEntities">
+        <EntityContainerMapping StorageEntityContainer="Хранилище PR17_BeautySalonModelContainer" CdmEntityContainer="PR17_BeautySalonEntities1">
           <EntitySetMapping Name="Manufacturer">
             <EntityTypeMapping TypeName="PR17_BeautySalonModel.Manufacturer">
               <MappingFragment StoreEntitySet="Manufacturer">
@@ -887,6 +893,7 @@
             <EntityTypeMapping TypeName="PR17_BeautySalonModel.Product">
               <MappingFragment StoreEntitySet="Product">
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -913,6 +920,7 @@
                 <ScalarProperty Name="TimetableID" ColumnName="TimetableID" />
                 <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
                 <ScalarProperty Name="RecordStatusID" ColumnName="RecordStatusID" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="PaymentTypeID" ColumnName="PaymentTypeID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -937,6 +945,7 @@
             <EntityTypeMapping TypeName="PR17_BeautySalonModel.Service">
               <MappingFragment StoreEntitySet="Service">
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="ServiceTypeID" ColumnName="ServiceTypeID" />

@@ -27,12 +27,12 @@ namespace PR12.Pages
 
         private void goToStartBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new startPage());
         }
 
-        private void registrBtn_Click(object sender, RoutedEventArgs e)
+        private void enterBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new enterPage());
         }
     }
 }

@@ -10,6 +10,44 @@
       Title="enterPage">
 
     <Grid>
-        
+        <Border BorderBrush="#3A2119" BorderThickness="2" CornerRadius="10" Background="#D9CBC2" HorizontalAlignment="Stretch" VerticalAlignment="Center" MaxWidth="550">
+            <StackPanel Margin="40,35">
+                <TextBlock x:Name="modeTitle" Text="ВХОД" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,25" Foreground="#3A2119"/>
+
+                <Grid Margin="0,0,0,22">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock x:Name="fullNameTBl" Text="ФИО:" Grid.Row="0" Grid.Column="0" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#3A2119"/>
+                    <TextBox x:Name="fullNameTB" Grid.Row="0" Grid.Column="2" FontSize="15" Height="34"/>
+
+                    <TextBlock Text="Логин:" Grid.Row="2" Grid.Column="0" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#3A2119"/>
+                    <TextBox x:Name="loginTB" Grid.Row="2" Grid.Column="2" FontSize="15" Height="34"/>
+
+                    <TextBlock Text="Пароль:" Grid.Row="4" Grid.Column="0" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#3A2119"/>
+                    <PasswordBox x:Name="passwordPB" Grid.Row="4" Grid.Column="2" FontSize="15" Height="34"/>
+
+                    <TextBlock x:Name="phoneLabel" Text="Телефон:" Grid.Row="6" Grid.Column="0" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#3A2119" Visibility="Collapsed"/>
+                    <TextBox x:Name="phoneTB" Grid.Row="6" Grid.Column="2" FontSize="15" Height="34" Visibility="Collapsed"/>
+                </Grid>
+
+                <Button x:Name="entrBtn" Content="Войти" FontSize="18" Height="50" Width="200" Background="#25344F" Foreground="#D9CBC2" Margin="0,8,0,18" HorizontalAlignment="Center" Click="enter_Click"/>
+
+                <TextBlock x:Name="switchModeText" Text="Ещё нет аккаунта? Зарегистрироваться" FontSize="14" Foreground="#3A2119" HorizontalAlignment="Center" TextDecorations="Underline" Cursor="Hand" MouseLeftButtonDown="SwitchMode_MouseLeftButtonDown" MouseEnter="SwitchMode_Hover" MouseLeave="SwitchMode_Hover"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </Page>

@@ -19,6 +19,7 @@ namespace PR12
         public int TimetableID { get; set; }
         public int ServiceID { get; set; }
         public int RecordStatusID { get; set; }
+        public string Comment { get; set; }
         public int PaymentTypeID { get; set; }
     
         public virtual PaymentType PaymentType { get; set; }

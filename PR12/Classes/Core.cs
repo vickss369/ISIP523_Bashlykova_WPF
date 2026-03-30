@@ -8,6 +8,6 @@ namespace PR12.Classes
 {
     internal class Core
     {
-        public static PR17_BeautySalonEntities Context = new PR17_BeautySalonEntities();
+        public static PR17_BeautySalonEntities1 Context = new PR17_BeautySalonEntities1();
     }
 }

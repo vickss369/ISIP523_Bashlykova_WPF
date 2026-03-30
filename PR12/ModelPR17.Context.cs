@@ -13,10 +13,10 @@ namespace PR12
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class PR17_BeautySalonEntities : DbContext
+    public partial class PR17_BeautySalonEntities1 : DbContext
     {
-        public PR17_BeautySalonEntities()
-            : base("name=PR17_BeautySalonEntities")
+        public PR17_BeautySalonEntities1()
+            : base("name=PR17_BeautySalonEntities1")
         {
         }
     

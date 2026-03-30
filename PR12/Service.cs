@@ -21,6 +21,7 @@ namespace PR12
         }
     
         public int ID { get; set; }
+        public string ImagePath { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
         public int ServiceTypeID { get; set; }

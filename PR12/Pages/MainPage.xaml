@@ -11,10 +11,10 @@
 
     <Grid>
         <StackPanel VerticalAlignment="Center">
-            <TextBlock Text="Салон «я упала с самосвала тормозила головой»" FontSize="21" FontWeight="Bold" HorizontalAlignment="Center" Margin="20,0,20,30" Foreground="#442D1C"/>
-            <TextBlock Text="ГЛАВНАЯ СТРАНИЦА" FontSize="21" FontWeight="Bold" HorizontalAlignment="Center" Margin="40" Foreground="#442D1C"/>
+            <TextBlock Text="Салон «я упала с самосвала тормозила головой»" FontSize="21" FontWeight="Bold" HorizontalAlignment="Center" Margin="20,0,20,15" Foreground="#442D1C"/>
+            <TextBlock Text="ГЛАВНАЯ СТРАНИЦА" FontSize="21" FontWeight="Bold" HorizontalAlignment="Center" Margin="30" Foreground="#442D1C"/>
             <Button x:Name="goToStartBtn" Content="На стартовую страницу" FontSize="17" Height="50" Width="210" HorizontalAlignment="Center" Background="#6B212C" Foreground="#D9CBC2" Click="goToStartBtn_Click"/>
-            <Button x:Name="registrBtn" Content="Вход / регистрация" FontSize="17" Height="50" Width="210" HorizontalAlignment="Center" Margin="20" Background="#3C507D" Foreground="#D9CBC2" Click="registrBtn_Click"/>
+            <Button x:Name="enterBtn" Content="Вход / регистрация" FontSize="17" Height="50" Width="210" HorizontalAlignment="Center" Margin="20" Background="#3C507D" Foreground="#D9CBC2" Click="enterBtn_Click"/>
         </StackPanel>
     </Grid>
 </Page>

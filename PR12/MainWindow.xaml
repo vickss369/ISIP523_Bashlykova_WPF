@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:PR12"
         mc:Ignorable="d"
         Background="#D2E2EC"
+        MinHeight="500" MinWidth="700"
         Title="Салон vickss" Height="450" Width="800">
     
     <Grid>

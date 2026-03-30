@@ -15,11 +15,12 @@ namespace PR12
     public partial class Product
     {
         public int ID { get; set; }
+        public string ImagePath { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
         public string Description { get; set; }
         public bool IsFreeze { get; set; }
-        public int Discount { get; set; }
+        public Nullable<int> Discount { get; set; }
         public int ManufacturerID { get; set; }
         public int ProductTypeID { get; set; }
     
