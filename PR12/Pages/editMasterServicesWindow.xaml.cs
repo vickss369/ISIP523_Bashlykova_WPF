@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PR12
+namespace PR12.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для editMasterServicesWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class editMasterServicesWindow : Window
     {
-        public MainWindow()
+        public editMasterServicesWindow()
         {
             InitializeComponent();
         }

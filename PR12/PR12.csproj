@@ -35,8 +35,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,61 +64,123 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CarConfiguration.cs" />
-    <Compile Include="creditPage.xaml.cs">
-      <DependentUpon>creditPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="orderPage.xaml.cs">
-      <DependentUpon>orderPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="totalCostPage.xaml.cs">
-      <DependentUpon>totalCostPage.xaml</DependentUpon>
-    </Compile>
-    <Page Include="colorDopPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="creditPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="enginePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="colorDopPage.xaml.cs">
-      <DependentUpon>colorDopPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="enginePage.xaml.cs">
-      <DependentUpon>enginePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
+    <Compile Include="Classes\Basket.cs" />
+    <Compile Include="Classes\Core.cs" />
+    <Compile Include="Image\masterPage.xaml.cs">
+      <DependentUpon>masterPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
-    <Page Include="orderPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="totalCostPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Compile Include="Manufacturer.cs">
+      <DependentUpon>ModelPR17.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MasterServiceType.cs">
+      <DependentUpon>ModelPR17.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelPR17.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelPR17.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelPR17.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelPR17.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelPR17.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelPR17.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Order.cs">
+      <DependentUpon>ModelPR17.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrderProduct.cs">
+      <DependentUpon>ModelPR17.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\accountPage.xaml.cs">
+      <DependentUpon>accountPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\adminPage.xaml.cs">
+      <DependentUpon>adminPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\basketPage.xaml.cs">
+      <DependentUpon>basketPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\chosenProductWindow.xaml.cs">
+      <DependentUpon>chosenProductWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\chosenRecordPage.xaml.cs">
+      <DependentUpon>chosenRecordPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\clientPage.xaml.cs">
+      <DependentUpon>clientPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\editMasterServicesWindow.xaml.cs">
+      <DependentUpon>editMasterServicesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\enterPage.xaml.cs">
+      <DependentUpon>enterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\managerPage.xaml.cs">
+      <DependentUpon>managerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\masterRecordDetailsPage.xaml.cs">
+      <DependentUpon>masterRecordDetailsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\orderWindow.xaml.cs">
+      <DependentUpon>orderWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\productPage.xaml.cs">
+      <DependentUpon>productPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\recordPage.xaml.cs">
+      <DependentUpon>recordPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\startPage.xaml.cs">
+      <DependentUpon>startPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentType.cs">
+      <DependentUpon>ModelPR17.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Product.cs">
+      <DependentUpon>ModelPR17.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProductType.cs">
+      <DependentUpon>ModelPR17.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Record.cs">
+      <DependentUpon>ModelPR17.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RecordStatus.cs">
+      <DependentUpon>ModelPR17.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Role.cs">
+      <DependentUpon>ModelPR17.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Service.cs">
+      <DependentUpon>ModelPR17.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceType.cs">
+      <DependentUpon>ModelPR17.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagrams.cs">
+      <DependentUpon>ModelPR17.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Timetable.cs">
+      <DependentUpon>ModelPR17.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User.cs">
+      <DependentUpon>ModelPR17.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -129,6 +200,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EntityDeploy Include="ModelPR17.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelPR17.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ModelPR17.edmx.diagram">
+      <DependentUpon>ModelPR17.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -136,6 +215,92 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Image\masterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\accountPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\adminPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\basketPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\chosenProductWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\chosenRecordPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\clientPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\editMasterServicesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\enterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\managerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\masterRecordDetailsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\orderWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\productPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\recordPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\startPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="ModelPR17.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModelPR17.Context.cs</LastGenOutput>
+      <DependentUpon>ModelPR17.edmx</DependentUpon>
+    </Content>
+    <Content Include="ModelPR17.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelPR17.edmx</DependentUpon>
+      <LastGenOutput>ModelPR17.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

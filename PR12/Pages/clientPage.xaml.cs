@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PR12
+namespace PR12.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для clientPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class clientPage : Page
     {
-        public MainWindow()
+        public clientPage()
         {
             InitializeComponent();
         }

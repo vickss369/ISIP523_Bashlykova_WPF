@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c19f06644a6347c4b8cbe5d94d470fa7" Name="Diagram1">
+        <EntityTypeShape EntityType="PR17_BeautySalonModel.Manufacturer" Width="1.5" PointX="8.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PR17_BeautySalonModel.MasterServiceType" Width="1.5" PointX="5.25" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PR17_BeautySalonModel.Order" Width="1.5" PointX="8.25" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PR17_BeautySalonModel.OrderProduct" Width="1.5" PointX="10.5" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PR17_BeautySalonModel.PaymentType" Width="1.5" PointX="6" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PR17_BeautySalonModel.Product" Width="1.5" PointX="11" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="PR17_BeautySalonModel.ProductType" Width="1.5" PointX="8.75" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PR17_BeautySalonModel.Record" Width="1.5" PointX="7.5" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PR17_BeautySalonModel.RecordStatus" Width="1.5" PointX="5.25" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PR17_BeautySalonModel.Role" Width="1.5" PointX="0.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="PR17_BeautySalonModel.Service" Width="1.5" PointX="5.25" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PR17_BeautySalonModel.ServiceType" Width="1.5" PointX="3" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PR17_BeautySalonModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PR17_BeautySalonModel.Timetable" Width="1.5" PointX="5.25" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PR17_BeautySalonModel.User" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
+        <AssociationConnector Association="PR17_BeautySalonModel.FK_Product_Manufacturer" ManuallyRouted="false" />
+        <AssociationConnector Association="PR17_BeautySalonModel.FK_MasterServiceType_ServiceType1" ManuallyRouted="false" />
+        <AssociationConnector Association="PR17_BeautySalonModel.FK_MasterServiceType_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="PR17_BeautySalonModel.FK_Order_PaymentType" ManuallyRouted="false" />
+        <AssociationConnector Association="PR17_BeautySalonModel.FK_Order_User" ManuallyRouted="false" />
+        <AssociationConnector Association="PR17_BeautySalonModel.FK_OrderProduct_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="PR17_BeautySalonModel.FK_Record_PaymentType" ManuallyRouted="false" />
+        <AssociationConnector Association="PR17_BeautySalonModel.FK_Product_ProductType" ManuallyRouted="false" />
+        <AssociationConnector Association="PR17_BeautySalonModel.FK_Record_RecordStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="PR17_BeautySalonModel.FK_Record_Service" ManuallyRouted="false" />
+        <AssociationConnector Association="PR17_BeautySalonModel.FK_Record_Timetable" ManuallyRouted="false" />
+        <AssociationConnector Association="PR17_BeautySalonModel.FK_Record_User" ManuallyRouted="false" />
+        <AssociationConnector Association="PR17_BeautySalonModel.FK_User_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="PR17_BeautySalonModel.FK_Service_ServiceType1" ManuallyRouted="false" />
+        <AssociationConnector Association="PR17_BeautySalonModel.FK_Timetable_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

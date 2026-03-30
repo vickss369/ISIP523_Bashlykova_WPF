@@ -1,14 +1,13 @@
-﻿<Window x:Class="PR12.MainWindow"
+﻿<Window x:Class="PR12.Pages.editMasterServicesWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PR12"
+        xmlns:local="clr-namespace:PR12.Pages"
         mc:Ignorable="d"
         Background="#D2E2EC"
-        Title="Салон vickss" Height="450" Width="800">
-    
+        Title="editMasterServicesWindow" Height="450" Width="800">
     <Grid>
-        <Frame x:Name="MainFrame" Source="Pages/MainPage.xaml" NavigationUIVisibility="Hidden"/>
+        
     </Grid>
 </Window>
