@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PR12.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,14 @@ namespace PR12.Pages
     /// </summary>
     public partial class chosenProductWindow : Window
     {
-        public chosenProductWindow()
+        private Product selectedProduct;
+        private Basket userBasket;
+
+        public chosenProductWindow(Product product, Basket basket)
         {
             InitializeComponent();
+            selectedProduct = product;
+            userBasket = basket;
         }
-    }
+        }
 }

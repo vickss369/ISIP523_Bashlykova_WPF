@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PR12.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,12 @@ namespace PR12.Pages
     /// </summary>
     public partial class basketPage : Page
     {
-        public basketPage()
+        private Basket userBasket;
+
+        public basketPage(Basket basket)
         {
             InitializeComponent();
+            userBasket = basket;
         }
     }
 }

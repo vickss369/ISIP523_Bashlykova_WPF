@@ -95,8 +95,6 @@ namespace PR12.Pages
                 }
 
                 User.currentUser = user;
-                MessageBox.Show("Вы вошли!");
-
                 switch (user.RoleID)
                 {
                     case 1: NavigationService.Navigate(new clientPage()); break;
