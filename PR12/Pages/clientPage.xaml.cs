@@ -23,6 +23,22 @@ namespace PR12.Pages
         public clientPage()
         {
             InitializeComponent();
+            DataContext = User.currentUser;
+        }
+
+        private void toRecordBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new recordPage());
+        }
+
+        private void toProductBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new productPage());
+        }
+
+        private void toAccountBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new accountPage());
         }
     }
 }

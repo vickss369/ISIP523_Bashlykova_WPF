@@ -10,6 +10,17 @@
       Title="clientPage">
 
     <Grid>
-        
+        <Border BorderBrush="#3A2119" BorderThickness="2" CornerRadius="10" Background="#D9CBC2" HorizontalAlignment="Stretch" VerticalAlignment="Center" MaxWidth="550">
+            <StackPanel Margin="40,35">
+                <TextBlock Text="{Binding FullName, StringFormat='Добро пожаловать, {0}!'}" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10,0,15" Foreground="#3A2119"/>
+                <TextBlock Text="С чего начнём?" FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,10" Foreground="#3A2119"/>
+
+                <StackPanel>
+                    <Button x:Name="toRecordBtn" Content="Записаться" FontSize="17" Width="160" Height="50" Margin="0,0,0,17" Background="#B4776E" HorizontalAlignment="Center" VerticalAlignment="Center" Click="toRecordBtn_Click"/>
+                    <Button x:Name="toProductBtn" Content="Каталог товаров" FontSize="17" Width="160" Height="50" Margin="0,0,0,17" Background="#989876" HorizontalAlignment="Center" VerticalAlignment="Center" Click="toProductBtn_Click"/>
+                    <Button x:Name="toAccountBtn" Content="Аккаунт" FontSize="17" Width="160" Height="50" Margin="0,0,0,17" Background="#1B6C7E" HorizontalAlignment="Center" VerticalAlignment="Center" Click="toAccountBtn_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
     </Grid>
 </Page>
