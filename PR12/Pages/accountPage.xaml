@@ -10,6 +10,77 @@
       Title="accountPage">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="#3C507D">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="Аккаунт" FontSize="20" FontWeight="Bold" Foreground="#3A2119" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Button Grid.Column="1" Content="Назад" FontSize="17" Width="100" Height="40" Margin="0,0,30,0" Background="#A86A65" Foreground="#3A2119" BorderBrush="#3A2119" Click="backToClientMenu_Click"/>
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="20,35,20,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Vertical" Margin="10">
+                <TextBlock Text="Информация" FontSize="20" FontWeight="Bold" Foreground="#3A2119" HorizontalAlignment="Center" Margin="0,0,0,15"/>
+
+                <TextBlock Text="Имя пользователя:" FontSize="18" Foreground="#3A2119"/>
+                <TextBlock x:Name="UserNameTB" FontSize="17" Foreground="#3A2119" Margin="10,0,0,15"/>
+
+                <TextBlock Text="Номер телефона:" FontSize="18" Foreground="#3A2119"/>
+                <TextBlock x:Name="phoneNumberTB" FontSize="17" Foreground="#3A2119" Margin="10,0,0,15"/>
+            </StackPanel>
+
+            <Grid Grid.Column="1" Margin="7">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Записи" FontSize="20" FontWeight="Bold" Foreground="#3A2119" HorizontalAlignment="Center"/>
+                <ListBox x:Name="recordsList" Grid.Row="1" BorderThickness="0" Background="#D2E2EC" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" d:ItemsSource="{d:SampleData ItemCount=5}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="10,5,10,10" Padding="15" BorderBrush="#3A2119" BorderThickness="2" CornerRadius="10" Background="#D9CBC2">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Service.Name, StringFormat=Услуга: {0}}" FontSize="17"/>
+                                    <TextBlock Text="{Binding Service.ServiceType.Name, StringFormat=Тип услуги: {0}}" FontSize="16"/>
+                                    <TextBlock Text="{Binding Timetable.Date, StringFormat=Дата: {0:dd.MM.yyyy}}" FontSize="16"/>
+                                    <TextBlock Text="{Binding Service.Price, StringFormat=Стоимость: {0}₽}" FontSize="17" FontWeight="Bold"/>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <TextBlock Text="Покупки" Grid.Row="2" FontSize="20" FontWeight="Bold" Foreground="#3A2119" HorizontalAlignment="Center" Margin="0,30,0,0"/>
+                <ListBox x:Name="productsList" Grid.Row="3" BorderThickness="0" Background="#D2E2EC" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" d:ItemsSource="{d:SampleData ItemCount=5}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="10,5,10,10" Padding="15" BorderBrush="#3A2119" BorderThickness="2" CornerRadius="10" Background="#D9CBC2">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name, StringFormat=Товар: {0}}" FontSize="17"/>
+                                    <TextBlock Text="{Binding ProductType.Name, StringFormat=Тип: {0}}" FontSize="16"/>
+                                    <TextBlock Text="{Binding Price, StringFormat=Цена: {0}₽}" FontSize="17" FontWeight="Bold"/>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+            </Grid>
+        </Grid>
     </Grid>
 </Page>

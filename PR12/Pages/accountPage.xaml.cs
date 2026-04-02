@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PR12.Classes;
 
 namespace PR12.Pages
 {
@@ -20,9 +21,35 @@ namespace PR12.Pages
     /// </summary>
     public partial class accountPage : Page
     {
+        private User currentUser;
+
         public accountPage()
         {
             InitializeComponent();
+            LoadAccountInfo();
+        }
+
+        private void LoadAccountInfo()
+        {
+            currentUser = User.currentUser;
+            if (currentUser == null)
+            {
+                return;
+            }
+
+            UserNameTB.Text = currentUser.FullName;
+            phoneNumberTB.Text = currentUser.PhoneNumber;
+
+            var records = Core.Context.Record.Where(r => r.ClientID == currentUser.ID).ToList();
+            recordsList.ItemsSource = records;
+
+            var products = Core.Context.Product.ToList();
+            productsList.ItemsSource = products;
+        }
+
+        private void backToClientMenu_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new clientPage());
         }
     }
 }
