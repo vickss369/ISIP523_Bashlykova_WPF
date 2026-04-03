@@ -23,11 +23,19 @@ namespace PR12.Pages
     {
         private List<Product> allProducts;
         public static Product selectedProduct;
-        private Basket userBasket = new Basket();
+        private Basket userBasket;
 
-        public productPage()
+        public productPage() //без корзины
         {
             InitializeComponent();
+            userBasket = new Basket();
+            LoadData();
+        }
+
+        public productPage(Basket basket) //с корзиной
+        {
+            InitializeComponent();
+            userBasket = basket;
             LoadData();
         }
 
@@ -103,7 +111,8 @@ namespace PR12.Pages
             var button = sender as Button;
             if (button == null) return;
 
-            var product = button.DataContext as Product;
+            dynamic item = button.DataContext;
+            var product = allProducts.FirstOrDefault(p => p.ID == item.ID);
             if (product == null) return;
 
             if (!userBasket.AddProduct(product))
@@ -120,13 +129,13 @@ namespace PR12.Pages
             var button = sender as Button;
             if (button == null) return;
 
-            var product = button.DataContext as Product;
+            dynamic item = button.DataContext;
+            var product = allProducts.FirstOrDefault(p => p.ID == item.ID);
             if (product == null) return;
 
             selectedProduct = product;
 
-            var detailsWindow = new chosenProductWindow(selectedProduct, userBasket);
-            NavigationService.Navigate(detailsWindow);
+            new chosenProductWindow(selectedProduct, userBasket).ShowDialog();
         }
 
         private void toBasketBtn_Click(object sender, RoutedEventArgs e)

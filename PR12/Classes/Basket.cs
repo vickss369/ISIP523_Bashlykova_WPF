@@ -26,10 +26,5 @@ namespace PR12.Classes
             if (ProductsInBasket.Contains(product))
                 ProductsInBasket.Remove(product);
         }
-
-        public void ClearBasket()
-        {
-            ProductsInBasket.Clear();
-        }
     }
 }
