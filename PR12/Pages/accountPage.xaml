@@ -22,7 +22,7 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Text="Аккаунт" FontSize="20" FontWeight="Bold" Foreground="#3A2119" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Button Grid.Column="1" Content="Назад" FontSize="17" Width="100" Height="40" Margin="0,0,30,0" Background="#A86A65" Foreground="#3A2119" BorderBrush="#3A2119" Click="backToClientMenu_Click"/>
+            <Button Grid.Column="1" Content="← Назад" FontSize="17" Width="100" Height="40" Margin="0,0,30,0" Background="#A86A65" Foreground="#3A2119" BorderBrush="#3A2119" Click="backToClientMenu_Click"/>
         </Grid>
 
         <Grid Grid.Row="1" Margin="20,35,20,20">

@@ -25,7 +25,23 @@ namespace PR12.Pages
         public chosenProductWindow(Product product)
         {
             InitializeComponent();
+            DataContext = product;
+
             selectedProduct = product;
+        }
+
+        private void addToBasketBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            if (button == null) return;
+
+            if (!Basket.currentBasket.AddProduct(selectedProduct))
+            {
+                MessageBox.Show("Этот товар временно недоступен (заморожен).");
+                return;
+            }
+
+            MessageBox.Show("Товар добавлен в корзину!");
         }
     }
 }
