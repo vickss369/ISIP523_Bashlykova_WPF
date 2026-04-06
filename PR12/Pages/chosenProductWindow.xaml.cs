@@ -21,13 +21,11 @@ namespace PR12.Pages
     public partial class chosenProductWindow : Window
     {
         private Product selectedProduct;
-        private Basket userBasket;
 
-        public chosenProductWindow(Product product, Basket basket)
+        public chosenProductWindow(Product product)
         {
             InitializeComponent();
             selectedProduct = product;
-            userBasket = basket;
         }
-        }
+    }
 }

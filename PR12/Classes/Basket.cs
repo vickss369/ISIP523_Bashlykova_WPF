@@ -8,6 +8,8 @@ namespace PR12.Classes
 {
     public class Basket
     {
+        public static Basket currentBasket { get; set; } = new Basket();
+
         public List<Product> ProductsInBasket { get; set; } = new List<Product>();
 
         public double TotalPrice => ProductsInBasket.Sum(p => p.Price);

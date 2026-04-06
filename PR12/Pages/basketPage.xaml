@@ -40,7 +40,7 @@
                             <Image Source="{Binding ImagePath}" Width="80" Height="80" Grid.Column="0"/>
                             <StackPanel Grid.Column="1" Margin="13,5">
                                 <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Bold" TextWrapping="Wrap" Foreground="#3A2119"/>
-                                <TextBlock Text="{Binding Price, StringFormat=Цена: {0}₽}" FontSize="14" Margin="0,5,0,0" Foreground="#3A2119"/>
+                                <TextBlock Text="{Binding Price, StringFormat=Цена: {0}₽}" FontSize="14" Margin="0,3,0,0" Foreground="#3A2119"/>
                             </StackPanel>
                             
                             <Button Content="Удалить" FontSize="14" Width="70" Height="35" Grid.Column="2" VerticalAlignment="Center" Margin="0,0,10,0" Background="#C15344" BorderBrush="#3A2119" Click="removeItem_Click"/>
@@ -53,7 +53,7 @@
         <StackPanel Grid.Row="2" Orientation="Vertical">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="130,10,0,0">
                 <TextBlock Text="Общая сумма:" FontSize="18" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,6,1" Foreground="#000000"/>
-                <TextBlock x:Name="totalPriceTB" FontSize="17" Margin="5,5,0,6" Foreground="#000000"/>
+                <TextBlock x:Name="totalPriceTB" FontSize="17" Margin="5,5,0,6"/>
             </StackPanel>
             
             <Button Content="Оформить заказ" FontSize="17" Width="155" Height="45" Margin="130,10,0,20" HorizontalAlignment="Left" Background="#989876" BorderBrush="#3A2119" Click="order_Click"/>

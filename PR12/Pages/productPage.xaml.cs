@@ -23,19 +23,10 @@ namespace PR12.Pages
     {
         private List<Product> allProducts;
         public static Product selectedProduct;
-        private Basket userBasket;
 
-        public productPage() //без корзины
+        public productPage()
         {
             InitializeComponent();
-            userBasket = new Basket();
-            LoadData();
-        }
-
-        public productPage(Basket basket) //с корзиной
-        {
-            InitializeComponent();
-            userBasket = basket;
             LoadData();
         }
 
@@ -115,7 +106,7 @@ namespace PR12.Pages
             var product = allProducts.FirstOrDefault(p => p.ID == item.ID);
             if (product == null) return;
 
-            if (!userBasket.AddProduct(product))
+            if (!Basket.currentBasket.AddProduct(product))
             {
                 MessageBox.Show("Этот товар временно недоступен (заморожен).");
                 return;
@@ -135,17 +126,17 @@ namespace PR12.Pages
 
             selectedProduct = product;
 
-            new chosenProductWindow(selectedProduct, userBasket).ShowDialog();
+            new chosenProductWindow(selectedProduct).ShowDialog();
         }
 
         private void toBasketBtn_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new basketPage(userBasket));
+            NavigationService.Navigate(new basketPage());
         }
 
         private void backToClientMenu_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            NavigationService.Navigate(new clientPage());
         }
     }
 }

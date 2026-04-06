@@ -23,12 +23,9 @@ namespace PR12.Pages
     /// </summary>
     public partial class basketPage : Page
     {
-        private Basket userBasket;
-
-        public basketPage(Basket b)
+        public basketPage()
         {
             InitializeComponent();
-            userBasket = b;
 
             LoadBasketItems();
             UpdateTotalPrice();
@@ -37,12 +34,12 @@ namespace PR12.Pages
         private void LoadBasketItems()
         {
             basketItems.ItemsSource = null;
-            basketItems.ItemsSource = userBasket.ProductsInBasket;
+            basketItems.ItemsSource = Basket.currentBasket.ProductsInBasket;
         }
-
+            
         private void UpdateTotalPrice()
         {
-            totalPriceTB.Text = $"{userBasket.TotalPrice}₽";
+            totalPriceTB.Text = $"{Basket.currentBasket.TotalPrice}₽";
         }
 
         private void removeItem_Click(object sender, RoutedEventArgs e)
@@ -52,7 +49,7 @@ namespace PR12.Pages
 
             if (product != null)
             {
-                userBasket.RemoveProduct(product);
+                Basket.currentBasket.RemoveProduct(product);
                 LoadBasketItems();
                 UpdateTotalPrice();
             }
@@ -60,12 +57,15 @@ namespace PR12.Pages
 
         private void backToCatalog_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new productPage(userBasket));
+            NavigationService.Navigate(new productPage());
         }
 
         private void order_Click(object sender, RoutedEventArgs e)
         {
-            new orderWindow(userBasket).ShowDialog();
+            new orderWindow().ShowDialog();
+
+            LoadBasketItems();
+            UpdateTotalPrice();
         }
     }
 }

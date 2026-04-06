@@ -54,11 +54,14 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Border Margin="10,5,10,10" Padding="15" BorderBrush="#3A2119" BorderThickness="2" CornerRadius="10" Background="#D9CBC2">
-                                <StackPanel>
-                                    <TextBlock Text="{Binding Service.Name, StringFormat=Услуга: {0}}" FontSize="17"/>
-                                    <TextBlock Text="{Binding Service.ServiceType.Name, StringFormat=Тип услуги: {0}}" FontSize="16"/>
-                                    <TextBlock Text="{Binding Timetable.Date, StringFormat=Дата: {0:dd.MM.yyyy}}" FontSize="16"/>
-                                    <TextBlock Text="{Binding Service.Price, StringFormat=Стоимость: {0}₽}" FontSize="17" FontWeight="Bold"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="{Binding Service.ImagePath}" Width="90" Height="90" Margin="0,0,15,0"/>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Service.Name, StringFormat=Услуга: {0}}" FontSize="17"/>
+                                        <TextBlock Text="{Binding Service.ServiceType.Name, StringFormat=Тип услуги: {0}}" FontSize="16"/>
+                                        <TextBlock Text="{Binding Timetable.Date, StringFormat=Дата: {0:dd.MM.yyyy}}" FontSize="16"/>
+                                        <TextBlock Text="{Binding Service.Price, StringFormat=Стоимость: {0}₽}" FontSize="17" FontWeight="Bold"/>
+                                    </StackPanel>
                                 </StackPanel>
                             </Border>
                         </DataTemplate>
@@ -70,10 +73,13 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Border Margin="10,5,10,10" Padding="15" BorderBrush="#3A2119" BorderThickness="2" CornerRadius="10" Background="#D9CBC2">
-                                <StackPanel>
-                                    <TextBlock Text="{Binding Name, StringFormat=Товар: {0}}" FontSize="17"/>
-                                    <TextBlock Text="{Binding ProductType.Name, StringFormat=Тип: {0}}" FontSize="16"/>
-                                    <TextBlock Text="{Binding Price, StringFormat=Цена: {0}₽}" FontSize="17" FontWeight="Bold"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="{Binding ImagePath}" Width="90" Height="90" Margin="0,0,15,0"/>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Name, StringFormat=Товар: {0}}" FontSize="17"/>
+                                        <TextBlock Text="{Binding ProductType.Name, StringFormat=Тип: {0}}" FontSize="16"/>
+                                        <TextBlock Text="{Binding Price, StringFormat=Цена: {0}₽}" FontSize="17" FontWeight="Bold"/>
+                                    </StackPanel>
                                 </StackPanel>
                             </Border>
                         </DataTemplate>

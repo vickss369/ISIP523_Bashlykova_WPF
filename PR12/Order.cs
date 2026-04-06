@@ -22,11 +22,11 @@ namespace PR12
     
         public int ID { get; set; }
         public int UserID { get; set; }
-        public int OrderStatusID { get; set; }
         public System.DateTime OrderDate { get; set; }
         public System.DateTime DeliveryDate { get; set; }
         public int PaymentTypeID { get; set; }
         public bool IsTaken { get; set; }
+        public string OrderStatus { get; set; }
     
         public virtual PaymentType PaymentType { get; set; }
         public virtual User User { get; set; }

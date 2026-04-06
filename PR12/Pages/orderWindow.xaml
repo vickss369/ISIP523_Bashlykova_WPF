@@ -6,8 +6,41 @@
         xmlns:local="clr-namespace:PR12.Pages"
         mc:Ignorable="d"
         Background="#D2E2EC"
-        Title="orderWindow" Height="450" Width="800">
+        Title="Оформление заказа" MinHeight="500" MinWidth="700"
+        Height="550" Width="730">
+
     <Grid>
-        
+        <Border BorderBrush="#3A2119" BorderThickness="2" CornerRadius="10" Background="#D9CBC2" HorizontalAlignment="Stretch" VerticalAlignment="Center" MaxWidth="550">
+            <StackPanel Margin="10,20">
+                <TextBlock Text="Оформление заказа" FontSize="21" FontWeight="Bold" HorizontalAlignment="Center" Margin="20,10,20,15" Foreground="#3A2119"/>
+                
+                <StackPanel Orientation="Horizontal" Margin="35,5,0,0">
+                    <TextBlock Text="Имя:" FontSize="17" FontWeight="Bold" Margin="7" Foreground="#3A2119"/>
+                    <TextBlock x:Name="userNameTBl" Text="aaa имямям" FontSize="16" Margin="5,8,0,0" Foreground="#3A2119"/>
+                </StackPanel>
+
+                <StackPanel Margin="35,15,0,0">
+                    <TextBlock Text="Товары:" FontSize="17" FontWeight="Bold" Margin="7,0,0,0" Foreground="#3A2119"/>
+                    <TextBlock x:Name="orderedProductsTBl" Text="ааа товарыыы" FontSize="16" Margin="10,0,0,0" TextWrapping="Wrap" Foreground="#3A2119"/>
+                </StackPanel>
+
+                <TextBlock Text="Тип оплаты:" FontSize="17" FontWeight="Bold" Foreground="#3A2119" Margin="45,23,0,0"/>
+                <StackPanel Orientation="Horizontal" Margin="40,0,0,0">
+                    <RadioButton x:Name="cardRB" Content="Карта" FontSize="16" Margin="10,7,10,7" Foreground="#3A2119" Checked="paymentTypeRB_Checked"/>
+                    <RadioButton x:Name="cashRB" Content="Наличные" FontSize="16" Margin="7,7,10,7" Foreground="#3A2119" Checked="paymentTypeRB_Checked"/>
+                    <RadioButton x:Name="sbpRB" Content="СБП" FontSize="16" Margin="7,8,0,7" Foreground="#3A2119" Checked="paymentTypeRB_Checked"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="35,40,0,0">
+                    <TextBlock Text="ИТОГО:" FontSize="18" Margin="7,0,0,10" FontWeight="Bold" Foreground="#3A2119"/>
+                    <TextBlock x:Name="totalSumTBl" Text="aaa деньгии" FontSize="16" FontWeight="Bold" Margin="10,2,0,0" Foreground="#3A2119"/>
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal" Margin="55,20,0,15" HorizontalAlignment="Center">
+                    <Button x:Name="backBtn" Content="Назад" FontSize="16" Width="100" Height="40" Background="#B4776E" BorderBrush="#3A2119" Click="backBtn_Click"/>
+                    <Button x:Name="finishBtn" Content="Оформить заказ" FontSize="16" Width="140" Height="40" Margin="25,0" Background="#989876" BorderBrush="#3A2119" IsEnabled="False" Click="finishOrderBtn_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>

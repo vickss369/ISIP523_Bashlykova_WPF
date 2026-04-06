@@ -43,7 +43,11 @@ namespace PR12.Pages
             var records = Core.Context.Record.Where(r => r.ClientID == currentUser.ID).ToList();
             recordsList.ItemsSource = records;
 
-            var products = Core.Context.Product.ToList();
+            var userOrders = Core.Context.Order.Where(o => o.UserID == currentUser.ID).Select(o => o.ID).ToList();
+
+            var productIDs = Core.Context.OrderProduct.Where(op => userOrders.Contains(op.OrderID)).Select(op => op.ProductID).Distinct().ToList();
+            var products = Core.Context.Product.Where(p => productIDs.Contains(p.ID)).ToList();
+
             productsList.ItemsSource = products;
         }
 
