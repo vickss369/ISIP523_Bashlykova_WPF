@@ -28,7 +28,7 @@ namespace PR12.Pages
 
         private void toRecordBtn_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new recordPage());
+            NavigationService.Navigate(new startPage());
         }
 
         private void toProductBtn_Click(object sender, RoutedEventArgs e)

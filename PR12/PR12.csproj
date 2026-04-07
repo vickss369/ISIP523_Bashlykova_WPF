@@ -133,20 +133,14 @@
     <Compile Include="Pages\masterPage.xaml.cs">
       <DependentUpon>masterPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\masterRecordDetailsPage.xaml.cs">
-      <DependentUpon>masterRecordDetailsPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\orderWindow.xaml.cs">
       <DependentUpon>orderWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\productPage.xaml.cs">
       <DependentUpon>productPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\recordPage.xaml.cs">
-      <DependentUpon>recordPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\startPage.xaml.cs">
-      <DependentUpon>startPage.xaml</DependentUpon>
+    <Compile Include="Pages\startRecordPage.xaml.cs">
+      <DependentUpon>startRecordPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="PaymentType.cs">
       <DependentUpon>ModelPR17.tt</DependentUpon>
@@ -265,10 +259,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\masterRecordDetailsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\orderWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -277,11 +267,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\recordPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\startPage.xaml">
+    <Page Include="Pages\startRecordPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

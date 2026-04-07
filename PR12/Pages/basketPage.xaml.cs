@@ -33,26 +33,53 @@ namespace PR12.Pages
 
         private void LoadBasketItems()
         {
+            var items = Basket.currentBasket.ProductsInBasket.GroupBy(p => p.ID).Select(g => new
+            {
+                Product = g.First(),
+                Quantity = g.Count(),
+                Total = Basket.GetPriceWithDiscount(g.First()) * g.Count()
+            })
+                .ToList();
+
             basketItems.ItemsSource = null;
-            basketItems.ItemsSource = Basket.currentBasket.ProductsInBasket;
+            basketItems.ItemsSource = items;
         }
-            
+
         private void UpdateTotalPrice()
         {
-            totalPriceTB.Text = $"{Basket.currentBasket.TotalPrice}₽";
+            double total = Basket.currentBasket.ProductsInBasket.Sum(p => Basket.GetPriceWithDiscount(p));
+            totalPriceTB.Text = $"{total}₽";
+        }
+
+        private void increase_Click(object sender, RoutedEventArgs e)
+        {
+            dynamic item = (sender as Button).DataContext;
+
+            Basket.currentBasket.AddProduct(item.Product);
+
+            LoadBasketItems();
+            UpdateTotalPrice();
+        }
+
+        private void decrease_Click(object sender, RoutedEventArgs e)
+        {
+            dynamic item = (sender as Button).DataContext;
+
+            Basket.currentBasket.RemoveProduct(item.Product);
+
+            LoadBasketItems();
+            UpdateTotalPrice();
         }
 
         private void removeItem_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            var product = button.DataContext as Product;
+            dynamic item = (sender as Button).DataContext;
 
-            if (product != null)
-            {
-                Basket.currentBasket.RemoveProduct(product);
-                LoadBasketItems();
-                UpdateTotalPrice();
-            }
+            Basket.currentBasket.ProductsInBasket
+                .RemoveAll(p => p.ID == item.Product.ID);
+
+            LoadBasketItems();
+            UpdateTotalPrice();
         }
 
         private void backToCatalog_Click(object sender, RoutedEventArgs e)
@@ -62,6 +89,12 @@ namespace PR12.Pages
 
         private void order_Click(object sender, RoutedEventArgs e)
         {
+            if (!Basket.currentBasket.ProductsInBasket.Any())
+            {
+                MessageBox.Show("Корзина пуста");
+                return;
+            }
+
             new orderWindow().ShowDialog();
 
             LoadBasketItems();

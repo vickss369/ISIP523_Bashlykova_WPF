@@ -23,6 +23,16 @@ namespace PR12.Classes
             return true;
         }
 
+        public static double GetPriceWithDiscount(Product product)
+        {
+            if (product.Discount != null && product.Discount > 0)
+            {
+                return product.Price * (1 - product.Discount.Value / 100.0);
+            }
+
+            return product.Price;
+        }
+
         public void RemoveProduct(Product product)
         {
             if (ProductsInBasket.Contains(product))

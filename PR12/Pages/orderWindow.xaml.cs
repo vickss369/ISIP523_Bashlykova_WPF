@@ -27,18 +27,30 @@ namespace PR12.Pages
         {
             InitializeComponent();
             FillFields();
+
+            deliveryDatePicker.SelectedDate = DateTime.Now;
+            deliveryDatePicker.DisplayDateStart = DateTime.Now;
+            deliveryDatePicker.DisplayDateEnd = DateTime.Now.AddDays(7);
         }
 
         private void FillFields()
         {
             if (User.currentUser != null) userNameTBl.Text = User.currentUser.FullName;
 
-            totalSumTBl.Text = Basket.currentBasket.TotalPrice + "₽";
+            double total = Basket.currentBasket.ProductsInBasket.Sum(p => Basket.GetPriceWithDiscount(p));
+            totalSumTBl.Text = total + "₽";
 
             List<string> productsInfo = new List<string>();
-            foreach (var item in Basket.currentBasket.ProductsInBasket)
+            var groupedProducts = Basket.currentBasket.ProductsInBasket.GroupBy(p => p.ID);
+            foreach (var g in groupedProducts)
             {
-                productsInfo.Add($"{item.Name} ({item.Price}₽)");
+                var item = g.First();
+                double price = Basket.GetPriceWithDiscount(item);
+
+                if (item.Discount != null && item.Discount > 0) 
+                    productsInfo.Add($"{item.Name} x{g.Count()} ({price}₽, скидка {item.Discount}%)");
+                else
+                    productsInfo.Add($"{item.Name} x{g.Count()} ({price}₽)");
             }
 
             orderedProductsTBl.Text = string.Join("\n", productsInfo);
@@ -63,11 +75,17 @@ namespace PR12.Pages
                 return;
             }
 
+            if (deliveryDatePicker.SelectedDate == null)
+            {
+                MessageBox.Show("Выберите дату получения!");
+                return;
+            }
+
             Order newOrder = new Order
             {
                 UserID = User.currentUser.ID,
                 OrderDate = DateTime.Now,
-                DeliveryDate = DateTime.Now.AddDays(2),
+                DeliveryDate = deliveryDatePicker.SelectedDate.Value,
                 PaymentTypeID = selectedPaymentTypeID,
                 OrderStatus = "Оформлен",
                 IsTaken = false
@@ -83,7 +101,7 @@ namespace PR12.Pages
                     OrderID = newOrder.ID,
                     ProductID = product.ID,
                     Quantity = 1,
-                    PriceAtBuyMoment = product.Price
+                    PriceAtBuyMoment = Basket.GetPriceWithDiscount(product)
                 };
                 Core.Context.OrderProduct.Add(op);
             }
@@ -92,7 +110,7 @@ namespace PR12.Pages
 
             MessageBox.Show("Заказ успешно оформлен!");
             Basket.currentBasket.ProductsInBasket.Clear();
-            
+
             this.Close();
         }
 

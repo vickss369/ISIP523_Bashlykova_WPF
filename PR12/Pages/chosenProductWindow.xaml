@@ -28,7 +28,7 @@
                     <TextBlock Text="{Binding Manufacturer.Name, StringFormat=Производитель: {0}}" FontSize="16" Foreground="#3A2119" Margin="0,0,0,10"/>
                     <TextBlock Text="{Binding Price, StringFormat=Цена: {0}₽}" FontSize="18" FontWeight="Bold" Foreground="#3A2119" Margin="0,10,0,20"/>
 
-                    <Button x:Name="addToBasketBtn" Content="В корзину" FontSize="15" Width="110" Height="40" Margin="9" Background="#8BA2C1" BorderBrush="#3A2119" Click="addToBasketBtn_Click"/>
+                    <Button x:Name="addToBasketBtn" Content="В корзину" FontSize="16" Width="110" Height="40" Margin="9" Background="#C59767" BorderBrush="#3A2119" Click="addToBasketBtn_Click"/>
                 </StackPanel>
             </Grid>
         </Border>
