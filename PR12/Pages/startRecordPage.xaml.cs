@@ -66,61 +66,93 @@ namespace PR12.Pages
         {
             var services = Core.Context.Service.ToList();
 
-            bool filterByMaster = selectedMaster != null && selectedMaster.ID != 0;
-            bool filterByType = selectedServiceType != null && selectedServiceType.ID != 0;
+            bool hasMaster = selectedMaster != null && selectedMaster.ID != 0;
+            bool hasType = selectedServiceType != null && selectedServiceType.ID != 0;
+            bool hasDate = selectedDate.HasValue;
 
-            var displayServices = new List<dynamic>();
+            bool isLoggedIn = User.currentUser != null;
+            bool isClient = isLoggedIn && User.currentUser.RoleID == 1;
+
+            var displayServices = new List<object>();
+
+            if (hasDate)
+            {
+                selectedDateText.Visibility = Visibility.Visible;
+                selectedDateText.Text = $"Дата записи: {selectedDate.Value:dd MMMM yyyy}";
+            }
+            else
+            {
+                selectedDateText.Visibility = Visibility.Collapsed;
+            }
 
             foreach (var s in services)
             {
-                if (filterByType && s.ServiceTypeID != selectedServiceType.ID) continue;
+                if (hasType && s.ServiceTypeID != selectedServiceType.ID) continue;
 
-                if (!filterByMaster)
+                if (!hasMaster && !hasDate)
                 {
+                    bool showBtn = !isClient;
+
                     displayServices.Add(new
                     {
-                        s.ID,
-                        s.ImagePath,
-                        s.Name,
-                        s.Price,
+                        ImagePath = s.ImagePath,
+                        Name = s.Name,
+                        Price = s.Price,
                         MasterName = "",
                         StartTimeText = "",
                         EndTimeText = "",
                         ActionText = "Подробнее",
-                        CardColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#889CB4"))
+                        CardColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#889CB4")),
+                        MasterVisibility = Visibility.Collapsed,
+                        TimeVisibility = Visibility.Collapsed,
+                        ButtonVisibility = showBtn ? Visibility.Visible : Visibility.Collapsed,
+                        ServiceID = s.ID,
+                        TimetableID = 0
                     });
                 }
                 else
                 {
-                    var mastersForService = s.ServiceType?.MasterServiceType.Select(mst => mst.User).Where(u => u.RoleID == 2).ToList();
-                    if (mastersForService == null || mastersForService.Count == 0) continue;
+                    var mastersForService = s.ServiceType?.MasterServiceType
+                        ?.Select(mst => mst.User)
+                        ?.Where(u => u.RoleID == 2)
+                        ?.ToList() ?? new List<User>();
 
                     foreach (var master in mastersForService)
                     {
-                        if (master.ID != selectedMaster.ID) continue;
+                        if (hasMaster && master.ID != selectedMaster.ID) continue;
 
-                        var slots = Core.Context.Timetable
-                            .Where(t => t.MasterID == master.ID &&
-                                        (!selectedDate.HasValue ||
-                                         (t.StartDateTime.Year == selectedDate.Value.Year &&
-                                          t.StartDateTime.Month == selectedDate.Value.Month &&
-                                          t.StartDateTime.Day == selectedDate.Value.Day)))
-                            .OrderBy(t => t.StartDateTime)
-                            .ToList();
+                        var slotsQuery = Core.Context.Timetable.Where(t => t.MasterID == master.ID);
+
+                        if (hasDate)
+                        {
+                            slotsQuery = slotsQuery.Where(t =>
+                                t.StartDateTime.Year == selectedDate.Value.Year &&
+                                t.StartDateTime.Month == selectedDate.Value.Month &&
+                                t.StartDateTime.Day == selectedDate.Value.Day);
+                        }
+
+                        var slots = slotsQuery.OrderBy(t => t.StartDateTime).ToList();
 
                         foreach (var slot in slots)
                         {
+                            bool isBooked = slot.ISBooked;
+                            string action = isBooked ? "Занято" : "Записаться";
+                            string color = isBooked ? "#C25C4C" : "#889CB4";
+
                             displayServices.Add(new
                             {
-                                s.ID,
-                                s.ImagePath,
-                                s.Name,
-                                s.Price,
+                                ImagePath = s.ImagePath,
+                                Name = s.Name,
+                                Price = s.Price,
                                 MasterName = master.FullName,
-                                StartTimeText = $"Начало: {slot.StartDateTime:HH:mm}",
-                                EndTimeText = $"Конец: {slot.EndDateTime:HH:mm}",
-                                ActionText = slot.ISBooked ? "Занято" : "Записаться",
-                                CardColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString(slot.ISBooked ? "#C25C4C" : "#889CB4")),
+                                StartTimeText = $"Время: {slot.StartDateTime:HH:mm} - {slot.EndDateTime:HH:mm}",
+                                EndTimeText = "",
+                                ActionText = action,
+                                CardColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString(color)),
+                                MasterVisibility = Visibility.Visible,
+                                TimeVisibility = Visibility.Visible,
+                                ButtonVisibility = Visibility.Visible,
+                                ServiceID = s.ID,
                                 TimetableID = slot.ID
                             });
                         }
@@ -152,25 +184,49 @@ namespace PR12.Pages
         private void DetailsBtn_Click(object sender, RoutedEventArgs e)
         {
             var btn = sender as Button;
-            dynamic data = btn.DataContext;
+            if (btn?.DataContext == null) return;
 
-            if (User.currentUser != null && User.currentUser.RoleID == 1)
-            {
-                if (data.ActionText == "Занято")
-                {
-                    MessageBox.Show("Эта запись уже занята.");
-                }
-                else
-                {
-                    // переход на страницу выбранной записи
-                    // NavigationService.Navigate(new chosenRecordPage(data.TimetableID));
-                }
-            }
-            else
+            var item = btn.DataContext;
+
+            string action = GetValue(item, "ActionText") as string ?? "";
+            int serviceId = Convert.ToInt32(GetValue(item, "ServiceID") ?? 0);
+            int timetableId = Convert.ToInt32(GetValue(item, "TimetableID") ?? 0);
+
+            bool isLoggedIn = User.currentUser != null;
+            bool isClient = isLoggedIn && User.currentUser.RoleID == 1;
+
+            if (!isLoggedIn)
             {
                 MessageBox.Show("Чтобы записаться, нужно войти в аккаунт.");
                 NavigationService.Navigate(new enterPage());
+                return;
             }
+
+            if (!isClient)
+            {
+                MessageBox.Show("Запись доступна только клиентам.");
+                return;
+            }
+
+            if (action == "Занято")
+            {
+                MessageBox.Show("Эта запись уже занята.");
+            }
+            else if (action == "Записаться")
+            {
+                NavigationService.Navigate(new chosenRecordPage(timetableId, serviceId));
+            }
+            else
+            {
+                MessageBox.Show("Выберите мастера или дату, чтобы увидеть доступные записи.");
+            }
+        }
+
+        private object GetValue(object obj, string propName)
+        {
+            if (obj == null) return null;
+            var property = obj.GetType().GetProperty(propName);
+            return property?.GetValue(obj);
         }
 
         private void GoToEnterBtn_Click(object sender, RoutedEventArgs e)
