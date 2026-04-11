@@ -40,5 +40,11 @@ namespace PR12.Pages
         {
             NavigationService.Navigate(new accountPage());
         }
+
+        private void logoutBtn_Click(object sender, RoutedEventArgs e)
+        {
+            User.currentUser = null;
+            NavigationService.Navigate(new enterPage());
+        }
     }
 }

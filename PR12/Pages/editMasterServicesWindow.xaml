@@ -6,8 +6,55 @@
         xmlns:local="clr-namespace:PR12.Pages"
         mc:Ignorable="d"
         Background="#D2E2EC"
-        Title="editMasterServicesWindow" Height="450" Width="800">
+        Title="Изменить свои услуги" MinHeight="500" MinWidth="650"
+        Height="550" Width="700">
+
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="75"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="#5C72A3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="backBtn" Content="← Назад" FontSize="17" Height="40" Width="100" Background="#C94736" Foreground="#3A2119" HorizontalAlignment="Left" Margin="20,0,0,0" Click="backBtn_Click"/>
+            <TextBlock Text="Мои услуги" FontSize="21" FontWeight="Bold" Foreground="#3A2119" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1"/>
+        </Grid>
+
+        <ListBox x:Name="servicesList" Grid.Row="1" BorderThickness="0" Background="#D2E2EC" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="20" d:ItemsSource="{d:SampleData ItemCount=5}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel IsItemsHost="True" HorizontalAlignment="Center"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Width="250" Height="320" Margin="10" Padding="10" BorderBrush="#3A2119" Background="{Binding CardColor}" BorderThickness="1" CornerRadius="10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="200"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Image Grid.Row="0" Source="{Binding ImagePath}" Width="230" Height="190" Stretch="UniformToFill" Margin="0,0,0,10"/>
+                            <TextBlock Grid.Row="1" Text="{Binding Name}" FontSize="16" FontWeight="Bold" Foreground="#3A2119" TextWrapping="Wrap" Margin="0,5,0,0"/>
+                            <TextBlock Grid.Row="2" Text="{Binding Price, StringFormat=Цена: {0}₽}" FontSize="14" Foreground="#3A2119" Margin="0,0,0,13"/>
+
+                            <Button Grid.Row="3" Content="{Binding ButtonText}" FontSize="15" Background="{Binding ButtonColor}" HorizontalAlignment="Center" Width="110" Height="35" Click="ToggleService_Click"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Button x:Name="saveBtn" Content="Сохранить изменения" FontSize="16" Width="200" Height="48" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#1B6C7E" Click="saveBtn_Click"/>
     </Grid>
 </Window>

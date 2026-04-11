@@ -112,17 +112,12 @@ namespace PR12.Pages
                 }
                 else
                 {
-                    var mastersForService = s.ServiceType?.MasterServiceType
-                        ?.Select(mst => mst.User)
-                        ?.Where(u => u.RoleID == 2)
-                        ?.ToList() ?? new List<User>();
-
+                    var mastersForService = s.ServiceType?.MasterServiceType?.Select(mst => mst.User)?.Where(u => u.RoleID == 2)?.ToList() ?? new List<User>();
                     foreach (var master in mastersForService)
                     {
                         if (hasMaster && master.ID != selectedMaster.ID) continue;
 
                         var slotsQuery = Core.Context.Timetable.Where(t => t.MasterID == master.ID);
-
                         if (hasDate)
                         {
                             slotsQuery = slotsQuery.Where(t =>
@@ -132,7 +127,6 @@ namespace PR12.Pages
                         }
 
                         var slots = slotsQuery.OrderBy(t => t.StartDateTime).ToList();
-
                         foreach (var slot in slots)
                         {
                             bool isBooked = slot.ISBooked;
@@ -184,13 +178,23 @@ namespace PR12.Pages
         private void DetailsBtn_Click(object sender, RoutedEventArgs e)
         {
             var btn = sender as Button;
-            if (btn?.DataContext == null) return;
+            if (btn == null || btn.DataContext == null)
+            {
+                MessageBox.Show("Данные записи не найдены");
+                return;
+            }
 
-            var item = btn.DataContext;
+            dynamic data = btn.DataContext;
 
-            string action = GetValue(item, "ActionText") as string ?? "";
-            int serviceId = Convert.ToInt32(GetValue(item, "ServiceID") ?? 0);
-            int timetableId = Convert.ToInt32(GetValue(item, "TimetableID") ?? 0);
+            int timetableId = 0;
+            int serviceId = 0;
+            string actionText = "";
+
+            if (data.TimetableID != null) timetableId = Convert.ToInt32(data.TimetableID);
+
+            if (data.ServiceID != null) serviceId = Convert.ToInt32(data.ServiceID);
+
+            if (data.ActionText != null) actionText = data.ActionText.ToString();
 
             bool isLoggedIn = User.currentUser != null;
             bool isClient = isLoggedIn && User.currentUser.RoleID == 1;
@@ -208,25 +212,23 @@ namespace PR12.Pages
                 return;
             }
 
-            if (action == "Занято")
+            if (actionText == "Занято")
             {
                 MessageBox.Show("Эта запись уже занята.");
             }
-            else if (action == "Записаться")
+            else if (actionText == "Записаться")
             {
+                if (timetableId == 0)
+                {
+                    MessageBox.Show("Ошибка: не удалось получить информацию о записи");
+                    return;
+                }
                 NavigationService.Navigate(new chosenRecordPage(timetableId, serviceId));
             }
             else
             {
                 MessageBox.Show("Выберите мастера или дату, чтобы увидеть доступные записи.");
             }
-        }
-
-        private object GetValue(object obj, string propName)
-        {
-            if (obj == null) return null;
-            var property = obj.GetType().GetProperty(propName);
-            return property?.GetValue(obj);
         }
 
         private void GoToEnterBtn_Click(object sender, RoutedEventArgs e)

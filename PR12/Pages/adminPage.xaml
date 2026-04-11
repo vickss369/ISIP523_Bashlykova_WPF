@@ -10,6 +10,23 @@
       Title="adminPage">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="65"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0" Background="#5C72A3 ">
+            <TextBlock x:Name="managerNameTBl" Text="ФИО админа" FontSize="21" FontWeight="Bold" Foreground="#3A2119" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Button x:Name="logoutBtn" Content="→ Выход" FontSize="17" Height="40" Width="100" Background="#C94736" Foreground="#3A2119" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,20,0" Click="logoutBtn_Click"/>
+        </Grid>
+
+        <Grid Grid.Row="1">
+
+        </Grid>
     </Grid>
 </Page>

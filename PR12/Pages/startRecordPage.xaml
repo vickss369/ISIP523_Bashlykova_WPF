@@ -32,23 +32,23 @@
         
         <Grid Grid.Row="1" Margin="10,5" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             
-            <StackPanel Orientation="Horizontal" Grid.Column="0" VerticalAlignment="Center" Margin="35,15,10,10">
-                <TextBlock Text="Мастер:" FontSize="16" VerticalAlignment="Center" Margin="0,0,15,0"/>
-                <ComboBox x:Name="masterCB" FontSize="15" Width="200" Height="30" SelectionChanged="MasterCB_SelectionChanged" DisplayMemberPath="FullName"/>
+            <StackPanel Orientation="Horizontal" Grid.Column="0" VerticalAlignment="Center" Margin="20,15,10,10">
+                <TextBlock Text="Мастер:" FontSize="16" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <ComboBox x:Name="masterCB" FontSize="15" Width="150" Height="30" SelectionChanged="MasterCB_SelectionChanged" DisplayMemberPath="FullName"/>
             </StackPanel>
             
-            <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center" Margin="5,15,10,10">
-                <TextBlock Text="Тип услуги:" FontSize="16" VerticalAlignment="Center" Margin="0,0,15,0"/>
-                <ComboBox x:Name="serviceTypeCB" FontSize="15" Width="200" Height="30" SelectionChanged="ServiceTypeCB_SelectionChanged" DisplayMemberPath="Name"/>
+            <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center" Margin="15,15,10,10">
+                <TextBlock Text="Тип услуги:" FontSize="16" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <ComboBox x:Name="serviceTypeCB" FontSize="15" Width="150" Height="30" SelectionChanged="ServiceTypeCB_SelectionChanged" DisplayMemberPath="Name"/>
             </StackPanel>
             
-            <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center" Margin="5,15,10,10">
-                <TextBlock Text="Дата:" FontSize="16" VerticalAlignment="Center" Margin="0,0,15,0"/>
+            <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center" Margin="20,15,10,10">
+                <TextBlock Text="Дата:" FontSize="16" VerticalAlignment="Center" Margin="0,0,10,0"/>
                 <DatePicker x:Name="datePicker" SelectedDateChanged="DatePicker_SelectedDateChanged" Width="150" Height="30"/>
             </StackPanel>
         </Grid>
