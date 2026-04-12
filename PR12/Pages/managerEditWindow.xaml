@@ -1,0 +1,81 @@
+﻿<Window x:Class="PR12.Pages.managerEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PR12.Pages"
+        mc:Ignorable="d"
+        Background="#D2E2EC"
+        Title="Редактирование" MinHeight="450" MinWidth="700"
+        Height="500" Width="750">
+
+    <Grid>
+        <Border BorderBrush="#3A2119" BorderThickness="2" CornerRadius="10" Background="#D9CBC2" HorizontalAlignment="Stretch" VerticalAlignment="Center" MaxWidth="600" MaxHeight="440">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="70"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock x:Name="titleTBl" Text="Редактирование" FontSize="20" FontWeight="Bold" Foreground="#3A2119" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="25">
+                        <TextBlock x:Name="nameTBl" Text="Название" FontSize="15" Foreground="#3A2119"/>
+                        <TextBox x:Name="nameTB" Height="30" Margin="0,0,0,10"/>
+
+                        <TextBlock x:Name="priceTBl" Text="Цена" FontSize="15" Foreground="#3A2119"/>
+                        <TextBox x:Name="priceTB" Height="30" Margin="0,0,0,10"/>
+
+                        <TextBlock x:Name="imageTBl" Text="Ссылка на изображение" FontSize="15" Foreground="#3A2119"/>
+                        <TextBox x:Name="imageTB" Height="30" Margin="0,0,0,10"/>
+
+                        <TextBlock x:Name="descTBl" Text="Описание" FontSize="15" Foreground="#3A2119"/>
+                        <TextBox x:Name="descTB" Height="30" Margin="0,0,0,10"/>
+
+                        <TextBlock x:Name="typeTBl" Text="Тип" FontSize="15" Foreground="#3A2119"/>
+                        <ComboBox x:Name="typeCB" Height="30" Margin="0,0,0,10"/>
+
+                        <TextBlock x:Name="manufacturerTBl" Text="Производитель" FontSize="15" Foreground="#3A2119"/>
+                        <ComboBox x:Name="manufacturerCB" Height="30" Margin="0,0,0,10"/>
+
+                        <TextBlock x:Name="discountTBl" Text="Скидка (%)" FontSize="15" Foreground="#3A2119"/>
+                        <TextBox x:Name="discountTB" Height="30" Margin="0,0,0,10"/>
+
+                        <TextBlock x:Name="clientTBl" Text="Клиент (ФИО)" FontSize="15" Foreground="#3A2119"/>
+                        <TextBox x:Name="clientTB" Height="30" Margin="0,0,0,10"/>
+
+                        <TextBlock x:Name="statusTBl" Text="Статус" FontSize="15" Foreground="#3A2119"/>
+                        <TextBox x:Name="statusTB" Height="30" Margin="0,0,0,10"/>
+
+                        <TextBlock x:Name="commentTBl" Text="Комментарий" FontSize="15" Foreground="#3A2119"/>
+                        <TextBox x:Name="commentTB" Height="30" Margin="0,0,0,10"/>
+
+                        <TextBlock x:Name="dateTBl" Text="Дата записи" Foreground="#3A2119"/>
+                        <DatePicker x:Name="dateDP" Margin="0,0,0,10" SelectedDateChanged="dateDP_SelectedDateChanged"/>
+
+                        <TextBlock x:Name="timeTBl" Text="Время" FontSize="15" Foreground="#3A2119"/>
+                        <ComboBox x:Name="timeCB" Height="30" Margin="0,0,0,10" DisplayMemberPath="TimeText" SelectedValuePath="ID" SelectionChanged="timeCB_SelectionChanged"/>
+
+                        <CheckBox x:Name="takenCB" Content="Заказ выдан" FontSize="15" Foreground="#3A2119" Margin="0,5,0,5"/>
+
+                        <TextBlock x:Name="paymentTypeTBl" Text="Тип оплаты" FontSize="15" Foreground="#3A2119"/>
+                        <StackPanel Orientation="Horizontal">
+                            <RadioButton x:Name="cardRB" Content="Карта" Margin="0,0,10,0" Checked="paymentTypeRB_Checked"/>
+                            <RadioButton x:Name="cashRB" Content="Наличные" Margin="0,0,10,0" Checked="paymentTypeRB_Checked"/>
+                            <RadioButton x:Name="sbpRB" Content="СБП" Checked="paymentTypeRB_Checked"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                </ScrollViewer>
+
+                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button x:Name="addBtn" Content="Добавить" FontSize="16" Width="110" Height="40" Background="#BFD397" Margin="5" Click="addBtn_Click"/>
+                    <Button x:Name="deleteBtn" Content="Удалить" FontSize="16" Width="110" Height="40" Background="#C25C4C" Margin="5" Click="deleteBtn_Click"/>
+                    <Button x:Name="saveBtn" Content="Сохранить" FontSize="16" Width="110" Height="40" Background="#1B6C7E" Margin="5" Click="saveBtn_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
