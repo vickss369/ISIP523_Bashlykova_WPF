@@ -85,6 +85,7 @@ namespace PR12.Pages
                 {
                     MessageBox.Show("Неверный пароль.");
                     passwordPB.Password = "";
+                    passwordPB.Focus();
                     return;
                 }
 

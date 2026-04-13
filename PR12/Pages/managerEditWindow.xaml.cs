@@ -28,7 +28,8 @@ namespace PR12.Pages
         private int selectedPaymentTypeID;
         private int selectedServiceID;
 
-        public bool IsChanged { get; private set; } = false;
+        private bool isLoading = false;
+        public bool IsChanged { get; private set; }
 
         public managerEditWindow(string mode, int id)
         {
@@ -52,10 +53,9 @@ namespace PR12.Pages
             if (string.IsNullOrWhiteSpace(text)) return Core.Context.RecordStatus.First().ID;
 
             text = text.ToLower();
-
             var status = Core.Context.RecordStatus.ToList().FirstOrDefault(s => s.Name.ToLower() == text);
 
-            return status != null ? status.ID : Core.Context.RecordStatus.First().ID;
+            return status?.ID ?? Core.Context.RecordStatus.First().ID;
         }
 
         private void LoadComboBoxes()
@@ -76,6 +76,13 @@ namespace PR12.Pages
                 manufacturerCB.ItemsSource = Core.Context.Manufacturer.ToList();
                 manufacturerCB.DisplayMemberPath = "Name";
                 manufacturerCB.SelectedValuePath = "ID";
+            }
+
+            if (mode == "records")
+            {
+                clientCB.ItemsSource = Core.Context.User.Where(u => u.RoleID == 1).ToList();
+                clientCB.DisplayMemberPath = "FullName";
+                clientCB.SelectedValuePath = "ID";
             }
         }
 
@@ -117,17 +124,17 @@ namespace PR12.Pages
                 priceTBl.Visibility = priceTB.Visibility = Visibility.Visible;
                 imageTBl.Visibility = imageTB.Visibility = Visibility.Visible;
 
-                clientTBl.Visibility = clientTB.Visibility = Visibility.Visible;
+                clientTBl.Visibility = Visibility.Visible;
+                clientTB.Visibility = Visibility.Collapsed;
+                clientCB.Visibility = Visibility.Visible;
+
                 statusTBl.Visibility = statusTB.Visibility = Visibility.Visible;
                 commentTBl.Visibility = commentTB.Visibility = Visibility.Visible;
 
                 dateTBl.Visibility = dateDP.Visibility = Visibility.Visible;
                 timeTBl.Visibility = timeCB.Visibility = Visibility.Visible;
 
-                paymentTypeTBl.Visibility =
-                    cardRB.Visibility =
-                    cashRB.Visibility =
-                    sbpRB.Visibility = Visibility.Visible;
+                paymentTypeTBl.Visibility = cardRB.Visibility = cashRB.Visibility = sbpRB.Visibility = Visibility.Visible;
             }
 
             else if (mode == "orders")
@@ -141,22 +148,13 @@ namespace PR12.Pages
             }
 
             else if (mode == "manufacturers")
-            {
                 titleTBl.Text = "Производитель";
-                nameTBl.Visibility = nameTB.Visibility = Visibility.Visible;
-            }
 
             else if (mode == "serviceTypes")
-            {
                 titleTBl.Text = "Тип услуги";
-                nameTBl.Visibility = nameTB.Visibility = Visibility.Visible;
-            }
 
             else if (mode == "productTypes")
-            {
                 titleTBl.Text = "Тип товара";
-                nameTBl.Visibility = nameTB.Visibility = Visibility.Visible;
-            }
         }
 
         private void SetAllVisible(bool visible)
@@ -167,19 +165,21 @@ namespace PR12.Pages
             priceTBl.Visibility = priceTB.Visibility = v;
             imageTBl.Visibility = imageTB.Visibility = v;
             descTBl.Visibility = descTB.Visibility = v;
+
             typeTBl.Visibility = typeCB.Visibility = v;
             manufacturerTBl.Visibility = manufacturerCB.Visibility = v;
-            clientTBl.Visibility = clientTB.Visibility = v;
+
+            clientTBl.Visibility = clientTB.Visibility = clientCB.Visibility = v;
+
             statusTBl.Visibility = statusTB.Visibility = v;
             commentTBl.Visibility = commentTB.Visibility = v;
+
             dateTBl.Visibility = dateDP.Visibility = v;
             timeTBl.Visibility = timeCB.Visibility = v;
+
             discountTBl.Visibility = discountTB.Visibility = v;
 
-            paymentTypeTBl.Visibility =
-                cardRB.Visibility =
-                cashRB.Visibility =
-                sbpRB.Visibility = v;
+            paymentTypeTBl.Visibility = cardRB.Visibility = cashRB.Visibility = sbpRB.Visibility = v;
 
             takenCB.Visibility = v;
         }
@@ -194,7 +194,6 @@ namespace PR12.Pages
                 priceTB.Text = item.Price.ToString();
                 imageTB.Text = item.ImagePath ?? "";
                 descTB.Text = item.Description ?? "";
-
                 discountTB.Text = item.Discount?.ToString() ?? "";
 
                 typeCB.SelectedValue = item.ProductTypeID;
@@ -211,23 +210,23 @@ namespace PR12.Pages
 
                 typeCB.SelectedValue = item.ServiceTypeID;
             }
-            
+
             else if (mode == "records")
             {
-                var item = Core.Context.Record.First(x => x.ID == id);
+                isLoading = true;
 
+                var item = Core.Context.Record.First(x => x.ID == id);
+                
                 nameTB.Text = item.Service?.Name ?? "";
                 priceTB.Text = item.Service != null ? item.Service.Price.ToString() : "";
                 imageTB.Text = item.Service?.ImagePath ?? "";
 
-                clientTB.Text = item.User?.FullName ?? "";
+                clientCB.SelectedValue = item.ClientID;
                 statusTB.Text = item.RecordStatus?.Name ?? "";
                 commentTB.Text = item.Comment ?? "";
 
                 dateDP.SelectedDate = item.Timetable?.StartDateTime;
-
-                if (dateDP.SelectedDate != null)
-                    LoadTimes(dateDP.SelectedDate.Value);
+                if (dateDP.SelectedDate != null) LoadTimes(dateDP.SelectedDate.Value);
 
                 timeCB.SelectedValue = item.TimetableID;
 
@@ -237,6 +236,8 @@ namespace PR12.Pages
                 if (item.PaymentTypeID == 1) cardRB.IsChecked = true;
                 if (item.PaymentTypeID == 2) cashRB.IsChecked = true;
                 if (item.PaymentTypeID == 3) sbpRB.IsChecked = true;
+
+                isLoading = false;
             }
 
             else if (mode == "orders")
@@ -250,25 +251,18 @@ namespace PR12.Pages
             }
 
             else if (mode == "manufacturers")
-            {
                 nameTB.Text = Core.Context.Manufacturer.First(x => x.ID == id).Name;
-            }
 
             else if (mode == "serviceTypes")
-            {
                 nameTB.Text = Core.Context.ServiceType.First(x => x.ID == id).Name;
-            }
 
             else if (mode == "productTypes")
-            {
                 nameTB.Text = Core.Context.ProductType.First(x => x.ID == id).Name;
-            }
         }
 
         private void LoadAvailableDates()
         {
             var data = Core.Context.Timetable.ToList();
-
             var dates = data.Where(t => !t.ISBooked).Select(t => t.StartDateTime.Date).Distinct().ToList();
             if (!dates.Any()) return;
 
@@ -279,16 +273,22 @@ namespace PR12.Pages
         private void LoadTimes(DateTime date)
         {
             var selected = date.Date;
+            var records = Core.Context.Record.Include("Service").ToList();
 
-            var slots = Core.Context.Timetable.ToList().Where(t => t.StartDateTime.Date == selected)
-                .Select(t => new
+            var slots = Core.Context.Timetable.ToList().Where(t => t.StartDateTime.Date == selected).Select(t =>
+            {
+                var record = records.LastOrDefault(r => r.TimetableID == t.ID);
+
+                string serviceName = record?.Service?.Name ?? "Маникюр";
+                string status = t.ISBooked ? "занято" : "свободно";
+
+                return new
                 {
                     ID = t.ID,
                     TimeText =
-                        t.StartDateTime.ToString("HH:mm") + " - " +
-                        t.EndDateTime.ToString("HH:mm") +
-                        (t.ISBooked ? " (занято)" : "")
-                }).ToList();
+                        $"{t.StartDateTime:HH:mm}-{t.EndDateTime:HH:mm} ({serviceName} - {status})"
+                };
+            }).ToList();
 
             timeCB.ItemsSource = slots;
             timeCB.DisplayMemberPath = "TimeText";
@@ -303,15 +303,15 @@ namespace PR12.Pages
 
         private void timeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (isLoading) return;
             if (timeCB.SelectedValue == null) return;
 
             int slotId = (int)timeCB.SelectedValue;
 
-            var slot = Core.Context.Timetable.ToList().FirstOrDefault(t => t.ID == slotId);
+            var slot = Core.Context.Timetable.FirstOrDefault(t => t.ID == slotId);
             if (slot != null && slot.ISBooked)
             {
-                MessageBox.Show("Это время уже занято");
-                timeCB.SelectedItem = null;
+                timeCB.SelectedValue = null;
             }
         }
 

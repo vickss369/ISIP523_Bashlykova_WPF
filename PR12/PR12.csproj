@@ -104,6 +104,9 @@
     <Compile Include="Pages\accountPage.xaml.cs">
       <DependentUpon>accountPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\adminEditWindow.xaml.cs">
+      <DependentUpon>adminEditWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\adminPage.xaml.cs">
       <DependentUpon>adminPage.xaml</DependentUpon>
     </Compile>
@@ -220,6 +223,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\accountPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\adminEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

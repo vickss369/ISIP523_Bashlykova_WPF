@@ -11,7 +11,7 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="65"/>
+            <RowDefinition Height="60"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -20,13 +20,43 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="0" Background="#5C72A3 ">
-            <TextBlock x:Name="managerNameTBl" Text="ФИО админа" FontSize="21" FontWeight="Bold" Foreground="#3A2119" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Grid Grid.Row="0" Background="#5C72A3">
+            <TextBlock x:Name="adminNameTBl" Text="ФИО админа" FontSize="21" FontWeight="Bold" Foreground="#3A2119" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <Button x:Name="logoutBtn" Content="→ Выход" FontSize="17" Height="40" Width="100" Background="#C94736" Foreground="#3A2119" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,20,0" Click="logoutBtn_Click"/>
         </Grid>
 
         <Grid Grid.Row="1">
-
+            <TextBlock Text="Список пользователей" FontSize="19" FontWeight="Bold" Foreground="#3A2119" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,40,0"/>
+            <Button x:Name="addUserBtn" Content="Добавить" FontSize="16" Width="110" Height="40" Background="#98C077" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,25,40,0" Click="addUserBtn_Click"/>
         </Grid>
+        
+        <ListBox x:Name="usersList" Grid.Row="2" Margin="15,10,15,15" Background="#D2E2EC" BorderThickness="0" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" d:ItemsSource="{d:SampleData ItemCount=5}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel IsItemsHost="True"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border MinWidth="350" Margin="10" Padding="10" BorderBrush="#3A2119" BorderThickness="2" Background="{Binding CardColor}" CornerRadius="12">
+                        <Grid>
+                            <StackPanel Margin="15,10,100,10">
+                                <TextBlock Text="{Binding FullName}" FontSize="17" FontWeight="Bold" Foreground="#3A2119"/>
+                                <TextBlock Text="{Binding Role.Name}" FontSize="15" Foreground="#3A2119"/>
+                                <TextBlock Text="{Binding PhoneNumber}" FontSize="15" Foreground="#3A2119"/>
+                                <TextBlock Text="{Binding Login, StringFormat=Логин: {0}}" FontSize="14" Foreground="#3A2119" Margin="0,7,0,0"/>
+                                <TextBlock Text="{Binding Password, StringFormat=Пароль: {0}}" FontSize="14" Foreground="#3A2119"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0">
+                                <Button Content="✎" Width="35" Height="35" FontSize="16" Background="#8BA2C1" Margin="0,0,5,0" Click="editUserBtn_Click"/>
+                                <Button Content="х" Width="35" Height="35" FontSize="16" Background="#CB8176" Click="delUserBtn_Click"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Page>
